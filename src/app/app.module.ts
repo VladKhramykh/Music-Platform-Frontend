@@ -21,6 +21,13 @@ import {TrackControlComponent} from './track/track-control/track-control.compone
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './home/home.component';
 import {TracksComponent} from './tracks/tracks.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import {MatSelectModule} from '@angular/material/select';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,22 +39,29 @@ import {TracksComponent} from './tracks/tracks.component';
     TrackControlComponent,
     HomeComponent,
     TracksComponent,
+    ProfileComponent,
+    LoginComponent,
+    RegistrationComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatListModule,
-    MatToolbarModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
-    AppRoutingModule,
-    MatCardModule,
-    MatRippleModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatListModule,
+        MatToolbarModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
+        AppRoutingModule,
+        MatCardModule,
+        MatRippleModule,
+        MatSelectModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
 })
