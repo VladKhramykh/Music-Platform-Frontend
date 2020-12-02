@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../core/services/user.service';
+import {Title} from '@angular/platform-browser';
 import {Gender} from '../shared/models/gender.model';
 import {Country} from '../shared/models/country.model';
 import {UserUpdateRequest} from '../shared/models/user-update-request';
@@ -20,10 +21,14 @@ export class ProfileComponent implements OnInit {
   genders: Gender[];
   user: UserModel;
 
-  constructor(private fb: FormBuilder, private userService: UsersService, private countryService: CountryService) {
+  constructor(
+    private userService: UsersService,
+    private countryService: CountryService,
+    private titleService: Title) {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Profile');
     this.createForm();
   }
 
@@ -34,23 +39,23 @@ export class ProfileComponent implements OnInit {
     //   this.genders = data;
     // });
 
-    this.countryService.getCountries().subscribe(data => {
-      this.countries = data;
-    });
+    // this.countryService.getCountries().subscribe(data => {
+    //   this.countries = data;
+    // });
 
-    this.profileForm = this.fb.group({
-      title: ['User information'],
-      _id: this.user.id,
-      username: this.user.username,
-      email: this.user.email,
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      birthDay: this.user.birthday,
-      photoUri: this.user.photoUri,
-      country: [this.countries ? this.countries : [], [Validators.required]],
-      gender: [this.genders ? this.genders : [], [Validators.required]],
-      submitBtn: ['Save'],
-      resetBtn: ['Reset']
+    this.profileForm = new FormGroup({
+      title: new FormControl(['User information']),
+      _id: new FormControl(this.user.id, Validators.required),
+      username: new FormControl(this.user.username, Validators.required),
+      email: new FormControl(this.user.email, Validators.required),
+      firstName: new FormControl(this.user.firstName, Validators.required),
+      lastName: new FormControl(this.user.lastName, Validators.required),
+      birthDay: new FormControl(this.user.birthday, Validators.required),
+      photoUri: new FormControl(this.user.photoUri),
+      country: new FormControl([this.countries ? this.countries : [], [Validators.required]]),
+      gender: new FormControl([this.genders ? this.genders : [], [Validators.required]]),
+      submitBtn: new FormControl(['Save']),
+      resetBtn: new FormControl(['Reset'])
     });
   }
 
