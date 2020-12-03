@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import {Globals} from '../shared/globals';
 import {SessionStorageService} from '../../core/services/session-storage.service';
 import {NotificationService} from '../../core/services/notification.service';
 import {Country} from '../shared/models/country.model';
@@ -22,17 +21,20 @@ export class RegistrationComponent implements OnInit {
   genders: Gender[];
   hide: boolean;
 
+  emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
+
+
   constructor(private router: Router,
               private titleService: Title,
+              private formBuilder: FormBuilder,
               private sessionStorage: SessionStorageService,
               private notificationService: NotificationService,
               private usersService: UsersService,
-              private globals: Globals
   ) {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Login page');
+    this.titleService.setTitle('Registration');
     this.createForm();
   }
 
@@ -45,20 +47,25 @@ export class RegistrationComponent implements OnInit {
     //   this.countries = data;
     // });
 
-    this.registrationForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      birthday: new FormControl('', Validators.required),
-      country: new FormControl([this.countries ? this.countries : [], [Validators.required]]),
-      gender: new FormControl([this.genders ? this.genders : [], [Validators.required]]),
-      password: new FormControl('', Validators.required)
+    this.registrationForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      email: ['', [Validators.required, Validators.pattern(this.emailRegx)]],
+      birthday: ['', [Validators.required]],
+      photoUri: [''],
+      country: [[this.countries ? this.countries : [], [Validators.required]]],
+      gender:[[this.genders ? this.genders : [], [Validators.required]]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
     });
     this.hide = true;
   }
 
-  registration() {
+  reset() {
+   alert(this.registrationForm.get('username').value);
+  }
+
+  save() {
     const username = this.registrationForm.get('username').value;
     const firstName = this.registrationForm.get('firstName').value;
     const lastName = this.registrationForm.get('lastName').value;
@@ -78,12 +85,6 @@ export class RegistrationComponent implements OnInit {
     //     this.loading = false;
     //   }
     // );
-
-  }
-
-  resetPassword() {
-    // todo
-    alert('reset');
   }
 
   register() {

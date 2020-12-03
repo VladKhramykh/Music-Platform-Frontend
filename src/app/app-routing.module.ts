@@ -6,15 +6,17 @@ import {AlbumComponent} from './album/album.component';
 import {TracksComponent} from './tracks/tracks.component';
 import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from './registration/registration.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/music', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'profile', component: ProfileComponent},
+  {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'music', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
   {path: ':id/:name', component: AlbumComponent},
   {path: ':id/:name/:colllection_id/:collection_name', component: TracksComponent},
-  {path: '***', redirectTo: '/music', pathMatch: 'full'},
+  {path: '***', redirectTo: '/home', pathMatch: 'full'},
 ];
 
 @NgModule({

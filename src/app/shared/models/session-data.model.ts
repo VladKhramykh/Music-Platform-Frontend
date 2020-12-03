@@ -1,7 +1,7 @@
 export class SessionData {
   token: string;
-  userID: number;
-  userName: string;
-  userEmail: string;
-  roleId: number;
+  // userID: number;
+  // userName: string;
+  // userEmail: string;
+  // roleId: number;
 }

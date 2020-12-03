@@ -9,7 +9,7 @@ import {SessionStorageService} from './session-storage.service';
 @Injectable({providedIn: 'root'})
 
 export class AuthService {
-  private loginURL = `${environment.endpoint}/Authentication/login`;
+  private loginURL = `${environment.endpoint}authenticate`;
 
   constructor(
     private http: HttpClient,

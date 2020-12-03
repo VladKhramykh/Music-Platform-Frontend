@@ -9,7 +9,7 @@ import {UserUpdateRequest} from '../../app/shared/models/user-update-request';
 @Injectable({providedIn: 'root'})
 export class UsersService {
 
-  private usersUrl = `${environment.endpoint}users`;
+  private usersUrl = `${environment.apiEndpoint}users`;
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})

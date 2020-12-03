@@ -8,7 +8,7 @@ import {Country} from '../../app/shared/models/country.model';
 @Injectable({providedIn: 'root'})
 export class CountryService {
 
-  private countryUrl = `${environment.endpoint}countries`;
+  private countryUrl = `${environment.apiEndpoint}countries`;
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})

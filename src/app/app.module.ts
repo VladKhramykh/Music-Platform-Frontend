@@ -31,6 +31,10 @@ import {FooterComponent} from './footer/footer.component';
 import {MatSelectModule} from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {FavouriteListComponent} from './favourite-list/favourite-list.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ import {MatButtonModule} from '@angular/material/button';
     RegistrationComponent,
     HeaderComponent,
     FooterComponent,
+    FavouriteListComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,15 @@ import {MatButtonModule} from '@angular/material/button';
     MatRippleModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatButtonModule
+    FlexLayoutModule,
+    MatButtonModule,
+    MatSidenavModule,
+    CommonModule
+  ],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   searchKey: string = '';
+  showFiller: boolean = false;
+
   search(value: string) {
     this.searchKey = value;
   }
-  constructor() {}
+
+  constructor() {
+  }
 
   ngOnInit() {
     fetch('https://itunes.apple.com/us/rss/topalbums/limit=10/json').then(

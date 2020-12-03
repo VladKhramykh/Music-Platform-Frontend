@@ -1,38 +1,92 @@
 <div class="container login-container" fxLayout="row" fxLayoutAlign="center center">
-  <form [formGroup]="registrationForm">
+  <form [formGroup]="registrationForm" (submit)="save()">
     <mat-card>
-      <mat-card-title fxLayoutAlign="center">Login</mat-card-title>
-      <mat-card-content>
-        <mat-form-field class="full-width">
+      <mat-card-title>Registration</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutAlign="center space-evenly">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Username</mat-label>
-          <input matInput formControlName="username">
-          <mat-error *ngIf="registrationForm.controls['username'].hasError('required')">
-            Username is required
+          <input matInput formControlName="username"/>
+          <mat-error *ngIf="registrationForm.controls.username.touched && registrationForm.controls.username.invalid">
+            <span *ngIf="registrationForm.controls.username.errors.required">This field is mandatory</span>
+            <span *ngIf="registrationForm.controls.username.errors.minlength">Username must be at least 3 symbols</span>
+            <span *ngIf="registrationForm.controls.username.errors.maxlength">Username must be under 50 symbols</span>
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field class="full-width">
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Firstname</mat-label>
+          <input matInput formControlName="firstName" required/>
+          <mat-error *ngIf="registrationForm.controls.firstName.touched && registrationForm.controls.firstName.invalid">
+            <span *ngIf="registrationForm.controls.firstName.errors.required">This field is mandatory</span>
+            <span *ngIf="registrationForm.controls.firstName.errors.min">Firstname must be at least 3 symbols</span>
+            <span *ngIf="registrationForm.controls.firstName.errors.max">Firstname must be under 50 symbols</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Lastname</mat-label>
+          <input matInput formControlName="lastName" required/>
+          <mat-error *ngIf="registrationForm.controls.lastName.touched && registrationForm.controls.lastName.invalid">
+            <span *ngIf="registrationForm.controls.lastName.errors.required">This field is mandatory</span>
+            <span *ngIf="registrationForm.controls.lastName.errors.minlength">Lastname must be at least 3 symbols</span>
+            <span *ngIf="registrationForm.controls.lastName.errors.maxlength">Lastname must be under 50 symbols</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput [formGroup]="registrationForm"
+                 placeholder="Ex. pat@example.com"/>
+          <mat-error *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.invalid">
+            <span *ngIf="registrationForm.controls.email.errors.required">This field is mandatory</span>
+            <span *ngIf="registrationForm.controls.email.errors.pattern">Email is invalid</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Birthday</mat-label>
+          <input matInput formControlName="birthday"/>
+          <mat-error *ngIf="registrationForm.controls.birthday.touched && registrationForm.controls.birthday.invalid">
+            <span *ngIf="registrationForm.controls.birthday.errors.required">This field is mandatory</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Photo</mat-label>
+          <input matInput formControlName="photoUri"/>
+          <mat-hint>Is not required</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender" required>
+            <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="registrationForm.controls.gender.touched && registrationForm.controls.gender.invalid">
+            <span *ngIf="registrationForm.controls.gender.errors.required">This field is mandatory</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country" required>
+            <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="registrationForm.controls.country.touched && registrationForm.controls.country.invalid">
+            <span *ngIf="registrationForm.controls.country.errors.required">This field is mandatory</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"/>
           <button mat-icon-button matSuffix (click)="hide = !hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">
-            Password id required
+          <mat-hint>Min 4 symbols; Max 50 symbols;</mat-hint>
+          <mat-error *ngIf="registrationForm.controls.password.touched && registrationForm.controls.password.invalid">
+            <span *ngIf="registrationForm.controls.password.errors.required">This field is mandatory</span>
+            <span *ngIf="registrationForm.controls.password.errors.minLength">Password must be at least 4 symbols</span>
+            <span
+              *ngIf="registrationForm.controls.password.errors.maxLength">Password must be at under 50 symbols</span>
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <mat-checkbox matCardImage formControlName="rememberMe" color="primary">Remember me</mat-checkbox>
-        </mat-form-field>
-
       </mat-card-content>
-      <mat-card-actions class="login-actions">
-        <button mat-raised-button id="login" (click)="registration()" color="primary"
-                [disabled]="registrationForm.invalid || loading">Login
-        </button>
-        <button mat-button id="resetPassword" (click)="resetPassword()" type="button">Reset password</button>
-        <button mat-button id="register" (click)="register()" type="button">Register</button>
+      <mat-card-actions>
+        <button mat-button id="reset" (click)="reset()" type="button">Reset</button>
+        <button mat-button id="register" type="submit">Register</button>
       </mat-card-actions>
     </mat-card>
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

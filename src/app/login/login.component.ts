@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {AuthService} from '../../core/services/auth.service';
@@ -15,11 +15,15 @@ import {NotificationService} from '../../core/services/notification.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  rememberMe = new FormControl(false);
+  username = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
+  password = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
   loading: boolean;
   hide: boolean;
 
   constructor(private router: Router,
               private titleService: Title,
+              private formBuilder: FormBuilder,
               private sessionStorage: SessionStorageService,
               private notificationService: NotificationService,
               private authService: AuthService,
@@ -35,22 +39,25 @@ export class LoginComponent implements OnInit {
   private createForm() {
     const savedUsername = localStorage.getItem('savedUsername');
 
-    this.loginForm = new FormGroup({
-      username: new FormControl(savedUsername, [Validators.required]),
-      password: new FormControl('', Validators.required),
-      rememberMe: new FormControl(savedUsername !== null)
+    this.loginForm = this.formBuilder.group({
+      username: this.username,
+      password: this.password,
+      rememberMe: this.rememberMe
     });
     this.hide = true;
   }
 
   login() {
-    const username = this.loginForm.get('username').value;
-    const password = this.loginForm.get('password').value;
-    const rememberMe = this.loginForm.get('rememberMe').value;
+    const username = this.username.value;
+    const password = this.password.value;
+    const rememberMe = this.rememberMe.value;
+
+    alert(username);
 
     this.loading = true;
     this.authService.login(username, password).subscribe(
       data => {
+        console.log(data);
         if (rememberMe) {
           localStorage.setItem('savedUsername', username);
           this.sessionStorage.saveToken(data.token);
@@ -71,11 +78,11 @@ export class LoginComponent implements OnInit {
 
   resetPassword() {
     // todo
-    alert("reset");
+    alert('reset');
   }
 
   register() {
-    // todo
+    this.router.navigate(['/registration']);
   }
 
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ItunesService } from '../shared/itunes.service';
-import { filter, map } from 'rxjs/operators';
+import {Component, Input, OnInit} from '@angular/core';
+import {MusicService} from '../../core/services/music.service';
 
 @Component({
   selector: 'app-artist',
@@ -12,17 +11,20 @@ export class ArtistComponent implements OnInit {
   set searchKey(key: string) {
     this.search(key);
   }
+
   searchResults: Array<any> = [];
   artistID: number = 0;
   selectedArtist: string;
-  constructor(private ituneService: ItunesService) {}
 
-  ngOnInit() {}
+  constructor(private musicService: MusicService) {
+  }
+
+  ngOnInit() {
+  }
 
   search(param) {
-    this.ituneService.search(param).subscribe(
+    this.musicService.search(param).subscribe(
       data => {
-        // console.log(data['results']);
         this.searchResults = data['results'];
       },
       err => console.log(err)

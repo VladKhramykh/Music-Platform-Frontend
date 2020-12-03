@@ -1,38 +1,37 @@
-<div class="container login-container" fxLayout="row" fxLayoutAlign="center center">
-  <form [formGroup]="loginForm">
+<div class="container" fxLayoutAlign="space-evenly center" fxFlexAlign="center">
+  <form [formGroup]="loginForm" (submit)="login()">
     <mat-card>
       <mat-card-title fxLayoutAlign="center">Login</mat-card-title>
-      <mat-card-content>
-        <mat-form-field class="full-width">
+      <mat-card-content fxLayout="column">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Username</mat-label>
-          <input matInput formControlName="username">
-          <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
-            Username is required
+          <input matInput formControlName="username"/>
+          <mat-error *ngIf="loginForm.controls.username.touched && loginForm.controls.username.invalid">
+            <span *ngIf="loginForm.controls.username.errors.required">This field is mandatory</span>
+            <span *ngIf="loginForm.controls.username.errors.minlength">Username must be at least 3 symbols</span>
+            <span *ngIf="loginForm.controls.username.errors.maxlength">Username must be under 50 symbols</span>
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field class="full-width">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"/>
           <button mat-icon-button matSuffix (click)="hide = !hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
-            Password id required
+          <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+            <span *ngIf="loginForm.controls.password.errors.required">This field is mandatory</span>
+            <span *ngIf="loginForm.controls.password.errors.minLength">Password must be at least 4 symbols</span>
+            <span
+              *ngIf="loginForm.controls.password.errors.maxLength">Password must be at under 50 symbols</span>
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <mat-checkbox matCardImage formControlName="rememberMe" color="primary">Remember me</mat-checkbox>
-        </mat-form-field>
-
+        <div class="mat-form-field">
+          <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
+        </div>
       </mat-card-content>
-      <mat-card-actions class="login-actions">
-        <button mat-raised-button id="login" (click)="login()" color="primary"
-                [disabled]="loginForm.invalid || loading">Login
-        </button>
-        <button mat-button id="resetPassword" (click)="resetPassword()" type="button">Reset password</button>
-        <button mat-button id="register" (click)="register()" type="button">Register</button>
+      <mat-card-actions class="login-actions" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button id="register" (click)="register()" type="button">Registration</button>
+        <button mat-raised-button id="login" color="primary" type="submit" [disabled]="loginForm.invalid || loading">Login</button>
       </mat-card-actions>
     </mat-card>
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

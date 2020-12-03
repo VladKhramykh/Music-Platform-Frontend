@@ -1,7 +1,9 @@
-import {Component, ViewChild, ElementRef, OnInit, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ItunesService} from './shared/itunes.service';
-import {fromEvent, interval} from 'rxjs';
+import {fromEvent} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +14,18 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('searchBox') searchInput: ElementRef;
   // (keyup)="search(searchBox.value)"
 
+  url;
   hideResult: boolean;
   searchResults: Array<any> = [];
 
-  constructor(private itunesService: ItunesService) {
+  constructor(private itunesService: ItunesService, location: Location, router: Router) {
+    router.events.subscribe(val => {
+      this.url = location.path();
+    });
   }
 
   ngOnInit() {
+
   }
 
   ngAfterViewInit() {
