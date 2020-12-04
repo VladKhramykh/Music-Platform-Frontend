@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
-import {Country} from '../../app/shared/models/country.model';
 
 @Injectable({providedIn: 'root'})
 export class CountryService {
@@ -17,25 +16,25 @@ export class CountryService {
   constructor(private http: HttpClient) {
   }
 
-  getCountries(): Observable<Country[]> {
+  getCountries(): Observable<string[]> {
     let url = `${this.countryUrl}`;
-    return this.http.get<Country[]>(url);
+    return this.http.get<string[]>(url);
   }
 
-  getCountriesByPage(sort: string, order: string, pageNum: number, pageSize: number, filterValue?: string): Observable<Country[]> {
+  getCountriesByPage(sort: string, order: string, pageNum: number, pageSize: number, filterValue?: string): Observable<string[]> {
     let url = `${this.countryUrl}/?sortOrder=${sort + order}&pageNum=${pageNum}&pageSize=${pageSize}`;
     if (filterValue) {
       url += `&searchName=${filterValue}`;
     }
-    return this.http.get<Country[]>(url);
+    return this.http.get<string[]>(url);
   }
 
-  addCountry(country: Country): Observable<Country> {
-    return this.http.post<Country>(this.countryUrl, country, this.httpOptions);
+  addCountry(country: string): Observable<string> {
+    return this.http.post<string>(this.countryUrl, country, this.httpOptions);
   }
 
-  updateCountry(country: Country): Observable<Country> {
-    return this.http.put<Country>(this.countryUrl, country, this.httpOptions);
+  updateCountry(country: string): Observable<string> {
+    return this.http.put<string>(this.countryUrl, country, this.httpOptions);
   }
 
   deleteCountry(id: number) {

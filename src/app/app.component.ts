@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit {
   url: string;
+  isExpanded = true;
 
   constructor(location: Location, router: Router) {
     router.events.subscribe(val => {

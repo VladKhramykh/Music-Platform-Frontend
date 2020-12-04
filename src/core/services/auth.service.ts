@@ -18,9 +18,9 @@ export class AuthService {
   ) {
   }
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     return this.http.post<SessionData>(this.loginURL, {
-      username, password
+      email, password
     }, {headers: new HttpHeaders({'Content-Type': 'application/json'})});
   }
 

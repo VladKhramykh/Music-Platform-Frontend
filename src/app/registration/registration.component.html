@@ -1,17 +1,8 @@
-<div class="container login-container" fxLayout="row" fxLayoutAlign="center center">
-  <form [formGroup]="registrationForm" (submit)="save()">
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <form [formGroup]="registrationForm">
     <mat-card>
       <mat-card-title>Registration</mat-card-title>
       <mat-card-content fxLayout="column" fxLayoutAlign="center space-evenly">
-        <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username"/>
-          <mat-error *ngIf="registrationForm.controls.username.touched && registrationForm.controls.username.invalid">
-            <span *ngIf="registrationForm.controls.username.errors.required">This field is mandatory</span>
-            <span *ngIf="registrationForm.controls.username.errors.minlength">Username must be at least 3 symbols</span>
-            <span *ngIf="registrationForm.controls.username.errors.maxlength">Username must be under 50 symbols</span>
-          </mat-error>
-        </mat-form-field>
         <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Firstname</mat-label>
           <input matInput formControlName="firstName" required/>
@@ -32,29 +23,26 @@
         </mat-form-field>
         <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Email</mat-label>
-          <input type="email" matInput [formGroup]="registrationForm"
+          <input type="email" matInput formControlName="email"
                  placeholder="Ex. pat@example.com"/>
           <mat-error *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.invalid">
             <span *ngIf="registrationForm.controls.email.errors.required">This field is mandatory</span>
-            <span *ngIf="registrationForm.controls.email.errors.pattern">Email is invalid</span>
+            <span *ngIf="registrationForm.controls.email.errors.email">Email is invalid</span>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Birthday</mat-label>
-          <input matInput formControlName="birthday"/>
+          <mat-label>Choose a date</mat-label>
+          <input matInput formControlName="birthday" [matDatepicker]="picker" [(ngModel)]="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="registrationForm.controls.birthday.touched && registrationForm.controls.birthday.invalid">
             <span *ngIf="registrationForm.controls.birthday.errors.required">This field is mandatory</span>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Photo</mat-label>
-          <input matInput formControlName="photoUri"/>
-          <mat-hint>Is not required</mat-hint>
-        </mat-form-field>
-        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Gender</mat-label>
           <mat-select formControlName="gender" required>
-            <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</mat-option>
+            <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
           </mat-select>
           <mat-error *ngIf="registrationForm.controls.gender.touched && registrationForm.controls.gender.invalid">
             <span *ngIf="registrationForm.controls.gender.errors.required">This field is mandatory</span>
@@ -63,7 +51,7 @@
         <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Country</mat-label>
           <mat-select formControlName="country" required>
-            <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+            <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
           </mat-select>
           <mat-error *ngIf="registrationForm.controls.country.touched && registrationForm.controls.country.invalid">
             <span *ngIf="registrationForm.controls.country.errors.required">This field is mandatory</span>
@@ -87,7 +75,14 @@
       <mat-card-actions>
         <button mat-button id="toLogin" [routerLink]="'/login'" type="button">I already have an account</button>
         <button mat-button id="toSite" [routerLink]="'/home'" type="button">Go to main page</button>
-        <button mat-button id="register" type="submit">Registration</button>
+        <button mat-raised-button
+                id="register"
+                color="primary"
+                type="button"
+                (click)="save()"
+        >
+          Registration
+        </button>
       </mat-card-actions>
     </mat-card>
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

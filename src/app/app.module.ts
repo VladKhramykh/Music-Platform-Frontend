@@ -12,7 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRippleModule} from '@angular/material/core';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 
 import {AppComponent} from './app.component';
 import {ArtistComponent} from './artist/artist.component';
@@ -35,6 +35,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FavouriteListComponent} from './favourite-list/favourite-list.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {CommonModule} from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {SearchComponent} from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import {CommonModule} from '@angular/common';
     RegistrationComponent,
     HeaderComponent,
     FooterComponent,
-    FavouriteListComponent
+    FavouriteListComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -72,10 +75,12 @@ import {CommonModule} from '@angular/common';
     MatRippleModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatNativeDateModule,
     FlexLayoutModule,
     MatButtonModule,
     MatSidenavModule,
-    CommonModule
+    CommonModule,
+    MatDatepickerModule
   ],
   exports: [
     MatFormFieldModule,

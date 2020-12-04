@@ -1,7 +1,6 @@
-export interface UserUpdateRequest {
-  id: number,
-  lastName: string,
+export interface UserCreateRequest {
   firstName: string,
+  lastName: string,
   birthday: string,
   email: string,
   gender: string,

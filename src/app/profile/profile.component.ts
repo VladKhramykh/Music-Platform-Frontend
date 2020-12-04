@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../core/services/user.service';
 import {Title} from '@angular/platform-browser';
-import {Gender} from '../shared/models/gender.model';
-import {Country} from '../shared/models/country.model';
 import {UserUpdateRequest} from '../shared/models/user-update-request';
 import {UserModel} from '../shared/models/user.model';
 import {CountryService} from '../../core/services/countries.service';
@@ -17,8 +15,8 @@ export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
   updatedUser: UserUpdateRequest;
-  countries: Country[];
-  genders: Gender[];
+  countries: string[];
+  genders: string[];
   user: UserModel;
   hide: boolean;
 
@@ -48,7 +46,6 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.formBuilder.group({
       title: ['User information'],
       _id: [this.user ? this.user.id : '', [Validators.required]],
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
@@ -66,7 +63,6 @@ export class ProfileComponent implements OnInit {
 
   save() {
     const id = this.profileForm.get('_id').value;
-    const username = this.profileForm.get('username').value;
     const firstName = this.profileForm.get('experience').value;
     const lastName = this.profileForm.get('function').value;
     const email = this.profileForm.get('email').value;
@@ -79,13 +75,12 @@ export class ProfileComponent implements OnInit {
 
     this.updatedUser = {
       id: parseInt(id, 10),
-      username: username,
       email: email,
       firstName: firstName,
       lastName: lastName,
       birthday: birthDay,
-      countryId: parseInt(country, 10),
-      genderId: parseInt(gender, 10),
+      country: country,
+      gender: gender,
       password: password,
       photoUri: photoUri
     };

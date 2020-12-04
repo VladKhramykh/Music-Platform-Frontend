@@ -51,20 +51,15 @@ export class LoginComponent implements OnInit {
     const username = this.username.value;
     const password = this.password.value;
     const rememberMe = this.rememberMe.value;
-
-    alert(username);
-
     this.loading = true;
     this.authService.login(username, password).subscribe(
       data => {
         console.log(data);
+        this.sessionStorage.saveToken(data.token);
+        this.sessionStorage.saveUser(data.user);
+        localStorage.removeItem('savedUsername');
         if (rememberMe) {
           localStorage.setItem('savedUsername', username);
-          this.sessionStorage.saveToken(data.token);
-          this.sessionStorage.saveUser(data);
-        } else {
-          this.globals.user = data;
-          localStorage.removeItem('savedUsername');
         }
         this.router.navigate(['/home']);
       },

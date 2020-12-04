@@ -5,6 +5,8 @@ import {Injectable} from '@angular/core';
 
 import {UsersData} from '../../app/shared/models/user-request.model';
 import {UserUpdateRequest} from '../../app/shared/models/user-update-request';
+import {UserCreateRequest} from '../../app/shared/models/user-create-request';
+import {UserModel} from '../../app/shared/models/user.model';
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
@@ -26,8 +28,8 @@ export class UsersService {
     return this.http.get<UsersData>(url);
   }
 
-  addUser(user: UserUpdateRequest): Observable<UserUpdateRequest> {
-    return this.http.post<UserUpdateRequest>(this.usersUrl, user, this.httpOptions);
+  addUser(user: UserCreateRequest): Observable<UserModel> {
+    return this.http.post<UserModel>(this.usersUrl, user, this.httpOptions);
   }
 
   updateUser(user: UserUpdateRequest): Observable<UserUpdateRequest> {

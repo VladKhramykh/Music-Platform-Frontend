@@ -1,7 +1,6 @@
+import {UserModel} from './user.model';
+
 export class SessionData {
   token: string;
-  // userID: number;
-  // userName: string;
-  // userEmail: string;
-  // roleId: number;
+  user: UserModel;
 }

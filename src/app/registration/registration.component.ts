@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {SessionStorageService} from '../../core/services/session-storage.service';
 import {NotificationService} from '../../core/services/notification.service';
-import {Country} from '../shared/models/country.model';
-import {Gender} from '../shared/models/gender.model';
 import {UsersService} from '../../core/services/user.service';
+import {UserCreateRequest} from '../shared/models/user-create-request';
+import {GenderService} from '../../core/services/gender.service';
+import {CountryService} from '../../core/services/countries.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,15 +15,13 @@ import {UsersService} from '../../core/services/user.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-
   registrationForm: FormGroup;
   loading: boolean;
-  countries: Country[];
-  genders: Gender[];
+  user: UserCreateRequest;
+  countries: string[];
+  genders: string[];
   hide: boolean;
-
-  emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
-
+  dateOfBirth: string;
 
   constructor(private router: Router,
               private titleService: Title,
@@ -30,6 +29,8 @@ export class RegistrationComponent implements OnInit {
               private sessionStorage: SessionStorageService,
               private notificationService: NotificationService,
               private usersService: UsersService,
+              private genderService: GenderService,
+              private countryService: CountryService,
   ) {
   }
 
@@ -39,57 +40,64 @@ export class RegistrationComponent implements OnInit {
   }
 
   private createForm() {
-    // this.userService.getGenders().subscribe(data => {
-    //   this.genders = data;
-    // });
+    this.genderService.getGenders().subscribe(data => {
+      this.genders = data;
+    });
 
-    // this.countryService.getCountries().subscribe(data => {
-    //   this.countries = data;
-    // });
+    this.countryService.getCountries().subscribe(data => {
+      this.countries = data;
+    });
 
     this.registrationForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.pattern(this.emailRegx)]],
+      email: ['', [Validators.required, Validators.email]],
       birthday: ['', [Validators.required]],
       photoUri: [''],
-      country: [[this.countries ? this.countries : [], [Validators.required]]],
-      gender:[[this.genders ? this.genders : [], [Validators.required]]],
+      country: [[this.countries && this.countries.length > 0 ? this.countries[0] : [], [Validators.required]]],
+      gender: [[this.genders && this.genders.length > 0 ? this.genders[0] : [], [Validators.required]]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
     });
     this.hide = true;
   }
 
   reset() {
-   alert(this.registrationForm.get('username').value);
+    alert(this.registrationForm.get('username').value);
   }
 
   save() {
-    const username = this.registrationForm.get('username').value;
-    const firstName = this.registrationForm.get('firstName').value;
-    const lastName = this.registrationForm.get('lastName').value;
-    const email = this.registrationForm.get('email').value;
-    const birthday = this.registrationForm.get('birthday').value;
-    const country = this.registrationForm.get('country').value;
-    const gender = this.registrationForm.get('gender').value;
-    const password = this.registrationForm.get('password').value;
-
     this.loading = true;
-    // this.usersService.addUser(username, password).subscribe(
-    //   data => {
-    //     this.router.navigate(['/login']);
-    //   },
-    //   err => {
-    //     this.notificationService.openSnackBar(err);
-    //     this.loading = false;
-    //   }
-    // );
+
+    const firstName: string = this.registrationForm.get('firstName').value;
+    const lastName: string = this.registrationForm.get('lastName').value;
+    const email: string = this.registrationForm.get('email').value;
+    const birthday: string = this.registrationForm.get('birthday').value;
+    const country: string = this.registrationForm.get('country').value;
+    const gender: string = this.registrationForm.get('gender').value;
+    const password: string = this.registrationForm.get('password').value;
+
+    this.user = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      birthday: birthday,
+      country: country,
+      photoUri: '',
+      gender: gender,
+      password: password
+    };
+
+    console.log(this.dateOfBirth);
+    this.usersService.addUser(this.user).subscribe(
+      data => {
+        console.log(data);
+        // this.router.navigate(['/login']);
+      },
+      err => {
+        console.log(err);
+        this.notificationService.openSnackBar(err);
+        this.loading = false;
+      }
+    );
   }
-
-  register() {
-    // todo
-  }
-
-
 }
