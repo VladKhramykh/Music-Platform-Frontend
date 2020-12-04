@@ -80,7 +80,8 @@ import {CommonModule} from '@angular/common';
   exports: [
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../core/services/user.service';
 import {Title} from '@angular/platform-browser';
 import {Gender} from '../shared/models/gender.model';
@@ -20,11 +20,13 @@ export class ProfileComponent implements OnInit {
   countries: Country[];
   genders: Gender[];
   user: UserModel;
+  hide: boolean;
 
   constructor(
     private userService: UsersService,
     private countryService: CountryService,
-    private titleService: Title) {
+    private titleService: Title,
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -43,20 +45,23 @@ export class ProfileComponent implements OnInit {
     //   this.countries = data;
     // });
 
-    this.profileForm = new FormGroup({
-      title: new FormControl(['User information']),
-      _id: new FormControl(this.user.id, Validators.required),
-      username: new FormControl(this.user.username, Validators.required),
-      email: new FormControl(this.user.email, Validators.required),
-      firstName: new FormControl(this.user.firstName, Validators.required),
-      lastName: new FormControl(this.user.lastName, Validators.required),
-      birthDay: new FormControl(this.user.birthday, Validators.required),
-      photoUri: new FormControl(this.user.photoUri),
-      country: new FormControl([this.countries ? this.countries : [], [Validators.required]]),
-      gender: new FormControl([this.genders ? this.genders : [], [Validators.required]]),
-      submitBtn: new FormControl(['Save']),
-      resetBtn: new FormControl(['Reset'])
+    this.profileForm = this.formBuilder.group({
+      title: ['User information'],
+      _id: [this.user ? this.user.id : '', [Validators.required]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      email: ['', [Validators.required, Validators.email]],
+      birthday: ['', [Validators.required]],
+      photoUri: [''],
+      country: [this.countries ? this.countries : [], [Validators.required]],
+      gender: [this.genders ? this.genders : [], [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      password_conf: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      submitBtn: ['Save'],
+      resetBtn: ['Reset']
     });
+    this.hide = true;
   }
 
   save() {

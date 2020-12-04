@@ -1,85 +1,99 @@
 <form [formGroup]="profileForm">
   <mat-card>
     <mat-card-title>
-      {{ profileForm.controls['title'].value }}
+      {{ profileForm.controls.title.value }}
       <hr/>
     </mat-card-title>
-    <mat-card-content>
-      <div fxlayout="column">
-        <mat-form-field appearance="outline">
+    <mat-card-content fxLayout="row">
+      <div fxLayout="column">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Username</mat-label>
           <input matInput readonly type="text" formControlName="username">
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" required/>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('required')">
-            Email is Required
-          </mat-error>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('min')">
-            Email must be at least 0 symbols
-          </mat-error>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('max')">
-            Email must be at under 60 symbols
+          <mat-error *ngIf="profileForm.controls.email.touched && profileForm.controls.email.invalid">
+            <span *ngIf="profileForm.controls.email.errors.required">Email is Required</span>
+            <span *ngIf="profileForm.controls.email.errors.minLength">Email must be at least 0 symbols</span>
+            <span *ngIf="profileForm.controls.email.errors.minLength">Email must be at under 60 symbols</span>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>First name</mat-label>
-          <input matInput type="text" formControlName="firstName" required>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('required')">
-            FirstName is Required
-          </mat-error>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('min')">
-            FirstName must be at least 0 symbols
-          </mat-error>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('max')">
-            FirstName must be at under 60 symbols
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Firstname</mat-label>
+          <input matInput formControlName="firstName" required/>
+          <mat-error *ngIf="profileForm.controls.firstName.touched && profileForm.controls.firstName.invalid">
+            <span *ngIf="profileForm.controls.firstName.errors.required">This field is mandatory</span>
+            <span *ngIf="profileForm.controls.firstName.errors.min">Firstname must be at least 3 symbols</span>
+            <span *ngIf="profileForm.controls.firstName.errors.max">Firstname must be under 50 symbols</span>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Last name</mat-label>
           <input matInput type="text" formControlName="lastName" required>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('required')">
-            Lastname is Required
-          </mat-error>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('min')">
-            Lastname must be at least 0 symbols
-          </mat-error>
-          <mat-error *ngIf="profileForm.controls['experience'].hasError('max')">
-            Lastname must be at under 60 symbols
+          <mat-error *ngIf="profileForm.controls.lastName.touched && profileForm.controls.lastName.invalid">
+            <span *ngIf="profileForm.controls.lastName.errors.required">Lastname is Required</span>
+            <span *ngIf="profileForm.controls.lastName.errors.minLength">Lastname must be at least 0 symbols</span>
+            <span *ngIf="profileForm.controls.lastName.errors.minLength">Lastname must be at under 60 symbols</span>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Birthday</mat-label>
           <input matInput type="datetime-local" formControlName="birthday" required>
+          <mat-error *ngIf="profileForm.controls.birthday.touched && profileForm.controls.birthday.invalid">
+            <span *ngIf="profileForm.controls.birthday.errors.required">Birthday is Required</span>
+          </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Country</mat-label>
-          <input matInput type="text" formControlName="country" required readonly>
+          <input matInput type="text" formControlName="country" required>
+          <mat-error *ngIf="profileForm.controls.country.touched && profileForm.controls.country.invalid">
+            <span *ngIf="profileForm.controls.country.errors.required">Country is Required</span>
+          </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Gender</mat-label>
-          <input matInput type="text" formControlName="gender" required readonly>
+          <input matInput type="text" formControlName="gender" required>
+          <mat-error *ngIf="profileForm.controls.gender.touched && profileForm.controls.gender.invalid">
+            <span *ngIf="profileForm.controls.gender.errors.required">Gender is Required</span>
+          </mat-error>
         </mat-form-field>
       </div>
       <div fxlayout="column">
         <div>
           <span style="font-size: larger;">Passwords</span>
         </div>
-        <div>
-          <div>
-            <span>New password</span>
-            <input type="password" formControlName="password" required>
-          </div>
-          <div>
-            <span>Repeat new password</span>
-            <input type="password" formControlName="password_conf" required>
-          </div>
-        </div>
-        <div>
-          <button type="submit" value="Save">Save</button>
-        </div>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>New password</mat-label>
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required/>
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="profileForm.controls.password.touched && profileForm.controls.password.invalid">
+            <span *ngIf="profileForm.controls.password.errors.required">This field is mandatory</span>
+            <span *ngIf="profileForm.controls.password.errors.minLength">Password must be at least 4 symbols</span>
+            <span
+              *ngIf="profileForm.controls.password.errors.maxLength">Password must be at under 50 symbols</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field" appearance="outline">
+          <mat-label>Confirm new assword</mat-label>
+          <input matInput formControlName="password_conf" [type]="hide ? 'password' : 'text'" required/>
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="profileForm.controls.password_conf.touched && profileForm.controls.password_conf.invalid">
+            <span *ngIf="profileForm.controls.password_conf.errors.required">This field is mandatory</span>
+            <span
+              *ngIf="profileForm.controls.password_conf.errors.minLength">Password must be at least 4 symbols</span>
+            <span
+              *ngIf="profileForm.controls.password_conf.errors.maxLength">Password must be at under 50 symbols</span>
+          </mat-error>
+        </mat-form-field>
       </div>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" id="register" type="submit">Save</button>
+    </mat-card-actions>
   </mat-card>
 </form>

@@ -17,10 +17,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    fetch('https://itunes.apple.com/us/rss/topalbums/limit=10/json').then(
-      res => {
-        console.log(res);
-      }
-    );
+    // fetch('https://itunes.apple.com/us/rss/topalbums/limit=10/json').then(
+    //   res => {
+    //     console.log(res);
+    //   }
+    // );
   }
 }

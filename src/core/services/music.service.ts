@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 const API = {
   SEARCH: 'https://itunes.apple.com/search?',
   LOOKUP: 'https://itunes.apple.com/lookup?',
+  ALBUM: 'http://localhost:80801/api/albums?'
 };
 
 @Injectable({
@@ -46,6 +47,19 @@ export class MusicService {
     return this.http
       .jsonp(
         `${API.LOOKUP}callback=JSONP_CALLBACK&entity=song&id=${albumID}`,
+        'jsonp'
+      )
+      .pipe(
+        map(data => {
+          return data['results'];
+        })
+      );
+  }
+
+  getArtists(nameContains: string) {
+    return this.http
+      .jsonp(
+        `${API.ALBUM}name=${nameContains}`,
         'jsonp'
       )
       .pipe(
