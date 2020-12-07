@@ -1,38 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {fromEvent, Observable} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+import {UsersService} from '../../core/services/user.service';
+import {Artist} from '../shared/models/artist.model';
+import {Router} from '@angular/router';
+import {MusicService} from '../../core/services/music.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
-  control = new FormControl();
-  streets: string[] = [
-    'Champs-Élysées',
-    'Lombard Street',
-    'Abbey Road',
-    'Fifth Avenue',
-  ];
-  filteredStreets: Observable<string[]>;
+export class SearchComponent implements OnInit, AfterViewInit {
+  @ViewChild('searchInput') searchInput: ElementRef;
+  searchResults: Artist[] = [];
+  isResultDisplaying: boolean = false;
+
+  constructor(private musicService: UsersService,
+              private router: Router) {
+  }
 
   ngOnInit() {
-    this.filteredStreets = this.control.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
+
+  }
+
+  onResultClick() {
+    this.isResultDisplaying = false;
+    this.searchInput.nativeElement.value = '';
+  }
+
+  ngAfterViewInit(): void {
+    let buttonStream$ = fromEvent(this.searchInput.nativeElement, 'keyup')
+      .pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.search(this.searchInput.nativeElement.value);
+      });
+  }
+
+  search(param) {
+    this.musicService.findArtistsByNameContains(param).subscribe(
+      data => {
+        this.isResultDisplaying = true;
+        this.searchResults = data.content;
+      },
+      err => console.log(err)
     );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    return this.streets.filter((street) =>
-      this._normalizeValue(street).includes(filterValue)
-    );
-  }
 
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
-  }
 }

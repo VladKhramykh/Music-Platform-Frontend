@@ -1,16 +1,19 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-mat-sidenav {
-  width: 300px;
-  padding:30px;
-  color: #fafafa;
-}
-.mat-drawer {
-  background-color: #023075;
-  color:#fff
-}
+//mat-sidenav {
+//  width: 300px;
+//  padding: 30px;
+//  color: #fafafa;
+//}
+
+//.mat-drawer {
+//  background-color: #023075;
+//  color: #fff
+//}
+
 .main-content {
   padding: 15px;
 }
+
 app-player {
   position: fixed;
   bottom: 0;
@@ -18,9 +21,11 @@ app-player {
   color: #fff;
   width: 100%;
 }
+
 .toolbar-spacer {
   flex: 1 1 auto;
 }
+
 .sidenav-toggle-btn {
   margin-left: auto;
 }

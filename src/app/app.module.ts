@@ -29,7 +29,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {MatSelectModule} from '@angular/material/select';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FavouriteListComponent} from './favourite-list/favourite-list.component';
@@ -75,6 +75,7 @@ import {SearchComponent} from './search/search.component';
     MatRippleModule,
     MatSelectModule,
     ReactiveFormsModule,
+    FormsModule,
     MatNativeDateModule,
     FlexLayoutModule,
     MatButtonModule,

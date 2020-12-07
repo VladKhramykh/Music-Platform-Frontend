@@ -1,6 +1,9 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ItunesService} from '../shared/itunes.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Album} from '../shared/models/album.model';
+import {UsersService} from '../../core/services/user.service';
+import {NotificationService} from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-album',
@@ -8,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit {
-  albumArray: Array<any> = [];
+  albumArray: Array<Album> = [];
   artistName: string;
   artistId: string;
   displayedColumns: string[] = [
@@ -19,6 +22,8 @@ export class AlbumComponent implements OnInit {
 
   constructor(
     private ituneService: ItunesService,
+    private usersService: UsersService,
+    private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -55,5 +60,17 @@ export class AlbumComponent implements OnInit {
       album.collectionId,
       album.collectionName,
     ]);
+  }
+
+  like(id: number) {
+    this.usersService.likeAlbum(id).subscribe(data => {
+      this.notificationService.openSnackBar("OK");
+    })
+  }
+
+  dislike(id: number) {
+    this.usersService.dislikeAlbum(id).subscribe(data => {
+      this.notificationService.openSnackBar("OK");
+    })
   }
 }

@@ -1,12 +1,34 @@
-<div class="row">
-  <div class="col-sm-4" *ngIf="searchResults.length > 0">
-    <h3>Search Results</h3>
-    <mat-list role="list" *ngFor="let artist of searchResults">
-      <mat-list-item role="listitem"><a id="{{ artist.artistId }}" href="#" (click)="getAlbums(artist.artistId, artist.artistName)">{{
-          artist.artistName }}</a> </mat-list-item>
-    </mat-list>
+<ng-container>
+  <div>
+    <mat-card *ngFor="let album of albums">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ album.name }}</mat-card-title>
+        <mat-card-subtitle>Likes - {{ album.likes }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="album.photoUri">
+      <mat-card-content>
+        <p>
+          {{ album.description }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>Play</button>
+        <button mat-button>Like</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-  <div class="col-xs-12" [ngClass]="{'col-sm-8': searchResults.length > 0 }">
-    <h3>{{ selectedArtist }}</h3>
+  <mat-divider></mat-divider>
+  <div>
+    <mat-card *ngFor="let track of tracks">
+<!--      <mat-card-header>-->
+<!--        {{ track.type }}-->
+<!--        {{ track.description }}-->
+<!--        {{ track.trackText }}-->
+<!--      </mat-card-header>-->
+<!--      <audio [src]="track.description" preload="none"></audio>-->
+      <app-track collectionId="12476"></app-track>
+    </mat-card>
   </div>
-</div>
+  <hr/>
+</ng-container>
