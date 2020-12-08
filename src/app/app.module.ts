@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {Compiler, NgModule} from '@angular/core';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
@@ -37,6 +37,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {CommonModule} from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {SearchComponent} from './search/search.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import {SearchComponent} from './search/search.component';
     MatButtonModule,
     MatSidenavModule,
     CommonModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatGridListModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -89,7 +91,9 @@ import {SearchComponent} from './search/search.component';
     CommonModule,
     MatSidenavModule,
   ],
-  providers: [],
+  providers: [
+    Compiler
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

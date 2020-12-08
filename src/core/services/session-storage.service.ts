@@ -20,6 +20,11 @@ export class SessionStorageService {
     sessionStorage.setItem('auth-user', JSON.stringify(user));
   }
 
+  public logout() {
+    sessionStorage.removeItem('auth-user');
+    sessionStorage.removeItem('auth-token');
+  }
+
   public getUser() {
     return JSON.parse(sessionStorage.getItem('auth-user'));
   }

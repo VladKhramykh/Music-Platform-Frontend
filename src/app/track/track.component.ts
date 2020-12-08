@@ -1,5 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ItunesService } from '../shared/itunes.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MusicService} from '../../core/services/music.service';
+import {Track} from '../shared/models/track.model';
+import {UsersService} from '../../core/services/user.service';
+import {NotificationService} from '../../core/services/notification.service';
+import {SessionStorageService} from '../../core/services/session-storage.service';
+import {UserModel} from '../shared/models/user.model';
 
 @Component({
   selector: 'app-track',
@@ -7,21 +12,42 @@ import { ItunesService } from '../shared/itunes.service';
   styleUrls: ['./track.component.scss'],
 })
 export class TrackComponent implements OnInit {
-  trackArray: Array<any> = [];
   displayedColumns: string[] = ['trackCensoredName'];
+  track: Track;
+  currentUser: UserModel;
+
 
   @Input()
-  set collectionId(collectionId: number) {
-    this.getTracks(collectionId);
+  set trackProp(track: Track) {
+    this.track = track;
+    track.trackUri = 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/b7/3c/31/b73c31e5-acc1-7917-c6a5-45920540bc06/mzaf_4210985984464550990.plus.aac.p.m4a';
+    // this.getTrack(trackId);
   }
 
-  constructor(private ituneSer: ItunesService) {}
+  constructor(private musicService: MusicService,
+              private usersService: UsersService,
+              private notificationService: NotificationService,
+              private sessionStorageService: SessionStorageService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUser = this.sessionStorageService.getUser();
+  }
 
-  getTracks(trackId: number) {
-    this.ituneSer.getTracks(trackId).subscribe(results => {
-      this.trackArray = results;
+  getTrack(trackId: number) {
+    this.musicService.getTrackById(trackId).subscribe(result => {
+      this.track = result;
     });
+  }
+
+  like(id: number) {
+    this.usersService.likeTrack(id).subscribe(
+      data => {
+        this.notificationService.openSnackBar('OK');
+      },
+      error => {
+        this.notificationService.openSnackBar('Error');
+      }
+    );
   }
 }

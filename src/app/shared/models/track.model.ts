@@ -11,6 +11,7 @@ export class Track {
   type: string;
   description: string;
   photoUri: string;
+  trackUri: string;
   published: boolean;
   releaseDate: number;
   album: Album;

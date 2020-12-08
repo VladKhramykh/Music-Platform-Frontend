@@ -38,13 +38,22 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   search(param) {
-    this.musicService.findArtistsByNameContains(param).subscribe(
-      data => {
-        this.isResultDisplaying = true;
-        this.searchResults = data.content;
-      },
-      err => console.log(err)
-    );
+    if(param.trim().length != 0) {
+      this.musicService.findArtistsByNameContains(param).subscribe(
+        data => {
+          if(data.content.length > 0) {
+            this.isResultDisplaying = true;
+            this.searchResults = data.content;
+          } else {
+            this.isResultDisplaying = false;
+          }
+        },
+        err => console.log(err)
+      );
+    } else {
+      this.isResultDisplaying = false;
+    }
+
   }
 
 

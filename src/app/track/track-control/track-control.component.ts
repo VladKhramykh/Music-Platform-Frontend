@@ -32,7 +32,7 @@ export class TrackControlComponent implements OnInit, OnDestroy {
   }
 
   playTrack() {
-    this.playerService.playTrack(this.track.previewUrl);
+    this.playerService.playTrack(this.track.trackUri);
     this.isPlaying = true;
   }
 

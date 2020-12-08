@@ -8,6 +8,7 @@ import {UserUpdateRequest} from '../../app/shared/models/user-update-request';
 import {UserCreateRequest} from '../../app/shared/models/user-create-request';
 import {UserModel} from '../../app/shared/models/user.model';
 import {BaseResponseModel} from '../../app/shared/models/base-response.model';
+import {RequestOptions} from '@angular/http';
 
 const API = {
   SEARCH: 'https://itunes.apple.com/search?',
@@ -15,6 +16,7 @@ const API = {
   ALBUM: 'http://localhost:8081/api/albums?',
   TRACK: 'http://localhost:8081/api/tracks?',
   ARTIST: 'http://localhost:8081/api/artists',
+  USERS:'//localhost:8081/api/users',
 };
 
 @Injectable({providedIn: 'root'})
@@ -30,6 +32,21 @@ export class UsersService {
   };
 
   constructor(private http: HttpClient) {
+  }
+
+  updatePhoto(event, id) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('file', file);
+      formData.append('id', id);
+      this.http.post(`${API.USERS}/photo`, formData)
+        .subscribe(
+          data => console.log('success'),
+          error => console.log(error)
+        );
+    }
   }
 
   getUsers(sort: string, order: string, pageNum: number, pageSize: number, filterValue?: string): Observable<UsersData> {
@@ -54,21 +71,20 @@ export class UsersService {
   }
 
   likeTrack(id: number) {
-    return this.http.get(API.TRACK+`/like?trackId=${id}&userId=${this.user.id}`, this.httpOptions);
+    return this.http.get(API.TRACK + `/like?trackId=${id}&userId=${this.user.id}`, this.httpOptions);
   }
 
   dislikeTrack(id: number) {
-    return this.http.get(API.TRACK+`/dislike?trackId=${id}&userId=${this.user.id}`, this.httpOptions);
+    return this.http.get(API.TRACK + `/dislike?trackId=${id}&userId=${this.user.id}`, this.httpOptions);
   }
 
   likeAlbum(id: number) {
-    return this.http.get(API.ALBUM+`/like?albumId=${id}&userId=${this.user.id}`, this.httpOptions);
+    return this.http.get(API.ALBUM + `/like?albumId=${id}&userId=${this.user.id}`, this.httpOptions);
   }
 
   dislikeAlbum(id: number) {
-    return this.http.get(API.ALBUM+`/dislike?albumId=${id}&userId=${this.user.id}`, this.httpOptions);
+    return this.http.get(API.ALBUM + `/dislike?albumId=${id}&userId=${this.user.id}`, this.httpOptions);
   }
-
 
 
   findArtistsByNameContains(param: string): Observable<BaseResponseModel> {

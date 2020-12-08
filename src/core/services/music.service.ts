@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {Observable, Subject} from 'rxjs';
 import {BaseResponseModel} from '../../app/shared/models/base-response.model';
 import {Artist} from '../../app/shared/models/artist.model';
-import {Track} from '../../app/tracks/tracks.model';
+import {Track} from '../../app/shared/models/track.model';
 
 const API = {
   SEARCH: 'https://itunes.apple.com/search',
@@ -30,19 +29,23 @@ export class MusicService {
   }
 
   getArtistById(id: number): Observable<Artist> {
-    return this.http.get<Artist>(`${API.ARTIST}/${id}`,this.httpOptions);
+    return this.http.get<Artist>(`${API.ARTIST}/${id}`, this.httpOptions);
+  }
+
+  getTrackById(id: number): Observable<Track> {
+    return this.http.get<Track>(`${API.TRACK}/${id}`, this.httpOptions);
   }
 
   getAlbumsByArtistId(id: number) {
-    return this.http.get<BaseResponseModel>(`${API.ALBUM}/artist?artistId=${id}&albumSort=ID_ASC`,this.httpOptions);
+    return this.http.get<BaseResponseModel>(`${API.ALBUM}/artist?artistId=${id}&albumSort=ID_ASC`, this.httpOptions);
   }
 
   getTracksByArtistId(id: number, pageSize: number, pageNum: number): Observable<BaseResponseModel> {
-    return this.http.get<BaseResponseModel>(`${API.TRACK}?artistId=${id}&pageSize=10&pageNum=0&trackSort=NAME_ASC`,this.httpOptions);
+    return this.http.get<BaseResponseModel>(`${API.TRACK}?artistId=${id}&pageSize=10&pageNum=0&trackSort=NAME_ASC`, this.httpOptions);
   }
 
   getTracksByAlbumId(id: number) {
-    return this.http.get<BaseResponseModel>(`${API.TRACK}/album?albumId=${id}&trackSort=ID_ASC`,this.httpOptions);
+    return this.http.get<BaseResponseModel>(`${API.TRACK}/album?albumId=${id}&trackSort=ID_ASC`, this.httpOptions);
   }
 
   // findArtistsByNameContains(param: string): Observable<BaseResponseModel> {

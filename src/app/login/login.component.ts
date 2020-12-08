@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   rememberMe = new FormControl(false);
-  username = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
+  username = new FormControl(localStorage.getItem('savedUsername') ?? '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
   password = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
   loading: boolean;
   hide: boolean;
@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   private createForm() {
-    const savedUsername = localStorage.getItem('savedUsername');
-
     this.loginForm = this.formBuilder.group({
       username: this.username,
       password: this.password,
@@ -57,6 +55,8 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.sessionStorage.saveToken(data.token);
         this.sessionStorage.saveUser(data.user);
+        this.globals.user = data.user;
+        this.globals.token = data.token;
         localStorage.removeItem('savedUsername');
         if (rememberMe) {
           localStorage.setItem('savedUsername', username);
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       err => {
-        this.notificationService.openSnackBar(err);
+        this.notificationService.openSnackBar("");
         this.loading = false;
       }
     );

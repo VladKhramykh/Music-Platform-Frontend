@@ -1,7 +1,13 @@
-<div fxLayout="row">
-  <span class="header-text">/-O/\9|, Tb| top4ik :)</span>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <span class="header-text">Music platform</span>
   <div>
     <app-search></app-search>
+  </div>
+  <div *ngIf="currentUser != null">
+    Hello, {{ currentUser.firstName }}
+  </div>
+  <div *ngIf="currentUser == null">
+    <a routerLink="/login">Sign in</a>
   </div>
 </div>
 

@@ -4,6 +4,9 @@ import {Artist} from '../shared/models/artist.model';
 import {Track} from '../shared/models/track.model';
 import {Album} from '../shared/models/album.model';
 import {ActivatedRoute} from '@angular/router';
+import {SessionStorageService} from '../../core/services/session-storage.service';
+import {UserModel} from '../shared/models/user.model';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-artist',
@@ -13,16 +16,19 @@ import {ActivatedRoute} from '@angular/router';
 export class ArtistComponent implements OnInit {
   searchResults: Array<any> = [];
   artist: Artist;
+  currentUser: UserModel;
   artistId: number;
   tracks: Track[] = [];
   albums: Album[] = [];
 
   constructor(private musicService: MusicService,
-              private router: ActivatedRoute
+              private router: ActivatedRoute,
+              private authService: AuthService
   ) {
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.getUser();
     this.router.params.subscribe(params => {
       this.artistId = parseInt(params['id']);
     });

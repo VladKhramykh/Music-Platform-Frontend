@@ -5,6 +5,7 @@ import {SessionData} from '../../app/shared/models/session-data.model';
 import {environment} from '../../environments/environment.prod';
 import {Globals} from '../../app/shared/globals';
 import {SessionStorageService} from './session-storage.service';
+import {UserModel} from '../../app/shared/models/user.model';
 
 @Injectable({providedIn: 'root'})
 
@@ -18,9 +19,9 @@ export class AuthService {
   ) {
   }
 
-  login(email: string, password: string) {
+  login(username: string, password: string) {
     return this.http.post<SessionData>(this.loginURL, {
-      email, password
+      username, password
     }, {headers: new HttpHeaders({'Content-Type': 'application/json'})});
   }
 
@@ -29,15 +30,15 @@ export class AuthService {
     this.globals.user = null;
   }
 
-  getUser(): SessionData {
-    const currentUser = this.sessionService.getUser() ?? this.globals.user;
+  getUser(): UserModel {
+    const currentUser = (this.sessionService.getUser() ? this.sessionService.getUser() : null) ?? this.globals.user;
     return currentUser;
   }
 
   getToken(): string {
     let token = this.sessionService.getToken();
     if (!token && this.globals.user) {
-      token = this.globals.user.token;
+      token = this.globals.token;
     }
     return token;
   }

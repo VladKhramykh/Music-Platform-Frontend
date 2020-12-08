@@ -5,7 +5,7 @@ export interface UserUpdateRequest {
   birthday: string,
   email: string,
   gender: string,
-  photoUri: string,
+  photoFile: File,
   country: string,
   password: string
 }

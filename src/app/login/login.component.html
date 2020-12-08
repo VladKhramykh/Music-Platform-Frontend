@@ -4,7 +4,7 @@
       <mat-card-title fxLayoutAlign="center">Login</mat-card-title>
       <mat-card-content fxLayout="column">
         <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Username</mat-label>
+          <mat-label>Email</mat-label>
           <input matInput formControlName="username"/>
           <mat-error *ngIf="loginForm.controls.username.touched && loginForm.controls.username.invalid">
             <span *ngIf="loginForm.controls.username.errors.required">This field is mandatory</span>

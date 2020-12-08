@@ -1,15 +1,15 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center center">
   <form [formGroup]="registrationForm">
     <mat-card>
-      <mat-card-title>Registration</mat-card-title>
+      <mat-card-title>{{ registrationForm.controls.title.value }}</mat-card-title>
       <mat-card-content fxLayout="column" fxLayoutAlign="center space-evenly">
         <mat-form-field class="mat-form-field" appearance="outline">
           <mat-label>Firstname</mat-label>
           <input matInput formControlName="firstName" required/>
           <mat-error *ngIf="registrationForm.controls.firstName.touched && registrationForm.controls.firstName.invalid">
             <span *ngIf="registrationForm.controls.firstName.errors.required">This field is mandatory</span>
-            <span *ngIf="registrationForm.controls.firstName.errors.min">Firstname must be at least 3 symbols</span>
-            <span *ngIf="registrationForm.controls.firstName.errors.max">Firstname must be under 50 symbols</span>
+            <span *ngIf="registrationForm.controls.firstName.errors.minlength">Firstname must be at least 3 symbols</span>
+            <span *ngIf="registrationForm.controls.firstName.errors.maxlength">Firstname must be under 50 symbols</span>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="mat-form-field" appearance="outline">

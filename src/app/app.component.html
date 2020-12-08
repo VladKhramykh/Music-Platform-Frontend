@@ -9,9 +9,6 @@
     <mat-sidenav mode="side" #sidenav opened position="start">
       <mat-toolbar-row>
         <h4 *ngIf="isExpanded">YOUR LOGO</h4>
-        <button mat-icon-button class="sidenav-toggle-btn" (click)="sidenav.toggle(); isExpanded = !isExpanded">
-          <mat-icon>menu</mat-icon>
-        </button>
       </mat-toolbar-row>
       <mat-nav-list *ngIf="isExpanded">
         <a mat-list-item [routerLink]="'/home'"> Listen music</a>
@@ -19,8 +16,8 @@
         <a mat-list-item [routerLink]="'/favourite'"> List of favourite music </a>
         <a mat-list-item [routerLink]="'/new-releases'"> New releases </a>
         <a mat-list-item [routerLink]="'/charts'"> Charts </a>
-        <a mat-list-item [routerLink]="'/profile'"> Profile </a>
-        <a mat-list-item [routerLink]="'/logout'"> Logout </a>
+        <a *ngIf="currentUser != null" mat-list-item [routerLink]="'/profile'"> Profile </a>
+        <a *ngIf="currentUser != null" mat-list-item (click)="logout()"> Logout </a>
       </mat-nav-list>
       <mat-nav-list *ngIf="!isExpanded">
         <mat-list-item>
@@ -51,7 +48,10 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary">
+      <mat-toolbar fxLayout="row">
+        <button mat-icon-button (click)="sidenav.toggle(); isExpanded = !isExpanded">
+          <mat-icon>menu</mat-icon>
+        </button>
         <app-header></app-header>
       </mat-toolbar>
       <div class="main-content">

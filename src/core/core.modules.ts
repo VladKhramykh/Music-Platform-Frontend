@@ -1,13 +1,30 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {LoaderService} from './services/loader.service';
+import {AuthInterceptor} from './interceptors/auth.interceptor';
+import {ErrorInterceptor} from './interceptors/error.interceptor';
+import {LoaderInterceptor} from './interceptors/loader.interceptor';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    LoaderService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true
+    }
+  ],
   exports: [RouterModule]
 })
 export class CoreModule {
