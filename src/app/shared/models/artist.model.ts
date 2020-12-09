@@ -5,6 +5,5 @@ export class Artist {
   name: string;
   description: string;
   createdDate: number;
-  deleted: boolean;
   likes: UserModel[]
 }

@@ -38,6 +38,15 @@ import {CommonModule} from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {SearchComponent} from './search/search.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTabsModule} from '@angular/material/tabs';
+import {AdminPanelComponent} from './admin-panel/admin-panel.component';
+import {CategoriesDatagridComponent} from './admin-panel/categories-datagrid/categories-datagrid.component';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { CategoryDialogboxComponent } from './admin-panel/category-dialogbox/category-dialogbox.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ArtistsDatagridComponent } from './admin-panel/artists-datagrid/artists-datagrid.component';
+import { ArtistDialogboxComponent } from './admin-panel/artist-dialogbox/artist-dialogbox.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +64,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
     HeaderComponent,
     FooterComponent,
     FavouriteListComponent,
-    SearchComponent
+    SearchComponent,
+    AdminPanelComponent,
+    CategoriesDatagridComponent,
+    CategoryDialogboxComponent,
+    ArtistsDatagridComponent,
+    ArtistDialogboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +98,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     CommonModule,
     MatDatepickerModule,
     MatGridListModule,
+    MatTabsModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
   ],
   exports: [
     MatFormFieldModule,

@@ -1,0 +1,75 @@
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <button
+      mat-button
+      mat-flat-button
+      color="primary"
+      (click)="openDialog({action: 'Add', item: null})"
+    >
+     Add new
+    </button>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-icon class="search-icon">search</mat-icon>
+      <mat-form-field>
+        <input
+          #input
+          matInput
+          (keyup)="applyFilter($event)"
+        />
+
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <div class="table-responsive">
+      <mat-table
+        matSort
+        matSortActive="name"
+        matSortDisableClear
+        matSortDirection="desc"
+        [dataSource]="categories"
+        #mytable
+      >
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>id</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>description</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell class="right-mat-cell" *matCellDef="let element">
+            <a mat-button color="accent" (click)="openDialog({action: 'Update', item: element})">Edit</a>
+            |
+            <a mat-button color="accent" (click)="openDialog({action: 'Delete', item: element})">Delete</a>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            No data
+          </td>
+        </tr>
+      </mat-table>
+    </div>
+    <mat-paginator
+      [length]="resultsLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 15, 20]"
+      (page)="pageSize = $event.pageSize"
+    ></mat-paginator>
+  </div>
+</div>

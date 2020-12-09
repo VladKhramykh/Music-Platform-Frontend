@@ -31,7 +31,9 @@ export class TrackComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.sessionStorageService.getUser();
+    this.sessionStorageService.getUser().subscribe(data => {
+      this.currentUser = data;
+    });
   }
 
   getTrack(trackId: number) {

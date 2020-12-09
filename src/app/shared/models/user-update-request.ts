@@ -1,11 +1,10 @@
-export interface UserUpdateRequest {
-  id: number,
-  lastName: string,
-  firstName: string,
-  birthday: string,
-  email: string,
-  gender: string,
-  photoFile: File,
-  country: string,
-  password: string
+export class UserUpdateRequest {
+  id: number;
+  firstName: string;
+  lastName: string;
+  birthday: string;
+  email: string;
+  gender: string;
+  country: string;
+  password: string;
 }

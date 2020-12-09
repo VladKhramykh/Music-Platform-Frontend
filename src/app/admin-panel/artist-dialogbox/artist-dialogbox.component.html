@@ -1,0 +1,70 @@
+<form [formGroup]="artistForm" (ngSubmit)="submit()">
+  <h1 mat-dialog-title>
+    <strong *ngIf="data.action=='Add'">Add artist</strong>
+    <strong *ngIf="data.action=='Update'">Update artist</strong>
+  </h1>
+  <div mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-evenly"
+      *ngIf="data.action != 'Delete'; else elseTemplate"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name"/>
+        <mat-error *ngIf="artistForm.controls['name'].hasError('required')">
+          <span>Name is required</span>
+        </mat-error>
+        <mat-error *ngIf="artistForm.controls['name'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="artistForm.controls['name'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" placeholder="Description"/>
+        <mat-error *ngIf="artistForm.controls['description'].hasError('required')">
+          Description is required
+        </mat-error>
+        <mat-error *ngIf="artistForm.controls['description'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="artistForm.controls['description'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mat-form-field" appearance="outline">
+        <mat-label>Birthday</mat-label>
+        <input matInput formControlName="createdDate" [matDatepicker]="picker" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="artistForm.controls['createdDate'].hasError('required')">
+          Birthday is Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+      Are you sure? <br/>
+      Delete artist <b> {{ data.item.name }} ?</b>
+    </ng-template>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="artistForm.invalid"
+            *ngIf="data.action=='Add'">
+      Add
+    </button>
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="artistForm.invalid"
+            *ngIf="data.action=='Update'">
+      Edit
+    </button>
+    <button mat-button mat-flat-button color="warn"
+            *ngIf="data.action=='Delete'">
+      Delete
+    </button>
+    <button mat-button mat-dialog-close>
+      Cancel
+    </button>
+  </div>
+</form>

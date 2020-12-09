@@ -3,7 +3,6 @@ import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {SessionStorageService} from '../core/services/session-storage.service';
 import {UserModel} from './shared/models/user.model';
-import {Observable} from 'rxjs';
 import {AuthService} from '../core/services/auth.service';
 
 @Component({
@@ -13,7 +12,7 @@ import {AuthService} from '../core/services/auth.service';
 })
 export class AppComponent implements OnInit {
   url: string;
-  currentUser: Observable<UserModel>;
+  currentUser: UserModel;
   isExpanded = true;
 
   constructor(private location: Location,

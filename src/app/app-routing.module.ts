@@ -10,6 +10,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {FavouriteListComponent} from './favourite-list/favourite-list.component';
 import {ArtistComponent} from './artist/artist.component';
 import {AuthGuard} from '../core/guards/auth.guard';
+import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'admin-menu',
+    component: AdminPanelComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'favourite',

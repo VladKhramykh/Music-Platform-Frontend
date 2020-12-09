@@ -1,0 +1,61 @@
+<form [formGroup]="categoryForm" (ngSubmit)="submit()">
+  <h1 mat-dialog-title>
+    <strong *ngIf="data.action=='Add'">Add category</strong>
+    <strong *ngIf="data.action=='Update'">Update category</strong>
+  </h1>
+  <div mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-evenly"
+      *ngIf="data.action != 'Delete'; else elseTemplate"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name"/>
+        <mat-error *ngIf="categoryForm.controls['name'].hasError('required')">
+          <span>Name is required</span>
+        </mat-error>
+        <mat-error *ngIf="categoryForm.controls['name'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="categoryForm.controls['name'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" placeholder="Description"/>
+        <mat-error *ngIf="categoryForm.controls['description'].hasError('required')">
+          Description is required
+        </mat-error>
+        <mat-error *ngIf="categoryForm.controls['description'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="categoryForm.controls['description'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+      Are you sure? <br/>
+      Delete category <b> {{ data.item.name }} ?</b>
+    </ng-template>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="categoryForm.invalid"
+            *ngIf="data.action=='Add'">
+      Add
+    </button>
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="categoryForm.invalid"
+            *ngIf="data.action=='Update'">
+      Edit
+    </button>
+    <button mat-button mat-flat-button color="warn"
+            *ngIf="data.action=='Delete'">
+      Delete
+    </button>
+    <button mat-button mat-dialog-close>
+      Cancel
+    </button>
+  </div>
+</form>

@@ -4,7 +4,6 @@ import {Artist} from '../shared/models/artist.model';
 import {Track} from '../shared/models/track.model';
 import {Album} from '../shared/models/album.model';
 import {ActivatedRoute} from '@angular/router';
-import {SessionStorageService} from '../../core/services/session-storage.service';
 import {UserModel} from '../shared/models/user.model';
 import {AuthService} from '../../core/services/auth.service';
 
@@ -14,7 +13,6 @@ import {AuthService} from '../../core/services/auth.service';
   styleUrls: ['./artist.component.scss'],
 })
 export class ArtistComponent implements OnInit {
-  searchResults: Array<any> = [];
   artist: Artist;
   currentUser: UserModel;
   artistId: number;
@@ -34,7 +32,7 @@ export class ArtistComponent implements OnInit {
     });
     this.search();
     this.getAlbums();
-    this.getTracks(10,0);
+    this.getTracks(10, 0);
   }
 
   search() {
@@ -44,7 +42,6 @@ export class ArtistComponent implements OnInit {
           name: data.name,
           description: data.description,
           createdDate: data.createdDate,
-          deleted: data.deleted,
           likes: data.likes
         };
       },

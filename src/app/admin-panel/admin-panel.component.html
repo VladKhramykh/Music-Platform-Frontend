@@ -1,0 +1,21 @@
+<!--<ng-container *ngIf="(asyncTabs | async) === null">-->
+<!--  Loading tabs...-->
+<!--</ng-container>-->
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Categories">
+   <app-categories-datagrid></app-categories-datagrid>
+  </mat-tab>
+  <mat-tab label="Albums">
+    <app-categories-datagrid></app-categories-datagrid>
+  </mat-tab>
+  <mat-tab label="Tracks">
+    <app-categories-datagrid></app-categories-datagrid>
+  </mat-tab>
+  <mat-tab label="Users">
+    <app-categories-datagrid></app-categories-datagrid>
+  </mat-tab>
+  <mat-tab label="Artists">
+    <app-artists-datagrid></app-artists-datagrid>
+  </mat-tab>
+</mat-tab-group>

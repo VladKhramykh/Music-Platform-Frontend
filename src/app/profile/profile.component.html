@@ -1,10 +1,18 @@
 <form [formGroup]="profileForm" (submit)="save()">
   <mat-grid-list fxLayout="row" cols="2">
-    <mat-grid-tile fxLayout="column" fxLayoutAlign="center center">
-      <img class="profile-image"
-           [src]="'http://localhost:8081/img/users/'+this.user.photoUri"
-           alt="photo"/>
-      <input type="file" (change)="fileChange($event)" formControlName="profilePhoto" placeholder="Upload photo" accept=".png,.jpg">
+    <mat-grid-tile>
+      <div fxLayout="column" fxLayoutAlign="space-between center">
+        <div>
+          <img class="profile-image"
+               [src]="'http://localhost:8081/img/users/'+this.user.photoUri"
+               alt="photo"/>
+        </div>
+        <div>
+          <input type="file" (change)="fileChange($event)" formControlName="profilePhoto" placeholder="Upload photo"
+                 accept=".png,.jpg">
+        </div>
+      </div>
+
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card>
@@ -43,11 +51,14 @@
             </mat-form-field>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Birthday</mat-label>
-              <input matInput type="datetime-local" formControlName="birthday" required>
+              <input matInput formControlName="birthday" [matDatepicker]="picker" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="profileForm.controls.birthday.touched && profileForm.controls.birthday.invalid">
                 <span *ngIf="profileForm.controls.birthday.errors.required">Birthday is Required</span>
               </mat-error>
             </mat-form-field>
+
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Country</mat-label>
               <input matInput type="text" formControlName="country" required>
@@ -69,26 +80,24 @@
             </div>
             <mat-form-field appearance="outline">
               <mat-label>New password</mat-label>
-              <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required/>
+              <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"/>
               <button mat-icon-button matSuffix (click)="hide = !hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
               <mat-error *ngIf="profileForm.controls.password.touched && profileForm.controls.password.invalid">
-                <span *ngIf="profileForm.controls.password.errors.required">This field is mandatory</span>
                 <span *ngIf="profileForm.controls.password.errors.minLength">Password must be at least 4 symbols</span>
                 <span
                   *ngIf="profileForm.controls.password.errors.maxLength">Password must be at under 50 symbols</span>
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>Confirm new assword</mat-label>
-              <input matInput formControlName="password_conf" [type]="hide ? 'password' : 'text'" required/>
+              <mat-label>Confirm new password</mat-label>
+              <input matInput formControlName="password_conf" [type]="hide ? 'password' : 'text'"/>
               <button mat-icon-button matSuffix (click)="hide = !hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
               <mat-error
                 *ngIf="profileForm.controls.password_conf.touched && profileForm.controls.password_conf.invalid">
-                <span *ngIf="profileForm.controls.password_conf.errors.required">This field is mandatory</span>
                 <span
                   *ngIf="profileForm.controls.password_conf.errors.minLength">Password must be at least 4 symbols</span>
                 <span
@@ -98,7 +107,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button color="primary" id="register" type="submit">Save</button>
+          <button mat-button color="primary" id="register" [disabled]="profileForm.invalid" type="submit">Save</button>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
