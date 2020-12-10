@@ -1,0 +1,106 @@
+<form [formGroup]="trackForm" (ngSubmit)="submit()">
+  <h1 mat-dialog-title>
+    <strong *ngIf="data.action=='Add'">Add album</strong>
+    <strong *ngIf="data.action=='Update'">Update album</strong>
+  </h1>
+  <div mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-evenly"
+      *ngIf="data.action != 'Delete'; else elseTemplate"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name"/>
+        <mat-error *ngIf="trackForm.controls['name'].hasError('required')">
+          <span>Name is required</span>
+        </mat-error>
+        <mat-error *ngIf="trackForm.controls['name'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="trackForm.controls['name'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" placeholder="Description"/>
+        <mat-error *ngIf="trackForm.controls['description'].hasError('required')">
+          Description is required
+        </mat-error>
+        <mat-error *ngIf="trackForm.controls['description'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="trackForm.controls['description'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mat-form-field" appearance="outline">
+        <mat-label>Date of release</mat-label>
+        <input matInput formControlName="releaseDate" [matDatepicker]="picker" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="trackForm.controls['releaseDate'].hasError('required')">
+          Date of release is Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-chip-list">
+        <mat-label>Artists</mat-label>
+        <mat-chip-list #chipList aria-label="Artist selection">
+          <mat-chip
+            *ngFor="let artist of selectedArtists"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(artist)">
+            {{artist.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="New artist..."
+            #artistInput
+            formControlName="artists"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          />
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let artist of filteredArtists | async" [value]="artist">
+            {{artist.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+      Are you sure? <br/>
+      Delete artist <b> {{ data.item.name }} ?</b>
+    </ng-template>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="trackForm.invalid"
+            *ngIf="data.action=='Add'">
+      Add
+    </button>
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="trackForm.invalid"
+            *ngIf="data.action=='Update'">
+      Edit
+    </button>
+    <button mat-button mat-flat-button color="warn"
+            *ngIf="data.action=='Delete'">
+      Delete
+    </button>
+    <button mat-button mat-dialog-close>
+      Cancel
+    </button>
+  </div>
+</form>

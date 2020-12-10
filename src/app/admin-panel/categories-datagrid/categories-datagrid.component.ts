@@ -18,7 +18,7 @@ import {NotificationService} from '../../../core/services/notification.service';
 })
 export class CategoriesDatagridComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'description', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'action'];
   categories: Category[] = [];
 
   resultsLength = 0;
@@ -74,13 +74,14 @@ export class CategoriesDatagridComponent implements OnInit {
       } else if (result.action === 'Update') {
         this.updateCategory(result.item);
       } else if (result.action === 'Delete') {
-        this.deleteUser(result.item.id);
+        this.deleteCategory(result.item.id);
       }
     });
   }
 
   addCategory(category: Category): void {
     this.musicService.addCategory(category).subscribe(() => {
+      this.notificationService.openSnackBar('Category created');
       this.updateCategories();
     });
   }
@@ -88,13 +89,15 @@ export class CategoriesDatagridComponent implements OnInit {
   updateCategory(category: Category): void {
     console.log(category);
     this.musicService.updateCategory(category).subscribe(() => {
+      this.notificationService.openSnackBar('Artist updated');
       this.updateCategories();
     });
   }
 
-  deleteUser(id: number): void {
+  deleteCategory(id: number): void {
     this.musicService.deleteCategory(id).subscribe(
       () => {
+        this.notificationService.openSnackBar('Category deleted');
         this.updateCategories();
       },
       error => {

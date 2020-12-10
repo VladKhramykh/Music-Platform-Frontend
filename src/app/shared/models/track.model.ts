@@ -1,12 +1,10 @@
 import {Category} from './category.model';
-import {Album} from '../../album/album.model';
+import {Album} from './album.model';
 import {Artist} from './artist.model';
 import {UserModel} from './user.model';
 
 export class Track {
   id: number;
-  artistId: number;
-  createdDate: number;
   name: string;
   type: string;
   description: string;

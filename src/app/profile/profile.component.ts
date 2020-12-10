@@ -7,6 +7,7 @@ import {UserModel} from '../shared/models/user.model';
 import {CountryService} from '../../core/services/countries.service';
 import {AuthService} from '../../core/services/auth.service';
 import {SessionStorageService} from '../../core/services/session-storage.service';
+import {GenderService} from '../../core/services/gender.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private countryService: CountryService,
+    private genderService: GenderService,
     private titleService: Title,
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -40,13 +42,13 @@ export class ProfileComponent implements OnInit {
 
   createForm() {
 
-    // this.userService.getGenders().subscribe(data => {
-    //   this.genders = data;
-    // });
-    //
-    // this.countryService.getCountries().subscribe(data => {
-    //   this.countries = data;
-    // });
+    this.genderService.getGenders().subscribe(data => {
+      this.genders = data;
+    });
+
+    this.countryService.getCountries().subscribe(data => {
+      this.countries = data;
+    });
 
     this.profileForm = this.formBuilder.group({
       title: ['User information'],

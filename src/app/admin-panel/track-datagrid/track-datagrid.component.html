@@ -28,27 +28,53 @@
         matSortActive="name"
         matSortDisableClear
         matSortDirection="desc"
-        [dataSource]="artists"
+        [dataSource]="tracks"
         #mytable
       >
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
-          <mat-cell *matCellDef="let element"><b>{{ element.name }}</b></mat-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start"><b>{{ element.name }}</b>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef mat-sort-header>description</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column"
+                    fxLayoutAlign="center start">{{ element.description }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="createdDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Artist from</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.createdDate | date:'dd-MM-yyyy' }}</mat-cell>
+        <ng-container matColumnDef="releaseDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>release date</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column"
+                    fxLayoutAlign="center start">{{ element.releaseDate | date:'dd-MM-yyyy' }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="deleted">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Deleted</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.deleted }}</mat-cell>
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>type</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p *ngIf="element.album != null">{{ element.album.name }}</p>
+            <p *ngIf="element.album == null">{{ element.type }} </p>
+            <!--            {{element.type}}-->
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="artists">
+          <mat-header-cell *matHeaderCellDef>artists</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p *ngFor="let artist of element.artists"><b>{{ artist.name }}</b></p>
+          </mat-cell>
+        </ng-container>
+
+        <!--        <ng-container matColumnDef="album">-->
+        <!--          <mat-header-cell *matHeaderCellDef mat-sort-header>album</mat-header-cell>-->
+        <!--          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">{{ element.album.name }}</mat-cell>-->
+        <!--        </ng-container>-->
+
+        <ng-container matColumnDef="categories">
+          <mat-header-cell *matHeaderCellDef>category</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p *ngFor="let category of element.categories"><b>{{ category.name }}</b><br/></p>
+          </mat-cell>
         </ng-container>
 
         <!--        <ng-container matColumnDef="countOfLikes">-->

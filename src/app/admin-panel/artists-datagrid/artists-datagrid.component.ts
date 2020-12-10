@@ -17,7 +17,7 @@ import {ArtistDialogboxComponent} from '../artist-dialogbox/artist-dialogbox.com
   styleUrls: ['./artists-datagrid.component.css']
 })
 export class ArtistsDatagridComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'description', 'createdDate', 'deleted', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'createdDate', 'deleted', 'action'];
   artists: Artist[] = [];
 
   resultsLength = 0;
@@ -80,12 +80,14 @@ export class ArtistsDatagridComponent implements OnInit {
 
   addArtist(artist: Artist): void {
     this.musicService.addArtist(artist).subscribe(() => {
+      this.notificationService.openSnackBar('Artist created');
       this.updateArtists();
     });
   }
 
   updateArtist(artist: Artist): void {
     this.musicService.updateArtist(artist).subscribe(() => {
+      this.notificationService.openSnackBar('Artist updated');
       this.updateArtists();
     });
   }
@@ -93,6 +95,7 @@ export class ArtistsDatagridComponent implements OnInit {
   deleteArtist(id: number): void {
     this.musicService.deleteArtist(id).subscribe(
       () => {
+        this.notificationService.openSnackBar('Artist deleted');
         this.updateArtists();
       },
       error => {

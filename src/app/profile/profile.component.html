@@ -58,17 +58,25 @@
                 <span *ngIf="profileForm.controls.birthday.errors.required">Birthday is Required</span>
               </mat-error>
             </mat-form-field>
-
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Country</mat-label>
-              <input matInput type="text" formControlName="country" required>
+              <mat-select formControlName="country">
+                <mat-option *ngFor="let country of countries" [value]="country">
+                  {{country}}
+                </mat-option>
+              </mat-select>
               <mat-error *ngIf="profileForm.controls.country.touched && profileForm.controls.country.invalid">
                 <span *ngIf="profileForm.controls.country.errors.required">Country is Required</span>
               </mat-error>
             </mat-form-field>
+
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Gender</mat-label>
-              <input matInput type="text" formControlName="gender" required>
+              <mat-select formControlName="gender">
+                <mat-option *ngFor="let gender of genders" [value]="gender">
+                  {{gender}}
+                </mat-option>
+              </mat-select>
               <mat-error *ngIf="profileForm.controls.gender.touched && profileForm.controls.gender.invalid">
                 <span *ngIf="profileForm.controls.gender.errors.required">Gender is Required</span>
               </mat-error>

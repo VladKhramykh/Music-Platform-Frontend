@@ -43,10 +43,15 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {CategoriesDatagridComponent} from './admin-panel/categories-datagrid/categories-datagrid.component';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { CategoryDialogboxComponent } from './admin-panel/category-dialogbox/category-dialogbox.component';
+import {CategoryDialogboxComponent} from './admin-panel/category-dialogbox/category-dialogbox.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ArtistsDatagridComponent } from './admin-panel/artists-datagrid/artists-datagrid.component';
-import { ArtistDialogboxComponent } from './admin-panel/artist-dialogbox/artist-dialogbox.component';
+import {ArtistsDatagridComponent} from './admin-panel/artists-datagrid/artists-datagrid.component';
+import {ArtistDialogboxComponent} from './admin-panel/artist-dialogbox/artist-dialogbox.component';
+import {AlbumDialogboxComponent} from './admin-panel/album-dialogbox/album-dialogbox.component';
+import {AlbumDatagridComponent} from './admin-panel/album-datagrid/album-datagrid.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { TrackDatagridComponent } from './admin-panel/track-datagrid/track-datagrid.component';
+import { TrackDialogboxComponent } from './admin-panel/track-dialogbox/track-dialogbox.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +75,10 @@ import { ArtistDialogboxComponent } from './admin-panel/artist-dialogbox/artist-
     CategoryDialogboxComponent,
     ArtistsDatagridComponent,
     ArtistDialogboxComponent,
+    AlbumDatagridComponent,
+    AlbumDialogboxComponent,
+    TrackDatagridComponent,
+    TrackDialogboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +111,7 @@ import { ArtistDialogboxComponent } from './admin-panel/artist-dialogbox/artist-
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatChipsModule,
   ],
   exports: [
     MatFormFieldModule,

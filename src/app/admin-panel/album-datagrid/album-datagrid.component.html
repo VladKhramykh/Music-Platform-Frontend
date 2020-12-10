@@ -6,7 +6,7 @@
       color="primary"
       (click)="openDialog({action: 'Add', item: null})"
     >
-     Add new
+      Add new
     </button>
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <mat-icon class="search-icon">search</mat-icon>
@@ -28,18 +28,40 @@
         matSortActive="name"
         matSortDisableClear
         matSortDirection="desc"
-        [dataSource]="categories"
+        [dataSource]="albums"
         #mytable
       >
-       <ng-container matColumnDef="name">
+        <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
-         <mat-cell *matCellDef="let element"><b>{{ element.name }}</b></mat-cell>
+          <mat-cell *matCellDef="let element"><b>{{ element.name }}</b></mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef mat-sort-header>description</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="releaseDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>release date</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.releaseDate | date:'dd-MM-yyyy' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>type</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="artists">
+          <mat-header-cell *matHeaderCellDef>artists</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p *ngFor="let artist of element.artists"><b>{{ artist.name }}</b><br/></p>
+          </mat-cell>
+        </ng-container>
+
+        <!--        <ng-container matColumnDef="countOfLikes">-->
+        <!--          <mat-header-cell *matHeaderCellDef mat-sort-header>Liked by users</mat-header-cell>-->
+        <!--          <mat-cell *matCellDef="let element">{{ element.countOfLikes }}</mat-cell>-->
+        <!--        </ng-container>-->
 
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>

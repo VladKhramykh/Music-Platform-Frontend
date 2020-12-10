@@ -5,6 +5,7 @@ import {BaseResponseModel} from '../../app/shared/models/base-response.model';
 import {Artist} from '../../app/shared/models/artist.model';
 import {Track} from '../../app/shared/models/track.model';
 import {Category} from '../../app/shared/models/category.model';
+import {Album} from '../../app/shared/models/album.model';
 
 const API = {
   SEARCH: 'https://itunes.apple.com/search',
@@ -37,6 +38,10 @@ export class MusicService {
 
   getArtistsByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
     return this.http.get<BaseResponseModel>(`${API.ARTIST}?pageNum=${pageNum}&pageSize=${pageSize}&artistSort=${sort.toUpperCase()}`, this.httpOptions);
+  }
+
+  getAlbumsByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
+    return this.http.get<BaseResponseModel>(`${API.ALBUM}?pageNum=${pageNum}&pageSize=${pageSize}&albumSort=${sort.toUpperCase()}`, this.httpOptions);
   }
 
   getTrackById(id: number): Observable<Track> {
@@ -77,5 +82,41 @@ export class MusicService {
 
   deleteArtist(id: number): Observable<Artist> {
     return this.http.delete<Artist>(`${API.ARTIST}/${id}`, this.httpOptions);
+  }
+
+  addAlbum(album: Album): Observable<Album> {
+    return this.http.post<Album>(`${API.ALBUM}`, album, this.httpOptions);
+  }
+
+  updateAlbum(album: Album): Observable<Album> {
+    return this.http.put<Album>(`${API.ALBUM}`, album, this.httpOptions);
+  }
+
+  deleteAlbum(id: number): Observable<Album> {
+    return this.http.delete<Album>(`${API.ALBUM}/${id}`, this.httpOptions);
+  }
+
+  getAlbumTypes(): Observable<string[]> {
+    return this.http.get<string[]>(`${API.ALBUM}/types`, this.httpOptions);
+  }
+
+  getCategories():Observable<Category[]> {
+    return this.http.get<Category[]>(`${API.CATEGORIES}`, this.httpOptions);
+  }
+
+  getTracksByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
+    return this.http.get<BaseResponseModel>(`${API.TRACK}?pageNum=${pageNum}&pageSize=${pageSize}&trackSort=${sort.toUpperCase()}`, this.httpOptions);
+  }
+
+  addTrack(track: Track) {
+    return this.http.post<Track>(`${API.TRACK}`, track, this.httpOptions);
+  }
+
+  updateTrack(track: Track): Observable<Track> {
+    return this.http.put<Track>(`${API.TRACK}`, track, this.httpOptions);
+  }
+
+  deleteTrack(id: number): Observable<Track> {
+    return this.http.delete<Track>(`${API.TRACK}/${id}`, this.httpOptions);
   }
 }

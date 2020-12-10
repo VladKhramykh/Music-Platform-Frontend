@@ -1,4 +1,5 @@
 import {UserModel} from './user.model';
+import {Artist} from './artist.model';
 
 export class Album {
   id: number;
@@ -8,4 +9,5 @@ export class Album {
   releaseDate: number;
   likes: UserModel[];
   type: string;
+  artists: Artist[];
 }
