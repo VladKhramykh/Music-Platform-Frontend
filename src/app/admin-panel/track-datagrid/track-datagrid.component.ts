@@ -18,7 +18,7 @@ import {TrackDialogData} from '../../shared/models/utils/track-dialog-data.model
 })
 export class TrackDatagridComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'categories', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'categories', 'album', 'track', 'action'];
   tracks: Track[] = [];
 
   resultsLength = 0;
@@ -79,11 +79,16 @@ export class TrackDatagridComponent implements OnInit {
     });
   }
 
-  addTrack(track: Track): void {
-    this.musicService.addTrack(track).subscribe(() => {
-      this.notificationService.openSnackBar('Track created');
-      this.updateTracks();
-    });
+  addTrack(formData: FormData): void {
+    this.musicService.addTrack(formData)
+      .subscribe(
+        () => {
+          this.notificationService.openSnackBar('Track created');
+          this.updateTracks();
+        },
+        error => {
+          this.notificationService.openSnackBar('Error');
+        });
   }
 
   updateTrack(track: Track): void {

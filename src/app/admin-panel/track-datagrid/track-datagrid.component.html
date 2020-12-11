@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+<div>
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <button
       mat-button
@@ -74,6 +74,20 @@
           <mat-header-cell *matHeaderCellDef>category</mat-header-cell>
           <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
             <p *ngFor="let category of element.categories"><b>{{ category.name }}</b><br/></p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="album">
+          <mat-header-cell *matHeaderCellDef>album</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p *ngFor="let album of element.albums"><b>{{ album.name }}</b><br/></p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="track">
+          <mat-header-cell *matHeaderCellDef>track</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p>track</p>
           </mat-cell>
         </ng-container>
 

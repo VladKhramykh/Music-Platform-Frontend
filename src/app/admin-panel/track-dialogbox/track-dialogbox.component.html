@@ -1,7 +1,7 @@
 <form [formGroup]="trackForm" (ngSubmit)="submit()">
   <h1 mat-dialog-title>
-    <strong *ngIf="data.action=='Add'">Add album</strong>
-    <strong *ngIf="data.action=='Update'">Update album</strong>
+    <strong *ngIf="data.action=='Add'">Add track</strong>
+    <strong *ngIf="data.action=='Update'">Update track</strong>
   </h1>
   <div mat-dialog-content>
     <div
@@ -46,22 +46,14 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Type</mat-label>
-        <mat-select formControlName="type">
-          <mat-option *ngFor="let type of types" [value]="type">
-            {{type}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="example-chip-list">
+      <mat-form-field>
         <mat-label>Artists</mat-label>
         <mat-chip-list #chipList aria-label="Artist selection">
           <mat-chip
             *ngFor="let artist of selectedArtists"
             [selectable]="selectable"
             [removable]="removable"
-            (removed)="remove(artist)">
+            (removed)="removeArtist(artist)">
             {{artist.name}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
@@ -74,12 +66,90 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           />
         </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedArtis($event)">
           <mat-option *ngFor="let artist of filteredArtists | async" [value]="artist">
             {{artist.name}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-chip-list #chipListCategory aria-label="Categories selection">
+          <mat-chip
+            *ngFor="let category of selectedCategories"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="removeCategory(category)">
+            {{category.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="New category..."
+            #categoriesInput
+            formControlName="categories"
+            [matAutocomplete]="auto1"
+            [matChipInputFor]="chipListCategory"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          />
+        </mat-chip-list>
+        <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="selectedCategory($event)">
+          <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+            {{category.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label *ngIf="selectedArtists.length === 0">Please, select artist</mat-label>
+        <mat-label *ngIf="selectedArtists.length !== 0">Select album</mat-label>
+        <mat-select formControlName="album">
+          <mat-option *ngFor="let album of albums" [value]="album">
+            {{album.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="mat-form-field">
+        <mat-label>Track file</mat-label>
+        <div fxLayout="column" fxLayoutAlign="space-between center">
+          <!--        <div *ngIf="this.track != null">-->
+          <!--          <audio [src]="'http://localhost:8081/tracks/'+this.track.trackUri"-->
+          <!--               alt="track"></audio>-->
+          <!--        </div>-->
+          <div>
+            <div>
+              <input type="file" (change)="trackFileChange($event)" formControlName="trackFile" placeholder="Upload track"
+                     accept=".mp3,.wav">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mat-form-field">
+        <label>Photo file</label>
+        <div fxLayout="column" fxLayoutAlign="space-between center">
+          <div>
+            <!--              <div>-->
+            <!--                <img class="profile-image"-->
+            <!--                     [src]="'http://localhost:8081/img/users/'+this.user.photoUri"-->
+            <!--                     alt="photo"/>-->
+            <!--              </div>-->
+            <div>
+              <input type="file" (change)="photoFileChange($event)" formControlName="photoFile" placeholder="Upload photo"
+                     accept=".png,.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <ng-template #elseTemplate>
       Are you sure? <br/>

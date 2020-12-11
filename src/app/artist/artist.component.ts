@@ -57,7 +57,7 @@ export class ArtistComponent implements OnInit {
 
   getAlbums() {
     this.musicService.getAlbumsByArtistId(this.artistId).subscribe(data => {
-      this.albums = data.content;
+      this.albums = data;
     });
   }
 

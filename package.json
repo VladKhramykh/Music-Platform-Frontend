@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular-builders/custom-webpack": "^10.0.1",
+    "@angular-material-components/file-input": "^5.0.1",
     "@angular/animations": "~11.0.1",
     "@angular/cdk": "^11.0.1",
     "@angular/common": "~11.0.1",

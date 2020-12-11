@@ -50,8 +50,10 @@ import {ArtistDialogboxComponent} from './admin-panel/artist-dialogbox/artist-di
 import {AlbumDialogboxComponent} from './admin-panel/album-dialogbox/album-dialogbox.component';
 import {AlbumDatagridComponent} from './admin-panel/album-datagrid/album-datagrid.component';
 import {MatChipsModule} from '@angular/material/chips';
-import { TrackDatagridComponent } from './admin-panel/track-datagrid/track-datagrid.component';
-import { TrackDialogboxComponent } from './admin-panel/track-dialogbox/track-dialogbox.component';
+import {TrackDatagridComponent} from './admin-panel/track-datagrid/track-datagrid.component';
+import {TrackDialogboxComponent} from './admin-panel/track-dialogbox/track-dialogbox.component';
+import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+
 
 @NgModule({
   declarations: [
@@ -78,7 +80,7 @@ import { TrackDialogboxComponent } from './admin-panel/track-dialogbox/track-dia
     AlbumDatagridComponent,
     AlbumDialogboxComponent,
     TrackDatagridComponent,
-    TrackDialogboxComponent,
+    TrackDialogboxComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +114,7 @@ import { TrackDialogboxComponent } from './admin-panel/track-dialogbox/track-dia
     MatPaginatorModule,
     MatDialogModule,
     MatChipsModule,
+    NgxMatFileInputModule
   ],
   exports: [
     MatFormFieldModule,

@@ -25,6 +25,10 @@ export class MusicService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
+  httpOptionsMultipartForm = {
+    headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})
+  };
+
   constructor(private http: HttpClient) {
   }
 
@@ -49,7 +53,7 @@ export class MusicService {
   }
 
   getAlbumsByArtistId(id: number) {
-    return this.http.get<BaseResponseModel>(`${API.ALBUM}/artist?artistId=${id}&albumSort=ID_ASC`, this.httpOptions);
+    return this.http.get<Album[]>(`${API.ALBUM}/artist?artistId=${id}&albumSort=ID_ASC`, this.httpOptions);
   }
 
   getTracksByArtistId(id: number, pageSize: number, pageNum: number): Observable<BaseResponseModel> {
@@ -101,19 +105,23 @@ export class MusicService {
   }
 
   getCategories():Observable<Category[]> {
-    return this.http.get<Category[]>(`${API.CATEGORIES}`, this.httpOptions);
+    return this.http.get<Category[]>(`${API.CATEGORIES}/all`, this.httpOptions);
   }
 
   getTracksByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
     return this.http.get<BaseResponseModel>(`${API.TRACK}?pageNum=${pageNum}&pageSize=${pageSize}&trackSort=${sort.toUpperCase()}`, this.httpOptions);
   }
 
-  addTrack(track: Track) {
-    return this.http.post<Track>(`${API.TRACK}`, track, this.httpOptions);
+  getTrackTypes(): Observable<string[]> {
+    return this.http.get<string[]>(`${API.TRACK}/types`, this.httpOptions);
+  }
+
+  addTrack(track: FormData) {
+    return this.http.post(`${API.TRACK}`, track);
   }
 
   updateTrack(track: Track): Observable<Track> {
-    return this.http.put<Track>(`${API.TRACK}`, track, this.httpOptions);
+    return this.http.put<Track>(`${API.TRACK}`, track, this.httpOptionsMultipartForm);
   }
 
   deleteTrack(id: number): Observable<Track> {

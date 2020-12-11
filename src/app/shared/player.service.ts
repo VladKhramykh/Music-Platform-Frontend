@@ -15,8 +15,8 @@ export class PlayerService {
   pauseTrack$ = this.pauseTrackSource.asObservable();
   trackEnded$ = this.trackEndedSource.asObservable();
 
-  playTrack(previewUrl: string) {
-    this.playTrackSource.next(previewUrl);
+  playTrack(url: string) {
+    this.playTrackSource.next('http://localhost:8081/tracks/' + url);
   }
 
   pauseTrack() {
