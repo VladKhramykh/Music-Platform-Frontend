@@ -9,20 +9,19 @@ import {UserCreateRequest} from '../../app/shared/models/user-create-request';
 import {UserModel} from '../../app/shared/models/user.model';
 import {BaseResponseModel} from '../../app/shared/models/base-response.model';
 import {RequestOptions} from '@angular/http';
+import {AuthService} from "./auth.service";
 
 const API = {
-  SEARCH: 'https://itunes.apple.com/search?',
-  LOOKUP: 'https://itunes.apple.com/lookup?',
-  ALBUM: 'http://localhost:8081/api/albums?',
-  TRACK: 'http://localhost:8081/api/tracks?',
+  ALBUM: 'http://localhost:8081/api/albums',
+  TRACK: 'http://localhost:8081/api/tracks',
   ARTIST: 'http://localhost:8081/api/artists',
-  USERS:'//localhost:8081/api/users',
+  USERS: 'http://localhost:8081/api/users',
 };
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
 
-  user = JSON.parse(localStorage.getItem('user'));
+  user: UserModel;
 
   private usersUrl = `${environment.apiEndpoint}users`;
   private artistsUrl = `${environment.apiEndpoint}artists`;
@@ -31,7 +30,10 @@ export class UsersService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService) {
+    this.user = this.authService.getUser();
   }
 
   updatePhoto(event, id) {
@@ -50,7 +52,7 @@ export class UsersService {
   }
 
   getUsers(sort: string, order: string, pageNum: number, pageSize: number, filterValue?: string): Observable<UsersData> {
-    let url = `${this.usersUrl}/?sortOrder=${sort + order}&pageNum=${pageNum}&pageSize=${pageSize}`;
+    let url = `${this.usersUrl}?sortOrder=${sort + order}&pageNum=${pageNum}&pageSize=${pageSize}`;
     if (filterValue) {
       url += `&searchName=${filterValue}`;
     }
@@ -85,7 +87,6 @@ export class UsersService {
   dislikeAlbum(id: number) {
     return this.http.get(API.ALBUM + `/dislike?albumId=${id}&userId=${this.user.id}`, this.httpOptions);
   }
-
 
   findArtistsByNameContains(param: string): Observable<BaseResponseModel> {
     return this.http.get<any>(API.ARTIST + `/search?name=${param}&pageSize=7&pageNum=0&artistSort=NAME_ASC`, this.httpOptions);

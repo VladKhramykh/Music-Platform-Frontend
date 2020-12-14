@@ -8,7 +8,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MusicService} from '../../../core/services/music.service';
 import {map, startWith} from 'rxjs/operators';
 import {Album} from '../../shared/models/album.model';
-import {TrackDialogData} from '../../shared/models/utils/track-dialog-data.model';
 import {Track} from '../../shared/models/track.model';
 import {Category} from '../../shared/models/category.model';
 
@@ -80,20 +79,20 @@ export class TrackDialogboxComponent implements OnInit {
       trackFile: new FormControl(),
       photoFile: new FormControl()
     });
-    this.filteredArtists = this.trackForm.controls['artists'].valueChanges.pipe(
+    this.filteredArtists = this.trackForm.controls.artists.valueChanges.pipe(
       startWith(null),
       map((artistName: string | null) => artistName ? this._filterArtists(artistName) : this.availableArtists.slice()));
-    this.filteredCategories = this.trackForm.controls['categories'].valueChanges.pipe(
+    this.filteredCategories = this.trackForm.controls.categories.valueChanges.pipe(
       startWith(null),
       map((categoryName: string | null) => categoryName ? this._filterCategories(categoryName) : this.availableCategories.slice()));
   }
 
   submit(): void {
-    this.trackForm.controls['artists'].setValue(this.selectedArtists.map(x => x.id));
-    this.trackForm.controls['categories'].setValue(this.selectedCategories.map(x => x.id));
+    this.trackForm.controls.artists.setValue(this.selectedArtists.map(x => x.id));
+    this.trackForm.controls.categories.setValue(this.selectedCategories.map(x => x.id));
 
     if (this.data.item) {
-      this.formData.append('id', this.trackForm.controls['id'].value);
+      this.formData.append('id', this.trackForm.controls.id.value);
     }
     this.formData.append('name', this.trackForm.get('name').value);
     this.formData.append('type', this.trackForm.get('type').value);
@@ -133,7 +132,7 @@ export class TrackDialogboxComponent implements OnInit {
     this.categoriesInput.nativeElement.value = '';
   }
 
-  updateAlbums() {
+  updateAlbums(): void {
     this.albums.splice(0, this.albums.length);
     this.selectedArtists.forEach(item => {
       this.musicService.getAlbumsByArtistId(item.id).subscribe(
@@ -146,13 +145,14 @@ export class TrackDialogboxComponent implements OnInit {
     });
   }
 
-  trackFileChange(event) {
-    let fileList: FileList = event.target.files;
+  trackFileChange(event): void{
+    const fileList: FileList = event.target.files;
+    console.log(fileList[0]);
     this.formData.append('trackFile', fileList[0]);
   }
 
-  photoFileChange(event) {
-    let fileList: FileList = event.target.files;
+  photoFileChange(event): void {
+    const fileList: FileList = event.target.files;
     this.formData.append('photoFile', fileList[0]);
   }
 

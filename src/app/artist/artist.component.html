@@ -1,7 +1,7 @@
 <ng-container>
   <div>
     <p>Albums</p>
-    <mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-list cols="6" rowHeight="3:2">
       <mat-grid-tile>
         <mat-card *ngFor="let album of albums">
           <mat-card-header>
@@ -27,10 +27,15 @@
   <mat-divider></mat-divider>
   <div>
     <p>Tracks</p>
-    <mat-grid-list cols="3" rowHeight="2:3">
+    <mat-grid-list cols="6" rowHeight="2:3">
       <mat-grid-tile *ngFor="let track of tracks">
         <app-track [trackProp]="track"></app-track>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
+  <mat-paginator [length]="countOfTracks"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="getLastTracks($event)">
+  </mat-paginator>
 </ng-container>

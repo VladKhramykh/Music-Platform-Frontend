@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {Compiler, NgModule} from '@angular/core';
-import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import {MatListModule} from '@angular/material/list';
@@ -53,6 +53,12 @@ import {MatChipsModule} from '@angular/material/chips';
 import {TrackDatagridComponent} from './admin-panel/track-datagrid/track-datagrid.component';
 import {TrackDialogboxComponent} from './admin-panel/track-dialogbox/track-dialogbox.component';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import { AlbumExtendComponent } from './album-extend/album-extend.component';
+import {AuthService} from "../core/services/auth.service";
+import {AuthGuard} from "../core/guards/auth.guard";
+import {AuthInterceptor} from "../core/interceptors/auth.interceptor";
+import {LoaderInterceptor} from "../core/interceptors/loader.interceptor";
+import {ErrorInterceptor} from "../core/interceptors/error.interceptor";
 
 
 @NgModule({
@@ -80,7 +86,8 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     AlbumDatagridComponent,
     AlbumDialogboxComponent,
     TrackDatagridComponent,
-    TrackDialogboxComponent
+    TrackDialogboxComponent,
+    AlbumExtendComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +130,15 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     MatSidenavModule,
   ],
   providers: [
-    Compiler
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    LoaderInterceptor,
+    ErrorInterceptor
   ],
   bootstrap: [AppComponent],
 })

@@ -6,6 +6,7 @@ import {Album} from '../shared/models/album.model';
 import {ActivatedRoute} from '@angular/router';
 import {UserModel} from '../shared/models/user.model';
 import {AuthService} from '../../core/services/auth.service';
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-artist',
@@ -19,6 +20,13 @@ export class ArtistComponent implements OnInit {
   tracks: Track[] = [];
   albums: Album[] = [];
 
+  pageSize = 1;
+  pageNum = 0;
+  pageSizeOptions: number[] = [1, 2, 10, 100];
+  pageEvent: PageEvent;
+  countOfTracks: number;
+
+
   constructor(private musicService: MusicService,
               private router: ActivatedRoute,
               private authService: AuthService
@@ -30,9 +38,13 @@ export class ArtistComponent implements OnInit {
     this.router.params.subscribe(params => {
       this.artistId = parseInt(params['id']);
     });
+    // TODO fix this call: change on prop which passed to here
     this.search();
     this.getAlbums();
-    this.getTracks(10, 0);
+    this.musicService.getTracksByArtistId(this.artistId, this.pageSize, this.pageNum).subscribe(data => {
+      this.tracks = data.content;
+      this.countOfTracks = data.totalElements;
+    });
   }
 
   search() {
@@ -42,7 +54,8 @@ export class ArtistComponent implements OnInit {
           name: data.name,
           description: data.description,
           createdDate: data.createdDate,
-          likes: data.likes
+          likes: data.likes,
+          photoUri: data.photoUri
         };
       },
       err => console.log(err)
@@ -60,10 +73,11 @@ export class ArtistComponent implements OnInit {
       this.albums = data;
     });
   }
-
-  getTracks(pageSize: number, pageNum: number) {
-    this.musicService.getTracksByArtistId(this.artistId, pageSize, pageNum).subscribe(data => {
+  // TODO fix this one
+  getLastTracks(event?:PageEvent) {
+    this.musicService.getTracksByArtistId(this.artistId, event.pageSize, event.pageIndex).subscribe(data => {
       this.tracks = data.content;
+      this.countOfTracks = data.totalElements;
     });
   }
 }

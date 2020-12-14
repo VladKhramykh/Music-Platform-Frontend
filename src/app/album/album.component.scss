@@ -3,7 +3,7 @@
   margin: 20px 0px;
   padding: 0;
   cursor: pointer;
-  height: 250x;
+  height: 250px;
 }
 
 .album-title {
@@ -12,4 +12,14 @@
   margin: 0;
   height: 40px;
   overflow: hidden;
+}
+
+.main-container {
+  background: red;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  background: red;
 }

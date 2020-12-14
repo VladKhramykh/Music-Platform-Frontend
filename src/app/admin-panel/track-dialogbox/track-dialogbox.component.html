@@ -122,14 +122,15 @@
       <div class="mat-form-field">
         <mat-label>Track file</mat-label>
         <div fxLayout="column" fxLayoutAlign="space-between center">
-          <!--        <div *ngIf="this.track != null">-->
-          <!--          <audio [src]="'http://localhost:8081/tracks/'+this.track.trackUri"-->
-          <!--               alt="track"></audio>-->
-          <!--        </div>-->
-          <div>
-            <div>
-              <input type="file" (change)="trackFileChange($event)" formControlName="trackFile" placeholder="Upload track"
+          <div class="example-2">
+            <div class="form-group">
+              <input type="file" name="file" id="file" class="input-file" (change)="trackFileChange($event)"
+                     formControlName="trackFile"
                      accept=".mp3,.wav">
+              <label for="file" class="btn btn-tertiary js-labelFile">
+                <i class="icon fa fa-check"></i>
+                <span class="js-fileName"> {{ this.trackForm.controls.trackFile.originalName || 'Upload file' }}</span>
+              </label>
             </div>
           </div>
         </div>
@@ -144,7 +145,8 @@
             <!--                     alt="photo"/>-->
             <!--              </div>-->
             <div>
-              <input type="file" (change)="photoFileChange($event)" formControlName="photoFile" placeholder="Upload photo"
+              <input type="file" (change)="photoFileChange($event)" formControlName="photoFile"
+                     placeholder="Upload photo"
                      accept=".png,.jpg">
             </div>
           </div>

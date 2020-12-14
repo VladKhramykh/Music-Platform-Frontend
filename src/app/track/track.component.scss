@@ -1,7 +1,7 @@
-.card {
-  max-width: 300px;
-  max-height: 500px;
-}
+//.card {
+//  max-width: 300px;
+//  max-height: 500px;
+//}
 
 .header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
@@ -9,7 +9,42 @@
 }
 
 .mat-card-image {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 100%;
+  max-height: 100%;
   background-size: cover;
+  margin: 0;
+  padding: 0;
 }
+
+.likeButton:hover {
+  color: #212121;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.likedButton {
+  color: #f34521;
+  cursor: pointer;
+}
+
+.notLikedButton {
+  color: gray;
+  cursor: pointer;
+}
+.play-icon {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.play-icon:hover {
+  color: #555555;
+  transition: .1s;
+}
+
+
+
+
+
+
+

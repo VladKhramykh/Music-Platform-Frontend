@@ -1,0 +1,23 @@
+.mat-list-item {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.author {
+  color: #888888;
+  font-weight: initial;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+
+.mat-icon:hover {
+  color: #555555;
+  transition: .1s;
+}
+
+.trackTitle {
+  padding-left: 2em;
+  padding-right: 2em;
+}

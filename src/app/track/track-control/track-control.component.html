@@ -1,4 +1,6 @@
-<div>
-  <span *ngIf="!isPlaying" class="glyphicon glyphicon-play" aria-hidden="true" (click)="playTrack()"></span>
-  <span *ngIf="isPlaying" class="glyphicon glyphicon-pause" aria-hidden="true" (click)="pauseTrack()"></span>
-</div>
+<mat-icon *ngIf="!isPlaying" (click)="playTrack()">
+  play_arrow
+</mat-icon>
+<mat-icon *ngIf="isPlaying" (click)="pauseTrack()">pause
+</mat-icon>
+

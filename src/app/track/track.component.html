@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card>
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
     <mat-card-title>{{ track.name }}</mat-card-title>
@@ -8,12 +8,13 @@
   <mat-card-content>
     {{ track.description }}
   </mat-card-content>
-  <mat-card-actions>
-    <button *ngIf="currentUser != null" mat-mini-fab (click)="like(track.id)">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-mini-fab>
-      <app-track-control [track]="track"></app-track-control>
-    </button>
+  <mat-card-actions fxLayoutAlign="space-around center">
+
+    <app-track-control class="play-icon" [track]="track"></app-track-control>
+
+    <mat-icon mat-mini-fab [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
+              *ngIf="currentUser != null"
+              (click)="likeButtonClickHandler(track.id)">favorite
+    </mat-icon>
   </mat-card-actions>
 </mat-card>

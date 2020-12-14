@@ -1,7 +1,7 @@
 <h4>{{artistName}} - Albums</h4>
 <mat-divider></mat-divider>
 <div class="row">
-  <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let album of albumArray">
+  <div *ngFor="let album of albumArray">
     <mat-card class="album-card" matRipple (click)="onGetTracks(album)">
       <mat-card-header class="album-header">
         <mat-card-title class="album-title">{{album.name}}</mat-card-title>

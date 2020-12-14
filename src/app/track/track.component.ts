@@ -3,7 +3,6 @@ import {MusicService} from '../../core/services/music.service';
 import {Track} from '../shared/models/track.model';
 import {UsersService} from '../../core/services/user.service';
 import {NotificationService} from '../../core/services/notification.service';
-import {SessionStorageService} from '../../core/services/session-storage.service';
 import {UserModel} from '../shared/models/user.model';
 import {AuthService} from '../../core/services/auth.service';
 
@@ -16,7 +15,7 @@ export class TrackComponent implements OnInit {
   displayedColumns: string[] = ['trackCensoredName'];
   track: Track;
   currentUser: UserModel;
-
+  isLiked: boolean;
 
   @Input()
   set trackProp(track: Track) {
@@ -31,18 +30,30 @@ export class TrackComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getUser();
+    this.isLiked = this.track.likes.findIndex(u => this.currentUser.id === u.id) != -1;
   }
 
-  getTrack(trackId: number) {
-    this.musicService.getTrackById(trackId).subscribe(result => {
-      this.track = result;
-    });
+  likeButtonClickHandler(id: number): void {
+    this.isLiked ? this.dislike(id) : this.like(id);
   }
 
   like(id: number) {
     this.usersService.likeTrack(id).subscribe(
       data => {
-        this.notificationService.openSnackBar('OK');
+        this.isLiked = true;
+        this.notificationService.openSnackBar('This track added to your favourite list of tracks');
+      },
+      error => {
+        this.notificationService.openSnackBar('Error');
+      }
+    );
+  }
+
+  dislike(id: number) {
+    this.usersService.dislikeTrack(id).subscribe(
+      data => {
+        this.isLiked = false;
+        this.notificationService.openSnackBar('This track removed to your favourite list of tracks');
       },
       error => {
         this.notificationService.openSnackBar('Error');

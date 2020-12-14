@@ -6,7 +6,7 @@
 </ng-template>
 <ng-template [ngIf]="this.url != '/registration' && this.url != '/login'">
   <mat-sidenav-container fullscreen>
-    <mat-sidenav mode="side" #sidenav opened position="start">
+    <mat-sidenav mode="side" #sidenav opened>
       <mat-toolbar-row>
         <h4 *ngIf="isExpanded" [routerLink]="'/home'">Listen music</h4>
       </mat-toolbar-row>

@@ -1,1 +1,24 @@
-<p>favourite-list works!</p>
+<ng-container fxLayout="column">
+  <mat-list>
+    <div mat-subheader>Favourite tacks</div>
+    <mat-list-item class="mat-list-item"
+                   *ngFor="let track of tracks"
+    >
+      <app-track-control class="mat-icon" [track]="track"></app-track-control>
+      <div class="trackTitle">
+        <span>{{track.name}} - </span>
+        <a class="author"
+           *ngFor="let artist of track.artists"
+           [routerLink]="'/artist/'+artist.id"
+        > {{artist.name}}
+        </a>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  <mat-paginator [length]="countOfTracks"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="getFavouriteTracks($event)">
+  </mat-paginator>
+</ng-container>
