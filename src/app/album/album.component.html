@@ -1,21 +1,21 @@
-<h4>{{artistName}} - Albums</h4>
-<mat-divider></mat-divider>
-<div class="row">
-  <div *ngFor="let album of albumArray">
-    <mat-card class="album-card" matRipple (click)="onGetTracks(album)">
-      <mat-card-header class="album-header">
-        <mat-card-title class="album-title">{{album.name}}</mat-card-title>
-        <mat-card-subtitle>{{album.type}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <img [src]="album.photoUri" width="100%" class="responsive-image">
-      </mat-card-content>
-      <mat-card-footer>
-        <button (click)="like(album.id)"></button>
-      </mat-card-footer>
+<mat-card class="album-card" matRipple>
+  <mat-card-header class="album-header">
+    <mat-card-title class="album-title">{{album.name}}</mat-card-title>
+    <mat-card-subtitle>{{album.type}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <img [src]="album.photoUri" width="100%" class="responsive-image">
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-icon mat-mini-fab [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
+              *ngIf="currentUser != null"
+              (click)="likeButtonClickHandler(album.id)">favorite
+    </mat-icon>
+  </mat-card-actions>
+  <mat-card-footer>
+    {{ album.releaseDate | date: "dd/MM/yyyy" }}
+  </mat-card-footer>
 
-    </mat-card>
-  </div>
-</div>
+</mat-card>
 
 

@@ -1,25 +1,25 @@
-.album-card {
-  overflow: hidden;
-  margin: 20px 0px;
-  padding: 0;
+.likeButton:hover {
+  color: #212121;
+  transition: .2s;
   cursor: pointer;
-  height: 250px;
 }
 
-.album-title {
-  font-size: 14px;
-  padding: 0;
-  margin: 0;
-  height: 40px;
-  overflow: hidden;
+.likedButton {
+  color: #f34521;
+  cursor: pointer;
 }
 
-.main-container {
-  background: red;
-  padding: 0;
-  margin: 0;
+.notLikedButton {
+  color: gray;
+  cursor: pointer;
+}
+.play-icon {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  cursor: pointer;
 }
 
-.card {
-  background: red;
+.play-icon:hover {
+  color: #555555;
+  transition: .1s;
 }

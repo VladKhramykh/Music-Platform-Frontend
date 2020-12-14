@@ -1,11 +1,28 @@
-<ng-container fxLayout="column">
+<ng-container fxLayout="column" (window:resize)="onResize($event)">
+  <mat-grid-list [cols]="breakpoint" fxLayout="row"
+                 rowHeight="3:4"
+                 fxLayout.lt-md="column"
+                 fxLayoutAlign.lt-md="center center"
+                 *ngIf="favouriteAlbums.length !== 0"
+  >
+    <h3>Favourite albums</h3>
+    <mat-grid-tile
+      [colspan]="1"
+      *ngFor="let lastAlbum of favouriteAlbums"
+    >
+      <app-album [albumProp]="lastAlbum"
+                 [ngStyle.lt-md]="{width: '100%', padding: '10px'}"
+                 [ngStyle.gt-xs]="{height: '100%', paddingLeft: '10%', paddingRight: '10%'}"
+      ></app-album>
+    </mat-grid-tile>
+  </mat-grid-list>
   <mat-list>
-    <div mat-subheader>Favourite tacks</div>
+    <h3>Favourite tracks</h3>
     <mat-list-item class="mat-list-item"
                    *ngFor="let track of tracks"
     >
       <app-track-control class="mat-icon" [track]="track"></app-track-control>
-      <div class="trackTitle">
+      <div class="trackTitle"  fxLayoutAlign="space-around center">
         <span>{{track.name}} - </span>
         <a class="author"
            *ngFor="let artist of track.artists"
@@ -13,6 +30,7 @@
         > {{artist.name}}
         </a>
       </div>
+      <mat-icon (click)="likeButtonClickHandler(track)">close</mat-icon>
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-list>

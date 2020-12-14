@@ -128,11 +128,19 @@ export class MusicService {
     return this.http.delete<Track>(`${API.TRACK}/${id}`, this.httpOptions);
   }
 
-  getLastReleases(pageNum: number, pageSize: number, sort: string): Observable<BaseResponseModel> {
+  getLastTrackReleases(pageNum: number, pageSize: number, sort: string): Observable<BaseResponseModel> {
     return this.http.get<BaseResponseModel>(`${API.TRACK}/last?pageNum=${pageNum}&pageSize=${pageSize}&trackSort=${sort}`, this.httpOptions);
+  }
+
+  getLastAlbumReleases(pageNum: number, pageSize: number): Observable<BaseResponseModel> {
+    return this.http.get<BaseResponseModel>(`${API.ALBUM}/last?pageNum=${pageNum}&pageSize=${pageSize}`, this.httpOptions);
   }
 
   getFavouriteTracksByPage(pageNum: number, pageSize: number, sort: string) {
     return this.http.get<BaseResponseModel>(`${API.TRACK}/favourite?pageNum=${pageNum}&pageSize=${pageSize}&trackSort=${sort}`, this.httpOptions);
+  }
+
+  getFavouriteAlbums(albumPageNum: number, albumPageSize: number, sort: string) {
+    return this.http.get<BaseResponseModel>(`${API.ALBUM}/favourite?pageNum=${albumPageNum}&pageSize=${albumPageSize}&albumSort=${sort}`, this.httpOptions);
   }
 }

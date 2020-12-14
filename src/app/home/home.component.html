@@ -1,9 +1,29 @@
 <div class="main-container" fxLayout="column" (window:resize)="onResize($event)">
+
   <mat-grid-list [cols]="breakpoint" fxLayout="row"
                  rowHeight="2:3"
                  fxLayout.lt-md="column"
                  fxLayoutAlign.lt-md="center center"
   >
+    <h1>New albums</h1>
+    <mat-grid-tile
+      [colspan]="1"
+      *ngFor="let lastAlbum of lastAlbums"
+    >
+      <app-album [albumProp]="lastAlbum"
+                 [ngStyle.lt-md]="{width: '100%', padding: '10px'}"
+                 [ngStyle.gt-xs]="{height: '100%', paddingLeft: '10%', paddingRight: '10%'}"
+      ></app-album>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list [cols]="breakpoint" fxLayout="row"
+                 rowHeight="2:3"
+                 fxLayout.lt-md="column"
+                 fxLayoutAlign.lt-md="center center"
+  >
+    <h1>New tracks</h1>
+
     <mat-grid-tile
       [colspan]="1"
       *ngFor="let lastOne of lastReleases"
@@ -11,12 +31,13 @@
       <app-track [trackProp]="lastOne"
                  [ngStyle.lt-md]="{width: '100%', padding: '10px'}"
                  [ngStyle.gt-xs]="{height: '100%', paddingLeft: '10%', paddingRight: '10%'}"
+                 (click)="setPlayingTrackId(lastOne.id)"
       ></app-track>
     </mat-grid-tile>
   </mat-grid-list>
   <mat-paginator [length]="countOfTracks"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="pageSizeOptions"
-                 (page)="getLastRecords($event)">
+                 (page)="getLastTrackReleases($event)">
   </mat-paginator>
 </div>

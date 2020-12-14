@@ -17,4 +17,7 @@
               (click)="likeButtonClickHandler(track.id)">favorite
     </mat-icon>
   </mat-card-actions>
+  <mat-card-footer class-="releaseDate">
+    {{ track.releaseDate | date: 'dd/MM/yyyy' }}
+  </mat-card-footer>
 </mat-card>
