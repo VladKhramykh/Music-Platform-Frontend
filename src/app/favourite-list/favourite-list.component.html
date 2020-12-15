@@ -23,14 +23,14 @@
     >
       <app-track-control class="mat-icon" [track]="track"></app-track-control>
       <div class="trackTitle"  fxLayoutAlign="space-around center">
-        <span>{{track.name}} - </span>
+        <span class="trackName">{{track.name}}</span>-
         <a class="author"
            *ngFor="let artist of track.artists"
            [routerLink]="'/artist/'+artist.id"
         > {{artist.name}}
         </a>
       </div>
-      <mat-icon (click)="likeButtonClickHandler(track)">close</mat-icon>
+      <mat-icon class="close" (click)="likeButtonClickHandler(track)">close</mat-icon>
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-list>

@@ -53,10 +53,6 @@ const routes: Routes = [
     component: AlbumComponent
   },
   {
-    path: ':id/:name/:colllection_id/:collection_name',
-    component: TracksComponent
-  },
-  {
     path: '***',
     redirectTo: '/home'
   },

@@ -3,17 +3,19 @@
 //  max-height: 500px;
 //}
 
+.audioCard {
+    max-width: 15em;
+    max-height: 25em;
+}
+
 .header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
 
 .mat-card-image {
-  max-width: 100%;
-  max-height: 100%;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
+  max-width: 15em;
+  max-height: 15em;
 }
 
 .likeButton:hover {
@@ -32,8 +34,6 @@
   cursor: pointer;
 }
 .play-icon {
-  margin-left: 2rem;
-  margin-right: 2rem;
   cursor: pointer;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .releaseDate {
-  padding: 1rem;
+  //padding: 1rem;
   font-style: italic;
   color: #555555;
   font-weight: initial;

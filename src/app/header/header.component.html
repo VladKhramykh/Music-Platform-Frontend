@@ -4,7 +4,7 @@
     <app-search></app-search>
   </div>
   <div *ngIf="currentUser != null">
-    Hello, {{ currentUser.firstName }}
+    <p routerLink="/profile">Hello, {{ currentUser.firstName }}</p>
   </div>
   <div *ngIf="currentUser == null">
     <a routerLink="/login">Sign in</a>

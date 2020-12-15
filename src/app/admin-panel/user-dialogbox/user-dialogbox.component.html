@@ -1,0 +1,134 @@
+<form [formGroup]="userForm" (ngSubmit)="submit()">
+  <h1 mat-dialog-title>
+    <strong *ngIf="data.action=='Add'">Add user</strong>
+    <strong *ngIf="data.action=='Update'">Update user</strong>
+  </h1>
+  <div mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-evenly"
+      *ngIf="data.action != 'Delete'; else elseTemplate"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Name"/>
+        <mat-error *ngIf="userForm.controls['email'].hasError('required')">
+          <span>Name is required</span>
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+          Email is not valid
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Firstname</mat-label>
+        <input matInput formControlName="firstName" placeholder="Firstname"/>
+        <mat-error *ngIf="userForm.controls['firstName'].hasError('required')">
+          Firstname is required
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['firstName'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['firstName'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Lastname</mat-label>
+        <input matInput formControlName="firstName" placeholder="Lastname"/>
+        <mat-error *ngIf="userForm.controls['lastName'].hasError('required')">
+          Lastname is required
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['lastName'].hasError('minlength')">
+          min 3 symbols
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['lastName'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mat-form-field" appearance="outline">
+        <mat-label>Birthday</mat-label>
+        <input matInput formControlName="birthday" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="userForm.controls['birthday'].hasError('required')">
+          Birthday is Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country">
+            {{country}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-chip-list">
+        <mat-label>Roles</mat-label>
+        <mat-chip-list #chipList aria-label="Role selection">
+          <mat-chip
+            *ngFor="let role of selectedRoles"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(role)">
+            {{role}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Roles..."
+            #roleInput
+            formControlName="roles"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          />
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+            {{role}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>New password</mat-label>
+        <input matInput formControlName="password" placeholder="New password"/>
+        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">
+          min 4 symbols
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('maxlength')">
+          max 50 symbols
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+      Are you sure? <br/>
+      Delete user <b> {{ data.item.firstName + ' ' + data.item.lastName }} ?</b>
+    </ng-template>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="userForm.invalid"
+            *ngIf="data.action=='Add'">
+      Add
+    </button>
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="userForm.invalid"
+            *ngIf="data.action=='Update'">
+      Edit
+    </button>
+    <button mat-button mat-flat-button color="warn"
+            *ngIf="data.action=='Delete'">
+      Delete
+    </button>
+    <button mat-button mat-dialog-close>
+      Cancel
+    </button>
+  </div>
+</form>

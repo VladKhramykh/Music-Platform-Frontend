@@ -51,12 +51,12 @@ export class UsersService {
     }
   }
 
-  getUsers(sort: string, order: string, pageNum: number, pageSize: number, filterValue?: string): Observable<UsersData> {
-    let url = `${this.usersUrl}?sortOrder=${sort + order}&pageNum=${pageNum}&pageSize=${pageSize}`;
+  getUsersByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
+    let url = `${API.USERS}?pageNum=${pageNum}&pageSize=${pageSize}&userSort=${sort.toUpperCase()}`;
     if (filterValue) {
       url += `&searchName=${filterValue}`;
     }
-    return this.http.get<UsersData>(url);
+    return this.http.get<BaseResponseModel>(url, this.httpOptions);
   }
 
   addUser(user: UserCreateRequest): Observable<UserModel> {

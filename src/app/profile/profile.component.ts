@@ -8,6 +8,7 @@ import {CountryService} from '../../core/services/countries.service';
 import {AuthService} from '../../core/services/auth.service';
 import {SessionStorageService} from '../../core/services/session-storage.service';
 import {GenderService} from '../../core/services/gender.service';
+import {NotificationService} from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,8 @@ export class ProfileComponent implements OnInit {
     private titleService: Title,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private sessionStorageService: SessionStorageService) {
+    private sessionStorageService: SessionStorageService,
+    private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -109,12 +111,17 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.updatedUser).subscribe(
       data => {
         this.sessionStorageService.saveUser(data);
+        this.notificationService.openSnackBar("User updated");
+      },
+      error => {
+        this.notificationService.openSnackBar("Error")
       }
     );
   }
 
   fileChange(event) {
     this.userService.updatePhoto(event, this.user.id);
+    this.notificationService.openSnackBar("Photo updated");
   }
 
 

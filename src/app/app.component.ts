@@ -17,15 +17,15 @@ export class AppComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
-              private sessionStorageService: SessionStorageService,
               private authService: AuthService) {
     router.events.subscribe(val => {
       this.url = location.path();
     });
+    this.currentUser = this.authService.getUser();
   }
 
   ngOnInit() {
-    this.currentUser = this.sessionStorageService.getUser();
+
   }
 
   logout() {

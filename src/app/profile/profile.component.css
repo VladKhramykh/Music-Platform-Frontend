@@ -2,3 +2,10 @@
   max-width: 500px;
   max-height: 500px;
 }
+
+.photoInput {
+  padding: 2em;
+}
+mat-form-field {
+  padding: 1em;
+}

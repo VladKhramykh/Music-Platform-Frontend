@@ -8,18 +8,27 @@
   <mat-sidenav-container fullscreen>
     <mat-sidenav mode="side" #sidenav opened>
       <mat-toolbar-row>
-        <h4 *ngIf="isExpanded" [routerLink]="'/home'">Listen music</h4>
+        <h4 *ngIf="isExpanded" [routerLink]="'/home'" class="title">Music platform</h4>
       </mat-toolbar-row>
-      <mat-nav-list *ngIf="isExpanded">
-        <a mat-list-item [routerLink]="'/home'"> Listen music</a>
-        <a *ngIf="currentUser != null" mat-list-item [routerLink]="'/home'"> My playlists</a>
-        <a mat-list-item [routerLink]="'/podcasts'"> Podcasts </a>
-        <a mat-list-item [routerLink]="'/favourite'"> List of favourite music </a>
-        <a mat-list-item [routerLink]="'/new-releases'"> New releases </a>
-        <a mat-list-item [routerLink]="'/charts'"> Charts </a>
-        <a *ngIf="currentUser != null" mat-list-item [routerLink]="'/profile'"> Profile </a>
-        <a *ngIf="currentUser != null && currentUser.roles.includes('USER')" mat-list-item [routerLink]="'/admin-menu'"> Admin menu </a>
-        <a *ngIf="currentUser != null" mat-list-item (click)="logout()"> Logout </a>
+      <mat-nav-list *ngIf="isExpanded" fxLayout="column" fxLayoutAlign="space-between none">
+        <div>
+          <mat-divider></mat-divider>
+          <a class="link" mat-list-item [routerLink]="'/home'"> Listen music</a>
+          <mat-divider></mat-divider>
+          <a class="link" *ngIf="currentUser != null" mat-list-item [routerLink]="'/favourite'"> List of favourite music </a>
+          <mat-divider></mat-divider>
+          <a class="link" *ngIf="currentUser != null" mat-list-item [routerLink]="'/profile'"> Profile </a>
+          <mat-divider></mat-divider>
+          <a class="link" *ngIf="currentUser != null && currentUser.roles.includes('ADMIN')" mat-list-item
+             [routerLink]="'/admin-menu'">
+            Admin menu
+          </a>
+          <mat-divider></mat-divider>
+        </div>
+        <div>
+          <a *ngIf="currentUser != null" mat-list-item (click)="logout()"> Logout </a>
+          <mat-divider></mat-divider>
+        </div>
       </mat-nav-list>
       <mat-nav-list *ngIf="!isExpanded">
         <mat-list-item>
@@ -50,7 +59,7 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar fxLayout="row">
+      <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
         <button mat-icon-button (click)="sidenav.toggle(); isExpanded = !isExpanded">
           <mat-icon>menu</mat-icon>
         </button>

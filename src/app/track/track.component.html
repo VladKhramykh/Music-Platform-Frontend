@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="audioCard">
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
     <mat-card-title>{{ track.name }}</mat-card-title>
@@ -9,9 +9,7 @@
     {{ track.description }}
   </mat-card-content>
   <mat-card-actions fxLayoutAlign="space-around center">
-
     <app-track-control class="play-icon" [track]="track"></app-track-control>
-
     <mat-icon mat-mini-fab [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
               *ngIf="currentUser != null"
               (click)="likeButtonClickHandler(track.id)">favorite

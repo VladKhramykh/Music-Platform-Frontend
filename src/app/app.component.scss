@@ -1,14 +1,14 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-//mat-sidenav {
-//  width: 300px;
-//  padding: 30px;
-//  color: #fafafa;
-//}
+mat-sidenav {
+  width: 300px;
+  padding: 30px;
+  color: #fafafa;
+}
 
-//.mat-drawer {
-//  background-color: #023075;
-//  color: #fff
-//}
+.mat-drawer {
+  background-color: #023075;
+  color: #fff
+}
 
 .main-content {
   padding: 50px;
@@ -30,3 +30,15 @@ app-player {
   margin-left: 150px;
 }
 
+mat-divider {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.link {
+  color: #bebebe !important;
+}
+
+.title {
+
+}

@@ -1,6 +1,6 @@
 <div>
   <input type="text" placeholder="Search Artist" class="search-input" #searchInput/>
-  <mat-list class="search-result" *ngIf="searchResults.length > 0 && isResultDisplaying">
+  <mat-list class="mat-elevation-z3 search-result" *ngIf="searchResults.length > 0 && isResultDisplaying">
     <mat-list-item class="search-result-item" role="listitem" *ngFor="let artist of searchResults">
       <a (click)="onResultClick()" [routerLink]="['/artist/'+artist.id]">
         {{ artist.name }}

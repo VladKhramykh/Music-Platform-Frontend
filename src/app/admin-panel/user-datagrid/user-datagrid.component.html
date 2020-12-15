@@ -1,0 +1,107 @@
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <button
+      mat-button
+      mat-flat-button
+      color="primary"
+      (click)="openDialog({action: 'Add', item: null})"
+    >
+      Add new
+    </button>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-icon class="search-icon">search</mat-icon>
+      <mat-form-field>
+        <input
+          #input
+          matInput
+          (keyup)="applyFilter($event)"
+        />
+
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <div class="table-responsive">
+      <mat-table
+        matSort
+        matSortActive="email"
+        matSortDisableClear
+        matSortDirection="desc"
+        [dataSource]="users"
+        #mytable
+      >
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
+          <mat-cell *matCellDef="let element"><b>{{ element.email }}</b></mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>firstName</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>lastName</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="birthday">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>birthday</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.birthday | date:'dd-MM-yyyy' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="roles">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>roles</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+            <p *ngFor="let role of element.roles"><b>{{ role }}</b><br/></p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>gender</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.gender }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="country">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>country</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.country }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="password">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>password</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.hashPassword }}</mat-cell>
+        </ng-container>
+
+        <!--        <ng-container matColumnDef="countOfLikes">-->
+        <!--          <mat-header-cell *matHeaderCellDef mat-sort-header>Liked by users</mat-header-cell>-->
+        <!--          <mat-cell *matCellDef="let element">{{ element.countOfLikes }}</mat-cell>-->
+        <!--        </ng-container>-->
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell class="right-mat-cell" *matCellDef="let element">
+            <a mat-button color="accent" (click)="openDialog({action: 'Update', item: element})">Edit</a>
+            |
+            <a mat-button color="accent" (click)="openDialog({action: 'Delete', item: element})">Delete</a>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            No data
+          </td>
+        </tr>
+      </mat-table>
+    </div>
+    <mat-paginator
+      [length]="resultsLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 15, 20]"
+      (page)="pageSize = $event.pageSize"
+    ></mat-paginator>
+  </div>
+</div>

@@ -6,6 +6,11 @@
 .author {
   color: #888888;
   font-weight: initial;
+  padding: 0 0.4em;
+}
+
+.trackName {
+  padding: 0 0.4em;
 }
 
 .mat-icon {
@@ -20,4 +25,9 @@
 .trackTitle {
   padding-left: 2em;
   padding-right: 2em;
+}
+
+.close {
+  position: absolute;
+  right: 0;
 }
