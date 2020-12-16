@@ -1,12 +1,11 @@
-<mat-card class="audioCard">
+<mat-card [style]="this.styleForCardImage" class="audioCard">
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>{{ track.name }}</mat-card-title>
+    <mat-card-title><p>{{ track.name }}</p></mat-card-title>
     <mat-card-subtitle><p *ngFor="let artist of track.artists">{{ artist.name }} </p></mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image class="mat-card-image" [src]="'http://localhost:8081/img/tracks/'+track.photoUri">
   <mat-card-content>
-    {{ track.description }}
+    <p>{{ track.description }}</p>
   </mat-card-content>
   <mat-card-actions fxLayoutAlign="space-around center">
     <app-track-control class="play-icon" [track]="track"></app-track-control>
@@ -16,6 +15,6 @@
     </mat-icon>
   </mat-card-actions>
   <mat-card-footer class-="releaseDate">
-    {{ track.releaseDate | date: 'dd/MM/yyyy' }}
+    <p>{{ track.releaseDate | date: 'dd/MM/yyyy' }}</p>
   </mat-card-footer>
 </mat-card>

@@ -88,22 +88,27 @@ export class TrackDialogboxComponent implements OnInit {
   }
 
   submit(): void {
-    this.trackForm.controls.artists.setValue(this.selectedArtists.map(x => x.id));
-    this.trackForm.controls.categories.setValue(this.selectedCategories.map(x => x.id));
+    if(this.data.action == 'Delete') {
+      this.dialogRef.close({action: this.data.action, item: this.trackForm.value});
+    } else {
+      this.trackForm.controls.artists.setValue(this.selectedArtists.map(x => x.id));
+      this.trackForm.controls.categories.setValue(this.selectedCategories.map(x => x.id));
 
-    if (this.data.item) {
-      this.formData.append('id', this.trackForm.controls.id.value);
+      if (this.data.item) {
+        this.formData.append('id', this.trackForm.controls.id.value);
+      }
+      this.formData.append('name', this.trackForm.get('name').value);
+      this.formData.append('type', this.trackForm.get('type').value);
+      this.formData.append('description', this.trackForm.get('description').value);
+      this.formData.append('album', this.trackForm.get('album').value.id);
+      this.formData.append('trackText', 'Some text of track');
+      this.formData.append('categories', this.trackForm.get('categories').value);
+      this.formData.append('releaseDate', this.trackForm.get('releaseDate').value.toISOString());
+      this.formData.append('artists', this.trackForm.get('artists').value);
+
+      this.dialogRef.close({action: this.data.action, item: this.formData});
     }
-    this.formData.append('name', this.trackForm.get('name').value);
-    this.formData.append('type', this.trackForm.get('type').value);
-    this.formData.append('description', this.trackForm.get('description').value);
-    this.formData.append('album', this.trackForm.get('album').value.id);
-    this.formData.append('trackText', 'lakjfglaksjg;lkjsdjglkaglksd');
-    this.formData.append('categories', this.trackForm.get('categories').value);
-    this.formData.append('releaseDate', this.trackForm.get('releaseDate').value.toISOString());
-    this.formData.append('artists', this.trackForm.get('artists').value);
 
-    this.dialogRef.close({action: this.data.action, item: this.formData});
   }
 
   removeArtist(artist: Artist): void {

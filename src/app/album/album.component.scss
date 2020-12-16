@@ -13,6 +13,7 @@
   color: gray;
   cursor: pointer;
 }
+
 .play-icon {
   margin-left: 2rem;
   margin-right: 2rem;
@@ -22,4 +23,35 @@
 .play-icon:hover {
   color: #555555;
   transition: .1s;
+}
+
+.albumCard {
+  position: relative;
+  overflow: hidden;
+  max-width: 15em;
+  max-height: 23em;
+  color: white;
+  height: auto;
+  width: auto;
+  background-repeat: no-repeat;
+  //background-attachment: fixed;
+  //background-size: cover;
+  background-size: 100% 100%;
+  opacity: 0.8;
+  transition: .3s;
+
+  p {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.albumCard:hover {
+  opacity: 1;
+  transition: .3s;
+}
+
+div.clip {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

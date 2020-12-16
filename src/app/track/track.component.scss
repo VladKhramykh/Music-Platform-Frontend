@@ -1,12 +1,28 @@
-//.card {
-//  max-width: 300px;
-//  max-height: 500px;
-//}
-
 .audioCard {
-    max-width: 15em;
-    max-height: 25em;
+  max-width: 15em;
+  max-height: 23em;
+  color: white;
+  height: auto;
+  width: auto;
+  background-repeat: no-repeat;
+  //background-attachment: fixed;
+  //background-size: cover;
+
+  background-size: 100% 100%;
+  opacity: 0.8;
+  transition: .3s;
+
+  p {
+    opacity: 1;
+  }
 }
+
+.audioCard:hover {
+  opacity: 1;
+  transition: .3s;
+  cursor: pointer;
+}
+
 
 .header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
@@ -33,6 +49,7 @@
   color: gray;
   cursor: pointer;
 }
+
 .play-icon {
   cursor: pointer;
 }

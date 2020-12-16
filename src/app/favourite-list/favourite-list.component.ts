@@ -61,17 +61,18 @@ export class FavouriteListComponent implements OnInit {
   }
 
   likeButtonClickHandler(track: Track) {
-    if (track.likes.includes(this.currentUser)) {
-      this.removeFromFavouriteList(track);
-    } else {
-      this.addToFavouriteList(track);
-    }
+    // if (track.likes.findIndex(x => x.id === this.currentUser.id) != -1) {
+    this.removeFromFavouriteList(track);
+    this.tracks.splice(this.tracks.indexOf(track), 1);
+    // } else {
+    //   this.addToFavouriteList(track);
+    // }
   }
 
   removeFromFavouriteList(track: Track) {
     this.userService.dislikeTrack(track.id).subscribe(
       data => {
-        this.notificationService.openSnackBar('This track removed to your favourite list of tracks');
+        this.notificationService.openSnackBar('This track removed from your favourite list of tracks');
       },
       error => {
         this.notificationService.openSnackBar('Error');

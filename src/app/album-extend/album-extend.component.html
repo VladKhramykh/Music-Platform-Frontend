@@ -1,1 +1,42 @@
-<p>album-extend works!</p>
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="start none">
+    <div class="imageAlbum">
+      <img [src]="this.albumPhotoUri"/>
+    </div>
+    <div fxLayout="column" class="descClass">
+      <div class="albumName">{{ album.name }}</div>
+      <div fxLayout="row">
+        <div class="artistName" *ngFor="let artist of album.artists">
+          <a class="author" [routerLink]="'/artist/'+artist.id">
+            {{ artist.name }}
+          </a>
+        </div>
+      </div>
+      <div fxLayout="row" class="description">
+        <div><p>Likes: {{ album.likes.length }}</p><br/></div>
+        <div><p>Release date: {{ album.releaseDate | date: "dd/MM/yyyy" }}</p></div>
+      </div>
+      <div>{{ album.description }}</div>
+    </div>
+  </div>
+  <div>
+    <mat-list>
+      <h3>Tracks</h3>
+      <mat-list-item class="mat-list-item"
+                     *ngFor="let track of tracks"
+      >
+        <app-track-control class="mat-icon" [track]="track" [playList]="tracks"></app-track-control>
+        <div class="trackTitle" fxLayoutAlign="space-around center">
+          <span class="trackName">{{track.name}}</span>-
+          <a class="author"
+             *ngFor="let artist of track.artists"
+             [routerLink]="'/artist/'+artist.id"
+          > {{artist.name}}
+          </a>
+        </div>
+        <mat-icon class="close" (click)="likeButtonClickHandler(track)">close</mat-icon>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

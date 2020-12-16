@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PlayerService } from 'src/app/shared/player.service';
 import { Subscription } from 'rxjs';
+import {Track} from '../../shared/models/track.model';
 
 @Component({
   selector: 'app-track-control',
@@ -12,7 +13,9 @@ export class TrackControlComponent implements OnInit, OnDestroy {
   playSub: Subscription;
   endedSub: Subscription;
   @Input()
-  public track: any;
+  public track: Track;
+  @Input()
+  public playList: Track[];
 
   constructor(private playerService: PlayerService) {
     this.playSub = playerService.playTrack$.subscribe(track => {

@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   getUser(): UserModel {
-    const currentUser = (this.sessionService.getUser() ? this.sessionService.getUser() : null) ?? this.globals.user;
+    const currentUser = this.sessionService.getUser() ? this.sessionService.getUser() : this.globals.user;
     return currentUser;
   }
 

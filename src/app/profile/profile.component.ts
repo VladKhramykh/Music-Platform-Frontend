@@ -8,7 +8,8 @@ import {CountryService} from '../../core/services/countries.service';
 import {AuthService} from '../../core/services/auth.service';
 import {SessionStorageService} from '../../core/services/session-storage.service';
 import {GenderService} from '../../core/services/gender.service';
-import {NotificationService} from "../../core/services/notification.service";
+import {NotificationService} from '../../core/services/notification.service';
+import {Globals} from '../shared/globals';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   user: UserModel;
   hide: boolean;
   dateOfBirth: string;
+  profilePhotoUri: string;
 
   constructor(
     private userService: UsersService,
@@ -33,12 +35,18 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private sessionStorageService: SessionStorageService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    private globals: Globals) {
   }
 
   ngOnInit(): void {
     this.titleService.setTitle('Profile');
     this.user = this.authService.getUser();
+    if (this.user.photoUri != null) {
+      this.profilePhotoUri = 'http://localhost:8081/img/users/' + this.user.photoUri;
+    } else {
+      this.profilePhotoUri = '/assets/static/no_photo_profile.jpg';
+    }
     this.createForm();
   }
 
@@ -59,7 +67,7 @@ export class ProfileComponent implements OnInit {
       lastName: new FormControl(this.user.lastName, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
       birthday: new FormControl(new Date(this.user.birthday).toISOString().substring(0, 10), [Validators.required]),
-      photoUri: new FormControl(this.user.photoUri),
+      photoUri: new FormControl(this.profilePhotoUri),
       profilePhoto: new FormControl(),
       country: new FormControl(this.user.country, [Validators.required]),
       gender: new FormControl(this.user.gender, [Validators.required]),
@@ -111,17 +119,17 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.updatedUser).subscribe(
       data => {
         this.sessionStorageService.saveUser(data);
-        this.notificationService.openSnackBar("User updated");
+        this.notificationService.openSnackBar('User updated');
       },
       error => {
-        this.notificationService.openSnackBar("Error")
+        this.notificationService.openSnackBar('Error');
       }
     );
   }
 
   fileChange(event) {
     this.userService.updatePhoto(event, this.user.id);
-    this.notificationService.openSnackBar("Photo updated");
+    this.notificationService.openSnackBar('Photo updated');
   }
 
 

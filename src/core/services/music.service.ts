@@ -60,8 +60,8 @@ export class MusicService {
     return this.http.get<BaseResponseModel>(`${API.TRACK}?artistId=${id}&pageSize=${pageSize}&pageNum=${pageNum}&trackSort=NAME_ASC`, this.httpOptions);
   }
 
-  getTracksByAlbumId(id: number) {
-    return this.http.get<BaseResponseModel>(`${API.TRACK}/album?albumId=${id}&trackSort=ID_ASC`, this.httpOptions);
+  getTracksByAlbumId(id: number): Observable<Track[]> {
+    return this.http.get<Track[]>(`${API.TRACK}/album?albumId=${id}&trackSort=ID_ASC`, this.httpOptions);
   }
 
   addCategory(category: Category): Observable<Category> {
@@ -142,5 +142,9 @@ export class MusicService {
 
   getFavouriteAlbums(albumPageNum: number, albumPageSize: number, sort: string) {
     return this.http.get<BaseResponseModel>(`${API.ALBUM}/favourite?pageNum=${albumPageNum}&pageSize=${albumPageSize}&albumSort=${sort}`, this.httpOptions);
+  }
+
+  getAlbumById(id: number): Observable<Album> {
+    return this.http.get<Album>(`${API.ALBUM}/${id}`, this.httpOptions);
   }
 }

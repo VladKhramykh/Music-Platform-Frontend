@@ -1,0 +1,59 @@
+.mat-list-item {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.author {
+  color: #888888;
+  font-weight: initial;
+  padding: 0 0.4em;
+}
+
+.trackName {
+  padding: 0 0.4em;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+
+.mat-icon:hover {
+  color: #555555;
+  transition: .1s;
+}
+
+.trackTitle {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+}
+
+.imageAlbum {
+  background-size: 100%;
+}
+
+.albumName {
+  font-size: xxx-large;
+  font-weight: normal;
+}
+
+.artistName {
+  font-size: large;
+  color: #616161;
+}
+
+.description div {
+  font-size: large;
+  padding: 1em 0em;
+}
+
+.descClass {
+  padding-left: 5em;
+}
+
+
+

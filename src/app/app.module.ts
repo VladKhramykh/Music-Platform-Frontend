@@ -59,7 +59,6 @@ import {AuthGuard} from "../core/guards/auth.guard";
 import {AuthInterceptor} from "../core/interceptors/auth.interceptor";
 import {LoaderInterceptor} from "../core/interceptors/loader.interceptor";
 import {ErrorInterceptor} from "../core/interceptors/error.interceptor";
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { UserDatagridComponent } from './admin-panel/user-datagrid/user-datagrid.component';
 import { UserDialogboxComponent } from './admin-panel/user-dialogbox/user-dialogbox.component';
 
@@ -126,8 +125,7 @@ import { UserDialogboxComponent } from './admin-panel/user-dialogbox/user-dialog
     MatPaginatorModule,
     MatDialogModule,
     MatChipsModule,
-    NgxMatFileInputModule,
-    NgxAudioPlayerModule
+    NgxMatFileInputModule
   ],
   exports: [
     MatFormFieldModule,

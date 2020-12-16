@@ -17,17 +17,14 @@ export class AlbumComponent implements OnInit {
   artistId: string;
   isLiked: boolean;
   currentUser: UserModel;
+  trackPhotoUri: string;
+  styleForCardImage: string;
 
   @Input()
   set albumProp(album: Album) {
     this.album = album;
   }
 
-  displayedColumns: string[] = [
-    'artworkUrl60',
-    'collectionName',
-    'releaseDate',
-  ];
 
   constructor(
     private usersService: UsersService,
@@ -41,6 +38,15 @@ export class AlbumComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.authService.getUser();
     this.isLiked = this.album.likes.findIndex(u => this.currentUser.id === u.id) != -1;
+    if (this.album.photoUri == null || this.album.photoUri.length == 0) {
+      this.styleForCardImage = 'background-image: url(\'/assets/static/imposter.png\');';
+    } else {
+      this.styleForCardImage = 'background-image: url(\'http://localhost:8081/img/albums/' + this.album.photoUri + '\');';
+    }
+    this.styleForCardImage += '' +
+      'color: white;' +
+      'height: auto' +
+      'width: auto';
   }
 
 
@@ -70,5 +76,9 @@ export class AlbumComponent implements OnInit {
         this.notificationService.openSnackBar('Error');
       }
     );
+  }
+
+  goToAlbum() {
+    this.router.navigate(['/album/' + this.album.id]);
   }
 }

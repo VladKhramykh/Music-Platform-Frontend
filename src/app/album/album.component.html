@@ -1,20 +1,19 @@
-<mat-card class="album-card" matRipple>
-  <mat-card-header class="album-header">
-    <mat-card-title class="album-title">{{album.name}}</mat-card-title>
-    <mat-card-subtitle>{{album.type}}</mat-card-subtitle>
+<mat-card [style]="this.styleForCardImage" class="albumCard">
+  <mat-card-header>
+    <mat-card-title>{{album.name}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <img [src]="album.photoUri" width="100%" class="responsive-image">
+    <p *ngFor="let artist of album.artists">{{ artist.name }} </p>
+    <div class="clip">{{ album.description }}</div>
   </mat-card-content>
-  <mat-card-actions>
-    <mat-icon mat-mini-fab [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
-              *ngIf="currentUser != null"
-              (click)="likeButtonClickHandler(album.id)">favorite
+  <mat-card-actions fxLayoutAlign="space-around center">
+    <mat-icon *ngIf="currentUser != null"
+              [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
+              (click)="likeButtonClickHandler(album.id)"
+    >favorite
     </mat-icon>
+    <button mat-raised-button (click)="goToAlbum()">Info</button>
   </mat-card-actions>
-  <mat-card-footer>
-    {{ album.releaseDate | date: "dd/MM/yyyy" }}
-  </mat-card-footer>
 
 </mat-card>
 

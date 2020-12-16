@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(username, password).subscribe(
       data => {
-        console.log(data);
         this.sessionStorage.saveToken(data.token);
         this.sessionStorage.saveUser(data.user);
         this.globals.user = data.user;
@@ -64,7 +63,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       err => {
-        this.notificationService.openSnackBar("");
+        this.notificationService.openSnackBar("Something went wrong");
         this.loading = false;
       }
     );

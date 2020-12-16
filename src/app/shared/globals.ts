@@ -5,5 +5,10 @@ import {UserModel} from './models/user.model';
 export class Globals {
   user: UserModel;
   token: string;
-  uploadUri: 'http://localhost:8081/img/tracks/';
+  uploadTrackUri: 'http://localhost:8081/img/tracks/';
+  static: {
+    notPhotoProfileUrl: '/assets/static/no_photo_profile.jpg',
+    notPhotoTrackUrl: '/assets/static/imposter.png',
+    notPhotoTrackAlbum: '/assets/static/imposter.png',
+  }
 }
