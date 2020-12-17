@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Profile');
     this.user = this.authService.getUser();
-    if (this.user.photoUri != null) {
+    if (this.user.photoUri != null && this.user.photoUri.length != 0) {
       this.profilePhotoUri = 'http://localhost:8081/img/users/' + this.user.photoUri;
     } else {
       this.profilePhotoUri = '/assets/static/no_photo_profile.jpg';

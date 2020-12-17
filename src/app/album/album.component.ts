@@ -43,10 +43,6 @@ export class AlbumComponent implements OnInit {
     } else {
       this.styleForCardImage = 'background-image: url(\'http://localhost:8081/img/albums/' + this.album.photoUri + '\');';
     }
-    this.styleForCardImage += '' +
-      'color: white;' +
-      'height: auto' +
-      'width: auto';
   }
 
 

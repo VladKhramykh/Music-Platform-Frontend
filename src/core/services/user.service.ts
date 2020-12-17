@@ -10,6 +10,7 @@ import {UserModel} from '../../app/shared/models/user.model';
 import {BaseResponseModel} from '../../app/shared/models/base-response.model';
 import {RequestOptions} from '@angular/http';
 import {AuthService} from "./auth.service";
+import {SessionStorageService} from "./session-storage.service";
 
 const API = {
   ALBUM: 'http://localhost:8081/api/albums',
@@ -32,7 +33,8 @@ export class UsersService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private sessionStorageService: SessionStorageService) {
     this.user = this.authService.getUser();
   }
 
@@ -46,7 +48,11 @@ export class UsersService {
       this.http.post(`${API.USERS}/photo`, formData)
         .subscribe(
           data => console.log('success'),
-          error => console.log(error)
+          error => {
+            this.user = this.sessionStorageService.getUser();
+            this.user.photoUri = error.error.text
+            this.sessionStorageService.saveUser(this.user);
+          }
         );
     }
   }

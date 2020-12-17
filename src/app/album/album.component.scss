@@ -1,5 +1,4 @@
 .likeButton:hover {
-  color: #212121;
   transition: .2s;
   cursor: pointer;
 }
@@ -8,9 +7,18 @@
   color: #f34521;
   cursor: pointer;
 }
+.likedButton:hover {
+  color: darkred;
+  cursor: pointer;
+}
 
 .notLikedButton {
-  color: gray;
+  color: #bebebe;
+  cursor: pointer;
+}
+
+.notLikedButton:hover {
+  color: #888888;
   cursor: pointer;
 }
 
@@ -21,14 +29,13 @@
 }
 
 .play-icon:hover {
-  color: #555555;
+  color: #bebebe;
   transition: .1s;
 }
 
 .albumCard {
-  position: relative;
   overflow: hidden;
-  max-width: 15em;
+  max-width: 20em;
   max-height: 23em;
   color: white;
   height: auto;
@@ -39,11 +46,6 @@
   background-size: 100% 100%;
   opacity: 0.8;
   transition: .3s;
-
-  p {
-    position: relative;
-    z-index: 2;
-  }
 }
 
 .albumCard:hover {
@@ -54,4 +56,19 @@
 div.clip {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.actions {
+  padding: 1em;
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
+}
+
+.header {
+  margin: -1.2em !important;
+  padding: 2em 3em;
+  background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+.fab {
+  background-color: #bebebe;
 }

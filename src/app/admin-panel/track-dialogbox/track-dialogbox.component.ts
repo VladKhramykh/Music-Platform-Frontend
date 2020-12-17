@@ -69,7 +69,7 @@ export class TrackDialogboxComponent implements OnInit {
     this.trackForm = this.formBuilder.group({
       id: [this.data.item ? this.data.item.id : null, []],
       name: [this.data.item ? this.data.item.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(254)]],
       type: [this.data.item ? this.data.item.type : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       categories: [this.data.item ? (this.selectedCategories = this.data.item.categories) : [], [Validators.required]],
       releaseDate: [this.data.item ? new Date(this.data.item.releaseDate).toISOString().substring(0, 10) : '', [Validators.required]],

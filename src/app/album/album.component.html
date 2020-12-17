@@ -1,19 +1,24 @@
 <mat-card [style]="this.styleForCardImage" class="albumCard">
-  <mat-card-header>
+  <mat-card-header class="header" fxLayout="column">
     <mat-card-title>{{album.name}}</mat-card-title>
+    <p *ngFor="let artist of album.artists">{{ artist.name }} </p>
   </mat-card-header>
   <mat-card-content>
-    <p *ngFor="let artist of album.artists">{{ artist.name }} </p>
-    <div class="clip">{{ album.description }}</div>
+
   </mat-card-content>
-  <mat-card-actions fxLayoutAlign="space-around center">
-    <mat-icon *ngIf="currentUser != null"
+  <mat-card-actions>
+
+  </mat-card-actions>
+  <mat-card-footer class="actions" fxLayoutAlign="space-around center">
+    <mat-icon class="action" *ngIf="currentUser != null"
               [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
               (click)="likeButtonClickHandler(album.id)"
     >favorite
     </mat-icon>
-    <button mat-raised-button (click)="goToAlbum()">Info</button>
-  </mat-card-actions>
+    <button class="action fab" mat-fab>
+      <mat-icon (click)="goToAlbum()">reorder</mat-icon>
+    </button>
+  </mat-card-footer>
 
 </mat-card>
 

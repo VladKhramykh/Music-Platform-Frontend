@@ -48,7 +48,9 @@
 
 .description div {
   font-size: large;
-  padding: 1em 0em;
+  padding-top: 1em;
+  padding-right: 1em;
+
 }
 
 .descClass {

@@ -60,7 +60,6 @@ export class AlbumExtendComponent implements OnInit {
   likeButtonClickHandler(track: Track) {
     if (track.likes.findIndex(x => x.id === this.currentUser.id) != -1) {
       this.removeFromFavouriteList(track);
-      this.tracks.splice(this.tracks.indexOf(track), 1);
     } else {
       this.addToFavouriteList(track);
     }

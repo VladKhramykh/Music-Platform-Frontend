@@ -22,7 +22,7 @@ export class ArtistDialogboxComponent implements OnInit {
     this.artistForm = this.formBuilder.group({
       id: [this.data.item ? this.data.item.id : null, []],
       name: [this.data.item ? this.data.item.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(254)]],
       createdDate: [this.data.item ? new Date(this.data.item.createdDate).toISOString(): '', [Validators.required]],
     });
   }

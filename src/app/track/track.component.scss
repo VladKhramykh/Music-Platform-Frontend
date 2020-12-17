@@ -35,7 +35,6 @@
 }
 
 .likeButton:hover {
-  color: #212121;
   transition: .2s;
   cursor: pointer;
 }
@@ -45,8 +44,18 @@
   cursor: pointer;
 }
 
+.likedButton:hover {
+  color: darkred;
+  cursor: pointer;
+}
+
 .notLikedButton {
-  color: gray;
+  color: #bebebe;
+  cursor: pointer;
+}
+
+.notLikedButton:hover {
+  color: #888888;
   cursor: pointer;
 }
 
@@ -64,6 +73,21 @@
   font-style: italic;
   color: #555555;
   font-weight: initial;
+}
+
+.actions {
+  padding: 1em;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+
+.header {
+  margin: -1.2em;
+  padding: 1em;
+  background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+
+  p {
+    color: #bebebe;
+  }
 }
 
 
