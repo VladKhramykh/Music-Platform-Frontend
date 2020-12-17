@@ -9,15 +9,14 @@
   <mat-card-actions>
 
   </mat-card-actions>
-  <mat-card-footer class="actions" fxLayoutAlign="space-around center">
+  <mat-card-footer class="actions" fxLayoutAlign="space-around start">
     <mat-icon class="action" *ngIf="currentUser != null"
               [ngClass]="(isLiked)?'likeButton likedButton':'likeButton notLikedButton'"
               (click)="likeButtonClickHandler(album.id)"
     >favorite
     </mat-icon>
-    <button class="action fab" mat-fab>
-      <mat-icon (click)="goToAlbum()">reorder</mat-icon>
-    </button>
+    <mat-icon class="action" (click)="goToAlbum()">reorder</mat-icon>
+
   </mat-card-footer>
 
 </mat-card>

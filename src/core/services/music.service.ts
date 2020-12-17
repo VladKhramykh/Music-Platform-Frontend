@@ -120,8 +120,8 @@ export class MusicService {
     return this.http.post(`${API.TRACK}`, track);
   }
 
-  updateTrack(track: Track): Observable<Track> {
-    return this.http.put<Track>(`${API.TRACK}`, track, this.httpOptionsMultipartForm);
+  updateTrack(track: FormData): Observable<Track> {
+    return this.http.put<Track>(`${API.TRACK}`, track);
   }
 
   deleteTrack(id: number): Observable<Track> {

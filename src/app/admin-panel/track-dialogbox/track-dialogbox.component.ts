@@ -103,7 +103,7 @@ export class TrackDialogboxComponent implements OnInit {
       this.formData.append('album', this.trackForm.get('album').value.id);
       this.formData.append('trackText', 'Some text of track');
       this.formData.append('categories', this.trackForm.get('categories').value);
-      this.formData.append('releaseDate', this.trackForm.get('releaseDate').value.toISOString());
+      this.formData.append('releaseDate', this.trackForm.get('releaseDate').value);
       this.formData.append('artists', this.trackForm.get('artists').value);
 
       this.dialogRef.close({action: this.data.action, item: this.formData});

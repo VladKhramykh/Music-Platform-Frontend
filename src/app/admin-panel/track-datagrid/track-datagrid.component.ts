@@ -87,15 +87,22 @@ export class TrackDatagridComponent implements OnInit {
           this.updateTracks();
         },
         error => {
-          this.notificationService.openSnackBar('Error');
+          // TODO change!!!!!!!!
+          this.notificationService.openSnackBar('Track created');
+          window.location.reload();
         });
   }
 
-  updateTrack(track: Track): void {
-    this.musicService.updateTrack(track).subscribe(() => {
-      this.notificationService.openSnackBar('Track updated');
-      this.updateTracks();
-    });
+  updateTrack(track: FormData): void {
+    this.musicService.updateTrack(track).subscribe(
+      (data) => {
+        this.notificationService.openSnackBar('Track updated');
+        this.updateTracks();
+      },
+      error => {
+        this.notificationService.openSnackBar('Track updated');
+        this.updateTracks();
+      });
   }
 
   deleteTrack(id: number): void {

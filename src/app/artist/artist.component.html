@@ -1,12 +1,13 @@
 <ng-container>
-  <p>Albums</p>
-  <div fxLayout="row">
-    <app-album *ngFor="let album of albums" [albumProp]="album"></app-album>
+  <div>
+    <h2>Albums</h2>
+    <div fxLayout="row">
+      <app-album *ngFor="let album of albums" [albumProp]="album"></app-album>
+    </div>
   </div>
-
   <mat-divider></mat-divider>
   <div>
-    <p>Tracks</p>
+    <h2>Tracks</h2>
     <mat-grid-list cols="6" rowHeight="2:3">
       <mat-grid-tile *ngFor="let track of tracks">
         <app-track [trackProp]="track"></app-track>

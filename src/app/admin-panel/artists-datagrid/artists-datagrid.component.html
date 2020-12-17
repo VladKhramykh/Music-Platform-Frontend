@@ -42,12 +42,12 @@
         </ng-container>
 
         <ng-container matColumnDef="createdDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Artist from</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>created</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.createdDate | date:'dd-MM-yyyy' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="deleted">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Deleted</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>deleted</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.deleted }}</mat-cell>
         </ng-container>
 

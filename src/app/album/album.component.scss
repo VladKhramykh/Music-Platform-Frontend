@@ -35,17 +35,26 @@
 
 .albumCard {
   overflow: hidden;
-  max-width: 20em;
-  max-height: 23em;
   color: white;
+  max-width: 15em;
+  max-height: 23em;
   height: auto;
   width: auto;
+  padding: 0;
   background-repeat: no-repeat;
   //background-attachment: fixed;
   //background-size: cover;
   background-size: 100% 100%;
   opacity: 0.8;
   transition: .3s;
+
+  mat-card-header {
+    color: antiquewhite;
+    p {
+      color: whitesmoke;
+    }
+
+  }
 }
 
 .albumCard:hover {
@@ -59,6 +68,7 @@ div.clip {
 }
 
 .actions {
+  margin: 0;
   padding: 1em;
   background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
 }
@@ -67,8 +77,4 @@ div.clip {
   margin: -1.2em !important;
   padding: 2em 3em;
   background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
-}
-
-.fab {
-  background-color: #bebebe;
 }

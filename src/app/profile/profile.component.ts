@@ -90,19 +90,22 @@ export class ProfileComponent implements OnInit {
     const password = this.profileForm.get('password').value;
     const password_conf = this.profileForm.get('password_conf').value;
 
-    console.log(birthDay);
+    if (password.trim().length > 0) {
+      if (password === password_conf) {
+        this.updatedUser = {
+          id: parseInt(id, 10),
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          birthday: birthDay,
+          country: country,
+          gender: gender,
+          password: password
+        };
+      } else {
+        this.notificationService.openSnackBar('Passwords do not match');
+      }
 
-    if (password.trim().length > 0 && (password === password_conf)) {
-      this.updatedUser = {
-        id: parseInt(id, 10),
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        birthday: birthDay,
-        country: country,
-        gender: gender,
-        password: password
-      };
     } else if (password.trim().length === 0 && password_conf.trim().length === 0) {
       this.updatedUser = {
         id: parseInt(id, 10),
