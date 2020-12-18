@@ -100,7 +100,7 @@ export class ProfileComponent implements OnInit {
           birthday: birthDay,
           country: country,
           gender: gender,
-          password: password
+          password: password,
         };
       } else {
         this.notificationService.openSnackBar('Passwords do not match');

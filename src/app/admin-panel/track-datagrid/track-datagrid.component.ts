@@ -82,14 +82,17 @@ export class TrackDatagridComponent implements OnInit {
   addTrack(formData: FormData): void {
     this.musicService.addTrack(formData)
       .subscribe(
-        () => {
+        (data) => {
+          console.log(data);
           this.notificationService.openSnackBar('Track created');
           this.updateTracks();
         },
         error => {
           // TODO change!!!!!!!!
+          console.log(error);
           this.notificationService.openSnackBar('Track created');
-          window.location.reload();
+          this.updateTracks();
+          // window.location.reload();
         });
   }
 

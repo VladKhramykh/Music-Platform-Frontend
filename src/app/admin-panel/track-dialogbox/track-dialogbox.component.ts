@@ -74,7 +74,7 @@ export class TrackDialogboxComponent implements OnInit {
       categories: [this.data.item ? (this.selectedCategories = this.data.item.categories) : [], [Validators.required]],
       releaseDate: [this.data.item ? new Date(this.data.item.releaseDate).toISOString().substring(0, 10) : '', [Validators.required]],
       artists: [this.data.item ? (this.selectedArtists = this.data.item.artists) : [], [Validators.required]],
-      album: [this.data.item ? (this.selectedAlbum = this.data.item.album) : {}, [Validators.required]],
+      album: [this.data.item ? (this.selectedAlbum = this.data.item.album) : null,[]],
       track: [this.data.item ? this.data.item.trackUri : ''],
       trackFile: new FormControl(),
       photoFile: new FormControl()
@@ -88,7 +88,7 @@ export class TrackDialogboxComponent implements OnInit {
   }
 
   submit(): void {
-    if(this.data.action == 'Delete') {
+    if (this.data.action == 'Delete') {
       this.dialogRef.close({action: this.data.action, item: this.trackForm.value});
     } else {
       this.trackForm.controls.artists.setValue(this.selectedArtists.map(x => x.id));
@@ -100,14 +100,15 @@ export class TrackDialogboxComponent implements OnInit {
       this.formData.append('name', this.trackForm.get('name').value);
       this.formData.append('type', this.trackForm.get('type').value);
       this.formData.append('description', this.trackForm.get('description').value);
-      this.formData.append('album', this.trackForm.get('album').value.id);
+      this.formData.append('album', this.trackForm.get('album').value ? this.trackForm.get('album').value.id : 0);
       this.formData.append('trackText', 'Some text of track');
       this.formData.append('categories', this.trackForm.get('categories').value);
-      this.formData.append('releaseDate', this.trackForm.get('releaseDate').value);
+      this.formData.append('releaseDate', new Date(this.trackForm.get('releaseDate').value).toISOString());
       this.formData.append('artists', this.trackForm.get('artists').value);
 
       this.dialogRef.close({action: this.data.action, item: this.formData});
     }
+
 
   }
 
@@ -143,14 +144,16 @@ export class TrackDialogboxComponent implements OnInit {
       this.musicService.getAlbumsByArtistId(item.id).subscribe(
         data => {
           data.forEach(i => {
-            this.albums.push(i);
+            if (!this.albums.includes(i)) {
+              this.albums.push(i);
+            }
           });
         }
       );
     });
   }
 
-  trackFileChange(event): void{
+  trackFileChange(event): void {
     const fileList: FileList = event.target.files;
     console.log(fileList[0]);
     this.formData.append('trackFile', fileList[0]);

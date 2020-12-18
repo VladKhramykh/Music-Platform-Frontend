@@ -10,7 +10,6 @@ export class Track {
   description: string;
   photoUri: string;
   trackUri: string;
-  published: boolean;
   releaseDate: number;
   album: Album;
   trackText: string;
