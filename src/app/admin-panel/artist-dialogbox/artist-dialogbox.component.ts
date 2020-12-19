@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ArtistDialogData} from '../../shared/models/utils/artist-dialog-data.model';
 
@@ -11,11 +11,13 @@ import {ArtistDialogData} from '../../shared/models/utils/artist-dialog-data.mod
 export class ArtistDialogboxComponent implements OnInit {
 
   artistForm: FormGroup;
+  formData: FormData = new FormData();
 
   constructor(
     private dialogRef: MatDialogRef<ArtistDialogboxComponent>,
     private formBuilder: FormBuilder,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: ArtistDialogData) {
+    @Optional() @Inject(MAT_DIALOG_DATA) public data
+  ) {
   }
 
   ngOnInit(): void {
@@ -23,12 +25,27 @@ export class ArtistDialogboxComponent implements OnInit {
       id: [this.data.item ? this.data.item.id : null, []],
       name: [this.data.item ? this.data.item.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
-      createdDate: [this.data.item ? new Date(this.data.item.createdDate).toISOString(): '', [Validators.required]],
+      createdDate: [this.data.item ? new Date(this.data.item.createdDate).toISOString() : '', [Validators.required]],
+      photo: [this.data.item ? this.data.item.photoUri : '',[]],
+      photoFile: new FormControl()
     });
   }
 
   submit(): void {
-    this.dialogRef.close({action: this.data.action, item: this.artistForm.value});
+    if (this.data.item) {
+      this.formData.append('id', this.artistForm.controls.id.value);
+    }
+    this.formData.append('name', this.artistForm.get('name').value);
+    this.formData.append('description', this.artistForm.get('description').value);
+    this.formData.append('createdDate', new Date(this.artistForm.get('createdDate').value).toISOString());
+
+    this.dialogRef.close({action: this.data.action, item: this.formData});
+  }
+
+  photoFileChange(event): void {
+    const fileList: FileList = event.target.files;
+    this.artistForm.controls.photo.setValue(fileList[0].name);
+    this.formData.append('photoFile', fileList[0]);
   }
 
 }

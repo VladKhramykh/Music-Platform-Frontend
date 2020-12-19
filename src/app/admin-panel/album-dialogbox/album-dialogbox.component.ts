@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, OnInit, Optional, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlbumDialogData} from '../../shared/models/utils/album-dialog-data.model';
 import {Artist} from '../../shared/models/artist.model';
@@ -25,13 +25,16 @@ export class AlbumDialogboxComponent implements OnInit {
   availableArtists: Artist[] = [];
   types: string[];
 
+  formData: FormData = new FormData();
+
+
   @ViewChild('artistInput') artistInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
     private dialogRef: MatDialogRef<AlbumDialogboxComponent>,
     private formBuilder: FormBuilder,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: AlbumDialogData,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data,
     private musicService: MusicService
   ) {
   }
@@ -55,6 +58,8 @@ export class AlbumDialogboxComponent implements OnInit {
       type: [this.data.item ? this.data.item.type : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       releaseDate: [this.data.item ? new Date(this.data.item.releaseDate).toISOString().substring(0, 10) : '', [Validators.required]],
       artists: [this.data.item ? (this.selectedArtists = this.data.item.artists) : [], [Validators.required]],
+      photo: [this.data.item ? this.data.item.photoUri : '',[]],
+      photoFile: new FormControl()
     });
     this.filteredArtists = this.albumForm.controls['artists'].valueChanges.pipe(
       startWith(null),
@@ -63,9 +68,24 @@ export class AlbumDialogboxComponent implements OnInit {
 
   submit(): void {
     this.albumForm.controls['artists'].setValue(this.selectedArtists.map(x => x.id));
-    this.dialogRef.close({action: this.data.action, item: this.albumForm.value});
+
+    if (this.data.item) {
+      this.formData.append('id', this.albumForm.controls.id.value);
+    }
+    this.formData.append('name', this.albumForm.get('name').value);
+    this.formData.append('type', this.albumForm.get('type').value);
+    this.formData.append('description', this.albumForm.get('description').value);
+    this.formData.append('releaseDate', new Date(this.albumForm.get('releaseDate').value).toISOString());
+    this.formData.append('artists', this.albumForm.get('artists').value);
+
+    this.dialogRef.close({action: this.data.action, item: this.formData});
   }
 
+  photoFileChange(event): void {
+    const fileList: FileList = event.target.files;
+    this.albumForm.controls.photo.setValue(fileList[0].name);
+    this.formData.append('photoFile', fileList[0]);
+  }
 
   add(event): void {
     const value = event.value;

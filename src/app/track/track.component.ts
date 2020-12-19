@@ -19,6 +19,7 @@ export class TrackComponent implements OnInit {
   isLiked: boolean;
   trackPhotoUri: string;
   styleForCardImage: string;
+  styleForCardHeaderImage: string;
 
   @Input()
   set trackProp(track: Track) {
@@ -39,6 +40,11 @@ export class TrackComponent implements OnInit {
       this.styleForCardImage = "background-image: url('/assets/static/imposter.png');";
     } else {
       this.styleForCardImage = "background-image: url('http://localhost:8081/img/tracks/" + this.track.photoUri + "');";
+    }
+    if(this.track.artists[0].photoUri == null) {
+      this.styleForCardHeaderImage = "background-image: url('/assets/static/imposter.png');";
+    } else {
+      this.styleForCardHeaderImage = "background-image: url('http://localhost:8081/img/artists/" + this.track.artists[0].photoUri + "');";
     }
   }
 

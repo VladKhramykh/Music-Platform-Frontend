@@ -41,7 +41,7 @@ export class AlbumComponent implements OnInit {
     if (this.album.photoUri == null || this.album.photoUri.length == 0) {
       this.styleForCardImage = 'background-image: url(\'/assets/static/imposter.png\');';
     } else {
-      this.styleForCardImage = 'background-image: url(\'http://localhost:8081/img/albums/' + this.album.photoUri + '\');';
+      this.styleForCardImage = `background-image: url(\'http://localhost:8081/img/albums/${this.album.photoUri}\');`;
     }
   }
 

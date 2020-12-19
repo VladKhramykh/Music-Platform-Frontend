@@ -5,7 +5,7 @@
                  fxLayoutAlign.lt-md="center center"
                  *ngIf="favouriteAlbums.length !== 0"
   >
-    <h3>Favourite albums</h3>
+    <h2 class="title">Favourite albums</h2>
     <mat-grid-tile
       [colspan]="1"
       *ngFor="let lastAlbum of favouriteAlbums"
@@ -17,7 +17,7 @@
     </mat-grid-tile>
   </mat-grid-list>
   <mat-list>
-    <h3>Favourite tracks</h3>
+    <h2 class="title">Favourite tracks</h2>
     <mat-list-item class="mat-list-item"
                    *ngFor="let track of tracks"
     >

@@ -19,10 +19,11 @@ export class ArtistComponent implements OnInit {
   artistId: number;
   tracks: Track[] = [];
   albums: Album[] = [];
+  breakpoint: number;
 
   pageSize = 1;
   pageNum = 0;
-  pageSizeOptions: number[] = [1, 2, 10, 100];
+  pageSizeOptions: number[] = [10, 20, 25];
   pageEvent: PageEvent;
   countOfTracks: number;
 
@@ -31,6 +32,7 @@ export class ArtistComponent implements OnInit {
               private router: ActivatedRoute,
               private authService: AuthService
   ) {
+    this.breakpoint = (window.innerWidth <= 800) ? 1 : 6;
   }
 
   ngOnInit() {
@@ -62,12 +64,6 @@ export class ArtistComponent implements OnInit {
     );
   }
 
-  getTracksByAlbum(albumId: number) {
-    this.musicService.getTracksByAlbumId(albumId).subscribe(data => {
-
-    });
-  }
-
   getAlbums() {
     this.musicService.getAlbumsByArtistId(this.artistId).subscribe(data => {
       this.albums = data;
@@ -79,5 +75,11 @@ export class ArtistComponent implements OnInit {
       this.tracks = data.content;
       this.countOfTracks = data.totalElements;
     });
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 800) ? 1 : 6;
+    this.breakpoint = (event.target.innerWidth > 800 && event.target.innerWidth <= 1000) ? 4 : 1;
+    this.breakpoint = (event.target.innerWidth > 1000) ? 6 : 4;
   }
 }

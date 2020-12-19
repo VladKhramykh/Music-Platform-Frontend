@@ -80,6 +80,22 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <div class="mat-form-field">
+        <mat-label>Photo file</mat-label>
+        <div fxLayout="column" fxLayoutAlign="space-between center">
+          <div class="example-2">
+            <div class="form-group">
+              <input type="file" name="file" id="photoFile" class="input-file" (change)="photoFileChange($event)"
+                     formControlName="photoFile"
+                     accept=".jpg,.png">
+              <label for="photoFile" class="btn btn-tertiary js-labelFile">
+                <i class="icon fa fa-check"></i>
+                <span class="js-fileName"> {{ this.albumForm.controls.photo.value || 'Upload photo file' }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <ng-template #elseTemplate>
       Are you sure? <br/>

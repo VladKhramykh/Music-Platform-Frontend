@@ -33,7 +33,8 @@
 }
 
 .imageAlbum {
-  background-size: 100%;
+  background-size: cover;
+  max-width: 20em;
 }
 
 .albumName {
@@ -50,7 +51,6 @@
   font-size: large;
   padding-top: 1em;
   padding-right: 1em;
-
 }
 
 .descClass {

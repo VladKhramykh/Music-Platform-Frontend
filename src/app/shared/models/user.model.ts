@@ -9,5 +9,5 @@ export interface UserModel {
   photoUri: string,
   gender: string,
   country: string,
-  roles: []
+  roles: string[]
 }

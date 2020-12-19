@@ -1,11 +1,11 @@
-<div class="main-container" fxLayout="column" (window:resize)="onResize($event)">
+<div fxLayout="column" (window:resize)="onResize($event)">
 
   <mat-grid-list [cols]="breakpoint" fxLayout="row"
                  rowHeight="2:3"
                  fxLayout.lt-md="column"
                  fxLayoutAlign.lt-md="center center"
   >
-    <h1>New albums</h1>
+    <h1 class="title">New albums</h1>
     <mat-grid-tile
       [colspan]="1"
       *ngFor="let lastAlbum of lastAlbums"
@@ -17,13 +17,12 @@
     </mat-grid-tile>
   </mat-grid-list>
 
+  <h1 class="title">New tracks</h1>
   <mat-grid-list [cols]="breakpoint" fxLayout="row"
                  rowHeight="2:3"
                  fxLayout.lt-md="column"
                  fxLayoutAlign.lt-md="center center"
   >
-    <h1>New tracks</h1>
-
     <mat-grid-tile
       [colspan]="1"
       *ngFor="let lastOne of lastReleases"

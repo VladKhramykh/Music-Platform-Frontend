@@ -1,22 +1,63 @@
-<ng-container>
-  <div>
-    <h2>Albums</h2>
-    <div fxLayout="row">
-      <app-album *ngFor="let album of albums" [albumProp]="album"></app-album>
-    </div>
-  </div>
-  <mat-divider></mat-divider>
-  <div>
-    <h2>Tracks</h2>
-    <mat-grid-list cols="6" rowHeight="2:3">
-      <mat-grid-tile *ngFor="let track of tracks">
-        <app-track [trackProp]="track"></app-track>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+<div fxLayout="column" (window:resize)="onResize($event)">
+  <mat-grid-list [cols]="breakpoint"
+                 rowHeight="2:3"
+                 fxLayout.lt-md="column"
+                 fxLayoutAlign.lt-md="center center">
+    <mat-grid-tile
+      [colspan]="breakpoint"
+    >
+      <div fxLayout="row" fxLayoutAlign="start none" class="titleDev">
+        <div>
+          <img class="imageAlbum" [src]="'http://localhost:8081/img/artists/' + this.artist.photoUri"/>
+        </div>
+        <div fxLayout="column" class="descClass">
+          <div class="albumName">{{ artist.name }}</div>
+          <div fxLayout="row" class="description">
+            <div><p>Likes: {{ artist.likes.length }}</p><br/></div>
+            <div><p>Release date: {{ artist.createdDate | date: "dd/MM/yyyy" }}</p></div>
+          </div>
+          <div>{{ artist.description }}</div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list [cols]="breakpoint" fxLayout="row"
+                 rowHeight="2:3"
+                 fxLayout.lt-md="column"
+                 fxLayoutAlign.lt-md="center center"
+  >
+    <mat-grid-tile
+      [colspan]="1"
+      *ngFor="let lastAlbum of albums"
+    >
+      <app-album [albumProp]="lastAlbum"
+                 [ngStyle.lt-md]="{width: '100%', padding: '10px'}"
+                 [ngStyle.gt-xs]="{height: '100%', paddingLeft: '10%', paddingRight: '10%'}"
+      ></app-album>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list [cols]="breakpoint" fxLayout="row"
+                 rowHeight="2:3"
+                 fxLayout.lt-md="column"
+                 fxLayoutAlign.lt-md="center center"
+  >
+    <h1 class="title">Tracks</h1>
+
+    <mat-grid-tile
+      [colspan]="1"
+      *ngFor="let lastOne of tracks"
+    >
+      <app-track [trackProp]="lastOne"
+                 [ngStyle.lt-md]="{width: '100%', padding: '10px'}"
+                 [ngStyle.gt-xs]="{height: '100%', paddingLeft: '10%', paddingRight: '10%'}"
+      ></app-track>
+    </mat-grid-tile>
+  </mat-grid-list>
   <mat-paginator [length]="countOfTracks"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="pageSizeOptions"
                  (page)="getLastTracks($event)">
   </mat-paginator>
-</ng-container>
+</div>
+

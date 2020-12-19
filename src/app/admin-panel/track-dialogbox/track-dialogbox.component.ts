@@ -74,11 +74,13 @@ export class TrackDialogboxComponent implements OnInit {
       categories: [this.data.item ? (this.selectedCategories = this.data.item.categories) : [], [Validators.required]],
       releaseDate: [this.data.item ? new Date(this.data.item.releaseDate).toISOString().substring(0, 10) : '', [Validators.required]],
       artists: [this.data.item ? (this.selectedArtists = this.data.item.artists) : [], [Validators.required]],
-      album: [this.data.item ? (this.selectedAlbum = this.data.item.album) : null,[]],
+      album: [this.data.item ? (this.selectedAlbum = this.data.item.album) : null, []],
       track: [this.data.item ? this.data.item.trackUri : ''],
+      photo: [this.data.item ? this.data.item.photoUri : ''],
       trackFile: new FormControl(),
       photoFile: new FormControl()
     });
+
     this.filteredArtists = this.trackForm.controls.artists.valueChanges.pipe(
       startWith(null),
       map((artistName: string | null) => artistName ? this._filterArtists(artistName) : this.availableArtists.slice()));
@@ -155,12 +157,13 @@ export class TrackDialogboxComponent implements OnInit {
 
   trackFileChange(event): void {
     const fileList: FileList = event.target.files;
-    console.log(fileList[0]);
+    this.trackForm.controls.track.setValue(fileList[0].name);
     this.formData.append('trackFile', fileList[0]);
   }
 
   photoFileChange(event): void {
     const fileList: FileList = event.target.files;
+    this.trackForm.controls.photo.setValue(fileList[0].name);
     this.formData.append('photoFile', fileList[0]);
   }
 

@@ -76,24 +76,24 @@ export class MusicService {
     return this.http.delete<Category>(`${API.CATEGORIES}/${id}`, this.httpOptions);
   }
 
-  addArtist(artist: Artist): Observable<Artist> {
-    return this.http.post<Artist>(`${API.ARTIST}`, artist, this.httpOptions);
+  addArtist(artist: FormData) {
+    return this.http.post<Artist>(`${API.ARTIST}`, artist);
   }
 
-  updateArtist(artist: Artist): Observable<Artist> {
-    return this.http.put<Artist>(`${API.ARTIST}`, artist, this.httpOptions);
+  updateArtist(artist: FormData) {
+    return this.http.put<Artist>(`${API.ARTIST}`, artist);
   }
 
   deleteArtist(id: number): Observable<Artist> {
     return this.http.delete<Artist>(`${API.ARTIST}/${id}`, this.httpOptions);
   }
 
-  addAlbum(album: Album): Observable<Album> {
-    return this.http.post<Album>(`${API.ALBUM}`, album, this.httpOptions);
+  addAlbum(album: FormData) {
+    return this.http.post<Album>(`${API.ALBUM}`, album);
   }
 
-  updateAlbum(album: Album): Observable<Album> {
-    return this.http.put<Album>(`${API.ALBUM}`, album, this.httpOptions);
+  updateAlbum(album: FormData) {
+    return this.http.put<Album>(`${API.ALBUM}`, album);
   }
 
   deleteAlbum(id: number): Observable<Album> {

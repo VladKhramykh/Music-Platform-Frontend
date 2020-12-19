@@ -129,25 +129,24 @@
                      accept=".mp3,.wav">
               <label for="file" class="btn btn-tertiary js-labelFile">
                 <i class="icon fa fa-check"></i>
-                <span class="js-fileName"> {{ this.trackForm.controls.trackFile.originalName || 'Upload file' }}</span>
+                <span class="js-fileName"> {{ this.trackForm.controls.track.value || 'Upload track file' }}</span>
               </label>
             </div>
           </div>
         </div>
       </div>
       <div class="mat-form-field">
-        <label>Photo file</label>
+        <mat-label>Photo file</mat-label>
         <div fxLayout="column" fxLayoutAlign="space-between center">
-          <div>
-            <!--              <div>-->
-            <!--                <img class="profile-image"-->
-            <!--                     [src]="'http://localhost:8081/img/users/'+this.user.photoUri"-->
-            <!--                     alt="photo"/>-->
-            <!--              </div>-->
-            <div>
-              <input type="file" (change)="photoFileChange($event)" formControlName="photoFile"
-                     placeholder="Upload photo"
-                     accept=".png,.jpg">
+          <div class="example-2">
+            <div class="form-group">
+              <input type="file" name="file" id="photoFile" class="input-file" (change)="photoFileChange($event)"
+                     formControlName="photoFile"
+                     accept=".jpg,.png">
+              <label for="photoFile" class="btn btn-tertiary js-labelFile">
+                <i class="icon fa fa-check"></i>
+                <span class="js-fileName"> {{ this.trackForm.controls.photo.value || 'Upload photo file' }}</span>
+              </label>
             </div>
           </div>
         </div>

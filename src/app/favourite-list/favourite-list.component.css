@@ -22,6 +22,12 @@
   transition: .1s;
 }
 
+.title {
+  margin: 0;
+  padding: 0em 0em 2em 1em;
+}
+
+
 .trackTitle {
   padding-left: 2em;
   padding-right: 2em;

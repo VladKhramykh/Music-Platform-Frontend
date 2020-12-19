@@ -79,14 +79,14 @@ export class AlbumDatagridComponent implements OnInit {
     });
   }
 
-  addAlbum(album: Album): void {
+  addAlbum(album: FormData): void {
     this.musicService.addAlbum(album).subscribe(() => {
       this.notificationService.openSnackBar('Album created');
       this.updateAlbums();
     });
   }
 
-  updateAlbum(album: Album): void {
+  updateAlbum(album: FormData): void {
     this.musicService.updateAlbum(album).subscribe(() => {
       this.notificationService.openSnackBar('Album updated');
       this.updateAlbums();

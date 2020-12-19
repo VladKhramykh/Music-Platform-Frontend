@@ -78,14 +78,14 @@ export class ArtistsDatagridComponent implements OnInit {
     });
   }
 
-  addArtist(artist: Artist): void {
+  addArtist(artist: FormData): void {
     this.musicService.addArtist(artist).subscribe(() => {
       this.notificationService.openSnackBar('Artist created');
       this.updateArtists();
     });
   }
 
-  updateArtist(artist: Artist): void {
+  updateArtist(artist: FormData): void {
     this.musicService.updateArtist(artist).subscribe(() => {
       this.notificationService.openSnackBar('Artist updated');
       this.updateArtists();
