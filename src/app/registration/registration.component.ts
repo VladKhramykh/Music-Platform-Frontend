@@ -91,12 +91,11 @@ export class RegistrationComponent implements OnInit {
     console.log(this.dateOfBirth);
     this.usersService.addUser(this.user).subscribe(
       data => {
-        console.log(data);
-        // this.router.navigate(['/login']);
+        this.notificationService.openSnackBar('Please, check your entries');
       },
       err => {
         console.log(err);
-        this.notificationService.openSnackBar(err);
+        this.notificationService.openSnackBar('Please, check your entries');
         this.loading = false;
       }
     );

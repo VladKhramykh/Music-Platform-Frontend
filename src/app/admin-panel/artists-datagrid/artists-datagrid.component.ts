@@ -44,7 +44,7 @@ export class ArtistsDatagridComponent implements OnInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.musicService.getArtistsByPage(this.paginator.pageIndex, this.pageSize, filterValue, this.sort.active + '_' + this.sort.direction);
+          return this.musicService.getArtistsByNameAndPage(this.paginator.pageIndex, this.pageSize, filterValue, this.sort.active + '_' + this.sort.direction);
         }),
         map(result => {
           this.resultsLength = result.numberOfElements;

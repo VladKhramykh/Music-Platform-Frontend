@@ -6,6 +6,7 @@ import {NotificationService} from '../../core/services/notification.service';
 import {UserModel} from '../shared/models/user.model';
 import {AuthService} from '../../core/services/auth.service';
 import {Globals} from '../shared/globals';
+import {environment} from "../../environments/environment.prod";
 
 @Component({
   selector: 'app-track',
@@ -34,17 +35,19 @@ export class TrackComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.authService.getUser();
-    this.isLiked = this.track.likes.findIndex(u => this.currentUser.id === u.id) != -1;
+    if(this.authService.getUser()) {
+      this.currentUser = this.authService.getUser();
+      this.isLiked = this.track.likes.findIndex(u => this.currentUser.id === u.id) != -1;
+    }
     if(this.track.photoUri == null) {
       this.styleForCardImage = "background-image: url('/assets/static/imposter.png');";
     } else {
-      this.styleForCardImage = "background-image: url('http://localhost:8081/img/tracks/" + this.track.photoUri + "');";
+      this.styleForCardImage = `background-image: url('${environment.uploadUrl}img/tracks/${this.track.photoUri}');`;
     }
     if(this.track.artists[0].photoUri == null) {
       this.styleForCardHeaderImage = "background-image: url('/assets/static/imposter.png');";
     } else {
-      this.styleForCardHeaderImage = "background-image: url('http://localhost:8081/img/artists/" + this.track.artists[0].photoUri + "');";
+      this.styleForCardHeaderImage = `background-image: url('${environment.uploadUrl}img/artists/${this.track.artists[0].photoUri}');`;
     }
   }
 

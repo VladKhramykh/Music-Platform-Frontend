@@ -7,6 +7,8 @@ import {MusicService} from '../../core/services/music.service';
 import {Album} from '../shared/models/album.model';
 import {AuthService} from '../../core/services/auth.service';
 import {ActivatedRoute} from '@angular/router';
+import {Globals} from "../shared/globals";
+import {environment} from "../../environments/environment.prod";
 
 @Component({
   selector: 'app-album-extend',
@@ -20,13 +22,14 @@ export class AlbumExtendComponent implements OnInit {
   currentUser: UserModel;
   countOfTracks: number;
   albumPhotoUri: string;
+  globals: Globals;
 
   constructor(
     private userService: UsersService,
     private notificationService: NotificationService,
     private musicService: MusicService,
     private router: ActivatedRoute,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
   }
 
@@ -44,7 +47,7 @@ export class AlbumExtendComponent implements OnInit {
         if (this.album.photoUri == null || this.album.photoUri.length == 0) {
           this.albumPhotoUri = '/assets/static/imposter.png';
         } else {
-          this.albumPhotoUri = `http://localhost:8081/img/albums/${this.album.photoUri}`;
+          this.albumPhotoUri = `${environment.uploadUrl}img/albums/${this.album.photoUri}`;
         }
         this.currentUser = this.authService.getUser();
       }

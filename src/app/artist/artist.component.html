@@ -8,7 +8,7 @@
     >
       <div fxLayout="row" fxLayoutAlign="start none" class="titleDev">
         <div>
-          <img class="imageAlbum" [src]="'http://localhost:8081/img/artists/' + this.artist.photoUri"/>
+          <img class="imageAlbum" [src]="this.artistPhotoUri"/>
         </div>
         <div fxLayout="column" class="descClass">
           <div class="albumName">{{ artist.name }}</div>

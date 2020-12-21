@@ -60,14 +60,13 @@ export class LoginComponent implements OnInit {
         if (rememberMe) {
           localStorage.setItem('savedUsername', username);
         }
-        this.router.navigate(['/home']);
+        this.router.navigateByUrl('/home');
       },
       err => {
         this.notificationService.openSnackBar("Something went wrong");
         this.loading = false;
       }
     );
-
   }
 
   resetPassword() {

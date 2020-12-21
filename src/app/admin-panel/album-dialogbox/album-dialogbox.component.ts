@@ -40,7 +40,7 @@ export class AlbumDialogboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.musicService.getArtistsByPage(0, 100, '', 'NAME_ASC').subscribe(
+    this.musicService.getArtistsByNameAndPage(0, 100, '', 'NAME_ASC').subscribe(
       data => {
         this.availableArtists = data.content;
       }

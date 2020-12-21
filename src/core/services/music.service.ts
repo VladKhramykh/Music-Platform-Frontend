@@ -8,13 +8,20 @@ import {Category} from '../../app/shared/models/category.model';
 import {Album} from '../../app/shared/models/album.model';
 
 const API = {
-  SEARCH: 'https://itunes.apple.com/search',
-  LOOKUP: 'https://itunes.apple.com/lookup',
-  ALBUM: 'http://localhost:8081/api/albums',
-  TRACK: 'http://localhost:8081/api/tracks',
-  ARTIST: 'http://localhost:8081/api/artists',
-  CATEGORIES: 'http://localhost:8081/api/categories',
+  ALBUM: 'http://192.168.31.201:8081/api/albums',
+  TRACK: 'http://192.168.31.201:8081/api/tracks',
+  ARTIST: 'http://192.168.31.201:8081/api/artists',
+  CATEGORIES: 'http://192.168.31.201:8081/api/categories',
 };
+
+// const API = {
+//   SEARCH: 'https://itunes.apple.com/search',
+//   LOOKUP: 'https://itunes.apple.com/lookup',
+//   ALBUM: 'http://localhost:8081/api/albums',
+//   TRACK: 'http://localhost:8081/api/tracks',
+//   ARTIST: 'http://localhost:8081/api/artists',
+//   CATEGORIES: 'http://localhost:8081/api/categories',
+// };
 
 @Injectable({
   providedIn: 'root',
@@ -40,8 +47,8 @@ export class MusicService {
     return this.http.get<BaseResponseModel>(`${API.CATEGORIES}?pageNum=${pageNum}&pageSize=${pageSize}&categorySort=${sort.toUpperCase()}`, this.httpOptions);
   }
 
-  getArtistsByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
-    return this.http.get<BaseResponseModel>(`${API.ARTIST}?pageNum=${pageNum}&pageSize=${pageSize}&artistSort=${sort.toUpperCase()}`, this.httpOptions);
+  getArtistsByNameAndPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
+    return this.http.get<BaseResponseModel>(`${API.ARTIST}/search?pageNum=${pageNum}&pageSize=${pageSize}&artistSort=${sort.toUpperCase()}&name=${filterValue}`, this.httpOptions);
   }
 
   getAlbumsByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
@@ -106,6 +113,10 @@ export class MusicService {
 
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${API.CATEGORIES}/all`, this.httpOptions);
+  }
+
+  getCategoriesByName(categoryName: string): Observable<Category[]> {
+    return this.http.get<Category[]>(`${API.CATEGORIES}/all?categoryName=${categoryName}`, this.httpOptions);
   }
 
   getTracksByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {

@@ -1,11 +1,27 @@
-<div fxLayoutAlign="center center">
+<div fxLayoutAlign="center center" >
   <mat-icon>search</mat-icon>
-  <input type="text" placeholder="Search Artist" class="search-input" #searchInput/>
-  <mat-list class="mat-elevation-z3 search-result" *ngIf="searchResults.length > 0 && isResultDisplaying">
-    <mat-list-item class="search-result-item" role="listitem" *ngFor="let artist of searchResults">
-      <a (click)="onResultClick()" [routerLink]="['/artist/'+artist.id]">
-        {{ artist.name }}
-      </a>
-    </mat-list-item>
-  </mat-list>
+  <mat-form-field class="search-container">
+    <input type="text"
+           matInput
+           class="search-input"
+           [matAutocomplete]="auto"
+           #searchInput>
+    <mat-autocomplete #auto="matAutocomplete">
+      <div *ngIf="isResultDisplaying">
+        <mat-option *ngFor="let artist of searchResults">
+          <a (click)="onResultClick()" [routerLink]="['/artist/'+artist.id]">
+            {{ artist.name }}
+          </a>
+        </mat-option>
+      </div>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!--    <mat-list class="mat-elevation-z3 search-result" *ngIf="searchResults.length > 0 && isResultDisplaying">-->
+  <!--      <mat-list-item class="search-result-item" role="listitem" *ngFor="let artist of searchResults">-->
+  <!--&lt;!&ndash;        <a (click)="onResultClick()" [routerLink]="['/artist/'+artist.id]">&ndash;&gt;-->
+  <!--&lt;!&ndash;          {{ artist.name }}&ndash;&gt;-->
+  <!--&lt;!&ndash;        </a>&ndash;&gt;-->
+  <!--        <a>{{ artist }}</a>-->
+  <!--      </mat-list-item>-->
+  <!--    </mat-list>-->
 </div>

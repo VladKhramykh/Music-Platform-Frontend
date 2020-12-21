@@ -7,6 +7,8 @@ import {ActivatedRoute} from '@angular/router';
 import {UserModel} from '../shared/models/user.model';
 import {AuthService} from '../../core/services/auth.service';
 import {PageEvent} from "@angular/material/paginator";
+import {Globals} from "../shared/globals";
+import {environment} from "../../environments/environment.prod";
 
 @Component({
   selector: 'app-artist',
@@ -26,11 +28,13 @@ export class ArtistComponent implements OnInit {
   pageSizeOptions: number[] = [10, 20, 25];
   pageEvent: PageEvent;
   countOfTracks: number;
+  artistPhotoUri: string;
 
 
   constructor(private musicService: MusicService,
               private router: ActivatedRoute,
-              private authService: AuthService
+              private authService: AuthService,
+              private globals: Globals
   ) {
     this.breakpoint = (window.innerWidth <= 800) ? 1 : 6;
   }
@@ -59,6 +63,7 @@ export class ArtistComponent implements OnInit {
           likes: data.likes,
           photoUri: data.photoUri
         };
+        this.artistPhotoUri = `${environment.uploadUrl}img/artists/${this.artist.photoUri}`;
       },
       err => console.log(err)
     );

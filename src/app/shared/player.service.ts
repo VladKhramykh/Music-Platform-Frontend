@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {Globals} from "./globals";
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayerService {
-  constructor() {}
+  constructor(
+    private globals: Globals
+  ) {
+  }
 
   private playTrackSource = new Subject<string>();
   private pauseTrackSource = new Subject();
@@ -16,7 +21,7 @@ export class PlayerService {
   trackEnded$ = this.trackEndedSource.asObservable();
 
   playTrack(url: string) {
-    this.playTrackSource.next('http://localhost:8081/tracks/' + url);
+    this.playTrackSource.next(`${environment.uploadUrl}tracks/` + url);
   }
 
   pauseTrack() {

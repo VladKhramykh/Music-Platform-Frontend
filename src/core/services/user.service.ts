@@ -2,21 +2,25 @@ import {environment} from '../../environments/environment.prod';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-
-import {UsersData} from '../../app/shared/models/user-request.model';
 import {UserUpdateRequest} from '../../app/shared/models/user-update-request';
 import {UserCreateRequest} from '../../app/shared/models/user-create-request';
 import {UserModel} from '../../app/shared/models/user.model';
 import {BaseResponseModel} from '../../app/shared/models/base-response.model';
-import {RequestOptions} from '@angular/http';
 import {AuthService} from "./auth.service";
 import {SessionStorageService} from "./session-storage.service";
 
+// const API = {
+//   ALBUM: 'http://localhost:8081/api/albums',
+//   TRACK: 'http://localhost:8081/api/tracks',
+//   ARTIST: 'http://localhost:8081/api/artists',
+//   USERS: 'http://localhost:8081/api/users',
+// };
+
 const API = {
-  ALBUM: 'http://localhost:8081/api/albums',
-  TRACK: 'http://localhost:8081/api/tracks',
-  ARTIST: 'http://localhost:8081/api/artists',
-  USERS: 'http://localhost:8081/api/users',
+  ALBUM: 'http://192.168.31.201:8081/api/albums',
+  TRACK: 'http://192.168.31.201:8081/api/tracks',
+  ARTIST: 'http://192.168.31.201:8081/api/artists',
+  USERS: 'http://192.168.31.201:8081/api/users',
 };
 
 @Injectable({providedIn: 'root'})

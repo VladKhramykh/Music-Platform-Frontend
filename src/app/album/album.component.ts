@@ -5,6 +5,7 @@ import {UsersService} from '../../core/services/user.service';
 import {NotificationService} from '../../core/services/notification.service';
 import {UserModel} from '../shared/models/user.model';
 import {AuthService} from '../../core/services/auth.service';
+import {environment} from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-album',
@@ -36,12 +37,15 @@ export class AlbumComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.authService.getUser();
-    this.isLiked = this.album.likes.findIndex(u => this.currentUser.id === u.id) != -1;
+    if(this.authService.getUser()) {
+      this.currentUser = this.authService.getUser();
+      this.isLiked = this.album.likes.findIndex(u => this.currentUser.id === u.id) != -1;
+    }
     if (this.album.photoUri == null || this.album.photoUri.length == 0) {
       this.styleForCardImage = 'background-image: url(\'/assets/static/imposter.png\');';
     } else {
-      this.styleForCardImage = `background-image: url(\'http://localhost:8081/img/albums/${this.album.photoUri}\');`;
+      this.styleForCardImage = `background-image: url(\'${environment.uploadUrl}img/albums/${this.album.photoUri}\');`;
+
     }
   }
 

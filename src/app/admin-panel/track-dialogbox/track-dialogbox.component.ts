@@ -48,12 +48,6 @@ export class TrackDialogboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.musicService.getArtistsByPage(0, 10, '', 'NAME_ASC').subscribe(
-      data => {
-        this.availableArtists = data.content;
-      }
-    );
-
     this.musicService.getCategories().subscribe(
       data => {
         this.availableCategories = data;
@@ -80,6 +74,10 @@ export class TrackDialogboxComponent implements OnInit {
       trackFile: new FormControl(),
       photoFile: new FormControl()
     });
+
+    this.selectedArtists.forEach(artist => {
+      this.updateAlbums();
+    })
 
     this.filteredArtists = this.trackForm.controls.artists.valueChanges.pipe(
       startWith(null),
@@ -142,17 +140,19 @@ export class TrackDialogboxComponent implements OnInit {
 
   updateAlbums(): void {
     this.albums.splice(0, this.albums.length);
-    this.selectedArtists.forEach(item => {
-      this.musicService.getAlbumsByArtistId(item.id).subscribe(
-        data => {
-          data.forEach(i => {
-            if (!this.albums.includes(i)) {
-              this.albums.push(i);
-            }
-          });
-        }
-      );
-    });
+    if(this.selectedArtists.length != 0) {
+      this.selectedArtists.forEach(item => {
+        this.musicService.getAlbumsByArtistId(item.id).subscribe(
+          data => {
+            data.forEach(i => {
+              if (!this.albums.includes(i)) {
+                this.albums.push(i);
+              }
+            });
+          }
+        );
+      });
+    }
   }
 
   trackFileChange(event): void {
@@ -169,11 +169,21 @@ export class TrackDialogboxComponent implements OnInit {
 
   private _filterArtists(artistName: string): Artist[] {
     const filterValue = artistName;
+    this.musicService.getArtistsByNameAndPage(0, 1, artistName, 'NAME_ASC').subscribe(
+      data => {
+        this.availableArtists = data.content;
+      }
+    );
     return this.availableArtists.filter(artist => artist.name.includes(filterValue));
   }
 
   private _filterCategories(categoryName: string): Category[] {
     const filterValue = categoryName;
+    this.musicService.getCategoriesByName(categoryName).subscribe(
+      data => {
+        this.availableCategories = data;
+      }
+    );
     return this.availableCategories.filter(category => category.name.includes(filterValue));
   }
 

@@ -79,6 +79,7 @@
                 id="register"
                 color="primary"
                 type="button"
+                [disabled]="registrationForm.invalid"
                 (click)="save()"
         >
           Registration

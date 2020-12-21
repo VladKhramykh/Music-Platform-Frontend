@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
-import {SessionStorageService} from '../core/services/session-storage.service';
 import {UserModel} from './shared/models/user.model';
 import {AuthService} from '../core/services/auth.service';
 
@@ -21,16 +20,15 @@ export class AppComponent implements OnInit {
     router.events.subscribe(val => {
       this.url = location.path();
     });
-    this.currentUser = this.authService.getUser();
   }
 
   ngOnInit() {
-
+    this.currentUser = this.authService.getUser();
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
     window.location.reload();
   }
 }

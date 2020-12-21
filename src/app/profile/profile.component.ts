@@ -10,6 +10,7 @@ import {SessionStorageService} from '../../core/services/session-storage.service
 import {GenderService} from '../../core/services/gender.service';
 import {NotificationService} from '../../core/services/notification.service';
 import {Globals} from '../shared/globals';
+import {environment} from "../../environments/environment.prod";
 
 @Component({
   selector: 'app-profile',
@@ -43,7 +44,7 @@ export class ProfileComponent implements OnInit {
     this.titleService.setTitle('Profile');
     this.user = this.authService.getUser();
     if (this.user.photoUri != null && this.user.photoUri.length != 0) {
-      this.profilePhotoUri = 'http://localhost:8081/img/users/' + this.user.photoUri;
+      this.profilePhotoUri = `${environment.uploadUrl}img/users/` + this.user.photoUri;
     } else {
       this.profilePhotoUri = '/assets/static/no_photo_profile.jpg';
     }

@@ -6,7 +6,7 @@
       color="primary"
       (click)="openDialog({action: 'Add', item: null})"
     >
-     Add new
+      Add new
     </button>
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <mat-icon class="search-icon">search</mat-icon>
@@ -28,11 +28,12 @@
         matSortDisableClear
         matSortDirection="desc"
         [dataSource]="categories"
-        #mytable
       >
-       <ng-container matColumnDef="name">
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
-         <mat-cell *matCellDef="let element"><b>{{ element.name }}</b></mat-cell>
+          <mat-cell *matCellDef="let element"><b>{{ element.name }}</b></mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="description">
@@ -49,8 +50,6 @@
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" colspan="5">
