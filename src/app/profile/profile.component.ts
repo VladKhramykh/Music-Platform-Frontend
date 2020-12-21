@@ -36,8 +36,7 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private sessionStorageService: SessionStorageService,
-    private notificationService: NotificationService,
-    private globals: Globals) {
+    private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -54,11 +53,11 @@ export class ProfileComponent implements OnInit {
   createForm() {
 
     this.genderService.getGenders().subscribe(data => {
-      this.genders = data;
+      this.genders = data.sort();
     });
 
     this.countryService.getCountries().subscribe(data => {
-      this.countries = data;
+      this.countries = data.sort();
     });
 
     this.profileForm = this.formBuilder.group({

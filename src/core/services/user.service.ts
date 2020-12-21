@@ -6,21 +6,15 @@ import {UserUpdateRequest} from '../../app/shared/models/user-update-request';
 import {UserCreateRequest} from '../../app/shared/models/user-create-request';
 import {UserModel} from '../../app/shared/models/user.model';
 import {BaseResponseModel} from '../../app/shared/models/base-response.model';
-import {AuthService} from "./auth.service";
-import {SessionStorageService} from "./session-storage.service";
-
-// const API = {
-//   ALBUM: 'http://localhost:8081/api/albums',
-//   TRACK: 'http://localhost:8081/api/tracks',
-//   ARTIST: 'http://localhost:8081/api/artists',
-//   USERS: 'http://localhost:8081/api/users',
-// };
+import {AuthService} from './auth.service';
+import {SessionStorageService} from './session-storage.service';
 
 const API = {
-  ALBUM: 'http://192.168.31.201:8081/api/albums',
-  TRACK: 'http://192.168.31.201:8081/api/tracks',
-  ARTIST: 'http://192.168.31.201:8081/api/artists',
-  USERS: 'http://192.168.31.201:8081/api/users',
+  ALBUM: `${environment.apiEndpoint}albums`,
+  TRACK: `${environment.apiEndpoint}tracks`,
+  ARTIST: `${environment.apiEndpoint}artists`,
+  CATEGORIES: `${environment.apiEndpoint}categories`,
+  USERS: `${environment.apiEndpoint}users`,
 };
 
 @Injectable({providedIn: 'root'})
@@ -54,7 +48,7 @@ export class UsersService {
           data => console.log('success'),
           error => {
             this.user = this.sessionStorageService.getUser();
-            this.user.photoUri = error.error.text
+            this.user.photoUri = error.error.text;
             this.sessionStorageService.saveUser(this.user);
           }
         );
@@ -64,7 +58,7 @@ export class UsersService {
   getUsersByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
     let url = `${API.USERS}?pageNum=${pageNum}&pageSize=${pageSize}&userSort=${sort.toUpperCase()}`;
     if (filterValue) {
-      url += `&searchName=${filterValue}`;
+      url += `&filter=${filterValue}`;
     }
     return this.http.get<BaseResponseModel>(url, this.httpOptions);
   }
@@ -99,6 +93,6 @@ export class UsersService {
   }
 
   findArtistsByNameContains(param: string): Observable<BaseResponseModel> {
-    return this.http.get<any>(API.ARTIST + `/search?name=${param}&pageSize=7&pageNum=0&artistSort=NAME_ASC`, this.httpOptions);
+    return this.http.get<any>(API.ARTIST + `?filter=${param}&pageSize=7&pageNum=0&artistSort=NAME_ASC`, this.httpOptions);
   }
 }

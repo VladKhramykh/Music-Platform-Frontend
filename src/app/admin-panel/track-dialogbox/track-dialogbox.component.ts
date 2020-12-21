@@ -77,7 +77,7 @@ export class TrackDialogboxComponent implements OnInit {
 
     this.selectedArtists.forEach(artist => {
       this.updateAlbums();
-    })
+    });
 
     this.filteredArtists = this.trackForm.controls.artists.valueChanges.pipe(
       startWith(null),
@@ -140,7 +140,7 @@ export class TrackDialogboxComponent implements OnInit {
 
   updateAlbums(): void {
     this.albums.splice(0, this.albums.length);
-    if(this.selectedArtists.length != 0) {
+    if (this.selectedArtists.length != 0) {
       this.selectedArtists.forEach(item => {
         this.musicService.getAlbumsByArtistId(item.id).subscribe(
           data => {
@@ -169,7 +169,7 @@ export class TrackDialogboxComponent implements OnInit {
 
   private _filterArtists(artistName: string): Artist[] {
     const filterValue = artistName;
-    this.musicService.getArtistsByNameAndPage(0, 1, artistName, 'NAME_ASC').subscribe(
+    this.musicService.getArtistsByNameAndPage(0, 8, artistName, 'NAME_ASC').subscribe(
       data => {
         this.availableArtists = data.content;
       }

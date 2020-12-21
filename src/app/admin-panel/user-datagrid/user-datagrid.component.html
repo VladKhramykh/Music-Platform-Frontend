@@ -52,14 +52,14 @@
         </ng-container>
 
         <ng-container matColumnDef="roles">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>roles</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>roles</mat-header-cell>
           <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
             <p *ngFor="let role of element.roles"><b>{{ role }}</b><br/></p>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gender">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>gender</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>gender</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.gender }}</mat-cell>
         </ng-container>
 
@@ -69,7 +69,7 @@
         </ng-container>
 
         <ng-container matColumnDef="password">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>password</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>password</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.hashPassword }}</mat-cell>
         </ng-container>
 

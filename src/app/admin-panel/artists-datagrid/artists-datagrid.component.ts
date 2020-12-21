@@ -17,7 +17,7 @@ import {ArtistDialogboxComponent} from '../artist-dialogbox/artist-dialogbox.com
   styleUrls: ['./artists-datagrid.component.css']
 })
 export class ArtistsDatagridComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'description', 'createdDate', 'deleted', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'createdDate', 'action'];
   artists: Artist[] = [];
 
   resultsLength = 0;
@@ -36,7 +36,7 @@ export class ArtistsDatagridComponent implements OnInit {
 
   ngOnInit(): void {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.updateArtists();
+    this.updateArtists('');
   }
 
   updateArtists(filterValue?: string): void {

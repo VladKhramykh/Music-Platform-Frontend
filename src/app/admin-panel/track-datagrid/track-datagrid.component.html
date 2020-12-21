@@ -52,9 +52,7 @@
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef mat-sort-header>type</mat-header-cell>
           <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-            <p *ngIf="element.album != null">{{ element.album.name }}</p>
-            <p *ngIf="element.album == null">{{ element.type }} </p>
-            <!--            {{element.type}}-->
+            {{ element.type }}
           </mat-cell>
         </ng-container>
 
@@ -64,11 +62,6 @@
             <p *ngFor="let artist of element.artists"><b>{{ artist.name }}</b></p>
           </mat-cell>
         </ng-container>
-
-        <!--        <ng-container matColumnDef="album">-->
-        <!--          <mat-header-cell *matHeaderCellDef mat-sort-header>album</mat-header-cell>-->
-        <!--          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">{{ element.album.name }}</mat-cell>-->
-        <!--        </ng-container>-->
 
         <ng-container matColumnDef="categories">
           <mat-header-cell *matHeaderCellDef>category</mat-header-cell>
@@ -80,21 +73,9 @@
         <ng-container matColumnDef="album">
           <mat-header-cell *matHeaderCellDef>album</mat-header-cell>
           <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-            <p *ngFor="let album of element.albums"><b>{{ album.name }}</b><br/></p>
+            <p *ngIf="element.album != null">{{ element.album.name }}</p>
           </mat-cell>
         </ng-container>
-
-        <ng-container matColumnDef="track">
-          <mat-header-cell *matHeaderCellDef>track</mat-header-cell>
-          <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-            <p>track</p>
-          </mat-cell>
-        </ng-container>
-
-        <!--        <ng-container matColumnDef="countOfLikes">-->
-        <!--          <mat-header-cell *matHeaderCellDef mat-sort-header>Liked by users</mat-header-cell>-->
-        <!--          <mat-cell *matCellDef="let element">{{ element.countOfLikes }}</mat-cell>-->
-        <!--        </ng-container>-->
 
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>

@@ -89,7 +89,7 @@ export class CategoriesDatagridComponent implements OnInit {
   updateCategory(category: Category): void {
     console.log(category);
     this.musicService.updateCategory(category).subscribe(() => {
-      this.notificationService.openSnackBar('Artist updated');
+      this.notificationService.openSnackBar('Category updated');
       this.updateCategories();
     });
   }

@@ -55,8 +55,8 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       birthday: ['', [Validators.required]],
       photoUri: [''],
-      country: [[this.countries && this.countries.length > 0 ? this.countries[0] : [], [Validators.required]]],
-      gender: [[this.genders && this.genders.length > 0 ? this.genders[0] : [], [Validators.required]]],
+      country: [this.countries && this.countries.length > 0 ? this.countries[0] : [], [Validators.required]],
+      gender: [this.genders && this.genders.length > 0 ? this.genders[0] : [], [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
     });
     this.hide = true;
@@ -91,7 +91,10 @@ export class RegistrationComponent implements OnInit {
     console.log(this.dateOfBirth);
     this.usersService.addUser(this.user).subscribe(
       data => {
-        this.notificationService.openSnackBar('Please, check your entries');
+        this.notificationService.openSnackBar('Registration is successfully');
+        setTimeout(() => {
+          this.router.navigateByUrl('/login');
+        },1500);
       },
       err => {
         console.log(err);

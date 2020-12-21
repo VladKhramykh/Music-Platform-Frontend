@@ -6,22 +6,14 @@ import {Artist} from '../../app/shared/models/artist.model';
 import {Track} from '../../app/shared/models/track.model';
 import {Category} from '../../app/shared/models/category.model';
 import {Album} from '../../app/shared/models/album.model';
+import {environment} from '../../environments/environment.prod';
 
 const API = {
-  ALBUM: 'http://192.168.31.201:8081/api/albums',
-  TRACK: 'http://192.168.31.201:8081/api/tracks',
-  ARTIST: 'http://192.168.31.201:8081/api/artists',
-  CATEGORIES: 'http://192.168.31.201:8081/api/categories',
+  ALBUM: `${environment.apiEndpoint}albums`,
+  TRACK: `${environment.apiEndpoint}tracks`,
+  ARTIST: `${environment.apiEndpoint}artists`,
+  CATEGORIES: `${environment.apiEndpoint}categories`,
 };
-
-// const API = {
-//   SEARCH: 'https://itunes.apple.com/search',
-//   LOOKUP: 'https://itunes.apple.com/lookup',
-//   ALBUM: 'http://localhost:8081/api/albums',
-//   TRACK: 'http://localhost:8081/api/tracks',
-//   ARTIST: 'http://localhost:8081/api/artists',
-//   CATEGORIES: 'http://localhost:8081/api/categories',
-// };
 
 @Injectable({
   providedIn: 'root',
@@ -44,19 +36,27 @@ export class MusicService {
   }
 
   getCategoriesByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
-    return this.http.get<BaseResponseModel>(`${API.CATEGORIES}?pageNum=${pageNum}&pageSize=${pageSize}&categorySort=${sort.toUpperCase()}`, this.httpOptions);
+    if (filterValue != null) {
+      return this.http.get<BaseResponseModel>(`${API.CATEGORIES}?pageNum=${pageNum}&pageSize=${pageSize}&filter=${filterValue}&categorySort=${sort.toUpperCase()}`, this.httpOptions);
+    } else {
+      return this.http.get<BaseResponseModel>(`${API.CATEGORIES}?pageNum=${pageNum}&pageSize=${pageSize}&categorySort=${sort.toUpperCase()}`, this.httpOptions);
+    }
   }
 
   getArtistsByNameAndPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
-    return this.http.get<BaseResponseModel>(`${API.ARTIST}/search?pageNum=${pageNum}&pageSize=${pageSize}&artistSort=${sort.toUpperCase()}&name=${filterValue}`, this.httpOptions);
+    let url = `${API.ARTIST}?pageNum=${pageNum}&pageSize=${pageSize}&artistSort=${sort.toUpperCase()}`;
+    if (filterValue != null) {
+      url += `&filter=${filterValue}`;
+    }
+    return this.http.get<BaseResponseModel>(url, this.httpOptions);
   }
 
   getAlbumsByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
-    return this.http.get<BaseResponseModel>(`${API.ALBUM}?pageNum=${pageNum}&pageSize=${pageSize}&albumSort=${sort.toUpperCase()}`, this.httpOptions);
-  }
-
-  getTrackById(id: number): Observable<Track> {
-    return this.http.get<Track>(`${API.TRACK}/${id}`, this.httpOptions);
+    let url = `${API.ALBUM}?pageNum=${pageNum}&pageSize=${pageSize}&albumSort=${sort.toUpperCase()}`;
+    if (filterValue != null) {
+      url += ` &filter=${filterValue}`;
+    }
+    return this.http.get<BaseResponseModel>(url, this.httpOptions);
   }
 
   getAlbumsByArtistId(id: number) {
@@ -120,7 +120,12 @@ export class MusicService {
   }
 
   getTracksByPage(pageNum: number, pageSize: number, filterValue: string, sort: string): Observable<BaseResponseModel> {
-    return this.http.get<BaseResponseModel>(`${API.TRACK}?pageNum=${pageNum}&pageSize=${pageSize}&trackSort=${sort.toUpperCase()}`, this.httpOptions);
+
+    let url = `${API.TRACK}?pageNum=${pageNum}&pageSize=${pageSize}&trackSort=${sort.toUpperCase()}`;
+    if (filterValue != null) {
+      url += `&filter=${filterValue}`;
+    }
+    return this.http.get<BaseResponseModel>(url, this.httpOptions);
   }
 
   getTrackTypes(): Observable<string[]> {

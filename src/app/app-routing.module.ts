@@ -10,6 +10,7 @@ import {ArtistComponent} from './artist/artist.component';
 import {AuthGuard} from '../core/guards/auth.guard';
 import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {AlbumExtendComponent} from './album-extend/album-extend.component';
+import {AdminGuard} from '../core/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
   {
     path: 'admin-menu',
     component: AdminPanelComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'favourite',
@@ -52,7 +53,7 @@ const routes: Routes = [
     component: AlbumExtendComponent
   },
   {
-    path: '***',
+    path: '**',
     redirectTo: '/home'
   },
 

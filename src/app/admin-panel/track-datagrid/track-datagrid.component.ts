@@ -18,7 +18,7 @@ import {TrackDialogData} from '../../shared/models/utils/track-dialog-data.model
 })
 export class TrackDatagridComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'categories', 'album', 'track', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'categories', 'album', 'action'];
   tracks: Track[] = [];
 
   resultsLength = 0;
