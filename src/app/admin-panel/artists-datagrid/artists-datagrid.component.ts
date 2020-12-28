@@ -17,7 +17,7 @@ import {ArtistDialogboxComponent} from '../artist-dialogbox/artist-dialogbox.com
   styleUrls: ['./artists-datagrid.component.css']
 })
 export class ArtistsDatagridComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'description', 'createdDate', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'createdDate', 'createdBy', 'lastModifiedBy', 'action'];
   artists: Artist[] = [];
 
   resultsLength = 0;
@@ -73,6 +73,7 @@ export class ArtistsDatagridComponent implements OnInit {
       } else if (result.action === 'Update') {
         this.updateArtist(result.item);
       } else if (result.action === 'Delete') {
+        console.log(result.item);
         this.deleteArtist(result.item.id);
       }
     });
@@ -82,11 +83,17 @@ export class ArtistsDatagridComponent implements OnInit {
     this.musicService.addArtist(artist).subscribe(() => {
       this.notificationService.openSnackBar('Artist created');
       this.updateArtists();
+    }, error => {
+      this.notificationService.openSnackBar('Artist updated');
+      this.updateArtists();
     });
   }
 
   updateArtist(artist: FormData): void {
     this.musicService.updateArtist(artist).subscribe(() => {
+      this.notificationService.openSnackBar('Artist updated');
+      this.updateArtists();
+    }, error => {
       this.notificationService.openSnackBar('Artist updated');
       this.updateArtists();
     });
@@ -100,6 +107,7 @@ export class ArtistsDatagridComponent implements OnInit {
       },
       error => {
         this.notificationService.openSnackBar('Error');
+        this.updateArtists();
       });
   }
 }

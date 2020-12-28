@@ -10,4 +10,6 @@ export class Album {
   likes: UserModel[];
   type: string;
   artists: Artist[];
+  createdBy: string;
+  lastModifiedBy: string;
 }

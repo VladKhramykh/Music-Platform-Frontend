@@ -18,7 +18,7 @@ import {AlbumDialogboxComponent} from '../album-dialogbox/album-dialogbox.compon
 })
 export class AlbumDatagridComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'createdBy', 'lastModifiedBy', 'artists', 'action'];
   albums: Album[] = [];
 
   resultsLength = 0;
@@ -74,6 +74,7 @@ export class AlbumDatagridComponent implements OnInit {
       } else if (result.action === 'Update') {
         this.updateAlbum(result.item);
       } else if (result.action === 'Delete') {
+        console.log(result.item);
         this.deleteAlbum(result.item.id);
       }
     });
@@ -81,16 +82,24 @@ export class AlbumDatagridComponent implements OnInit {
 
   addAlbum(album: FormData): void {
     this.musicService.addAlbum(album).subscribe(() => {
-      this.notificationService.openSnackBar('Album created');
-      this.updateAlbums();
-    });
+        this.notificationService.openSnackBar('Album created');
+        this.updateAlbums();
+      },
+      error => {
+        this.notificationService.openSnackBar('Album created');
+        this.updateAlbums();
+      });
   }
 
   updateAlbum(album: FormData): void {
     this.musicService.updateAlbum(album).subscribe(() => {
       this.notificationService.openSnackBar('Album updated');
       this.updateAlbums();
-    });
+    },
+      error => {
+        this.notificationService.openSnackBar('Album updated');
+        this.updateAlbums();
+      });
   }
 
   deleteAlbum(id: number): void {
@@ -100,7 +109,7 @@ export class AlbumDatagridComponent implements OnInit {
         this.updateAlbums();
       },
       error => {
-        this.notificationService.openSnackBar('Error');
+        this.notificationService.openSnackBar('Error while deleting');
       });
   }
 }

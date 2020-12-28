@@ -81,10 +81,10 @@ export class TrackDialogboxComponent implements OnInit {
 
     this.filteredArtists = this.trackForm.controls.artists.valueChanges.pipe(
       startWith(null),
-      map((artistName: string | null) => artistName ? this._filterArtists(artistName) : this.availableArtists.slice()));
+      map((artistName: string | null) => typeof(artistName) == "string" ? this._filterArtists(artistName) : this.availableArtists.slice()));
     this.filteredCategories = this.trackForm.controls.categories.valueChanges.pipe(
       startWith(null),
-      map((categoryName: string | null) => categoryName ? this._filterCategories(categoryName) : this.availableCategories.slice()));
+      map((categoryName: string | null) => typeof(categoryName) == "string" ? this._filterCategories(categoryName) : this.availableCategories.slice()));
   }
 
   submit(): void {
@@ -101,7 +101,6 @@ export class TrackDialogboxComponent implements OnInit {
       this.formData.append('type', this.trackForm.get('type').value);
       this.formData.append('description', this.trackForm.get('description').value);
       this.formData.append('album', this.trackForm.get('album').value ? this.trackForm.get('album').value.id : 0);
-      this.formData.append('trackText', 'Some text of track');
       this.formData.append('categories', this.trackForm.get('categories').value);
       this.formData.append('releaseDate', new Date(this.trackForm.get('releaseDate').value).toISOString());
       this.formData.append('artists', this.trackForm.get('artists').value);

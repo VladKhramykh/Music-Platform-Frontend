@@ -52,6 +52,10 @@ export class AlbumExtendComponent implements OnInit {
         this.currentUser = this.authService.getUser();
       }
     );
+    this.getTracksByAlbumId(id);
+  }
+
+  getTracksByAlbumId(id: number) {
     this.musicService.getTracksByAlbumId(id).subscribe(
       data => {
         this.tracks = data;
@@ -60,18 +64,15 @@ export class AlbumExtendComponent implements OnInit {
     );
   }
 
-  likeButtonClickHandler(track: Track) {
-    if (track.likes.findIndex(x => x.id === this.currentUser.id) != -1) {
-      this.removeFromFavouriteList(track);
-    } else {
-      this.addToFavouriteList(track);
-    }
+  isLiked(track: Track): boolean {
+    return track.likes.findIndex(x => x.id === this.currentUser.id) != -1
   }
 
   removeFromFavouriteList(track: Track) {
     this.userService.dislikeTrack(track.id).subscribe(
       data => {
         this.notificationService.openSnackBar('This track removed from your favourite list of tracks');
+        this.getTracksByAlbumId(this.albumId);
       },
       error => {
         this.notificationService.openSnackBar('Error');
@@ -83,6 +84,7 @@ export class AlbumExtendComponent implements OnInit {
     this.userService.likeTrack(track.id).subscribe(
       data => {
         this.notificationService.openSnackBar('This track added to your favourite list of tracks');
+        this.getTracksByAlbumId(this.albumId);
       },
       error => {
         this.notificationService.openSnackBar('Error');

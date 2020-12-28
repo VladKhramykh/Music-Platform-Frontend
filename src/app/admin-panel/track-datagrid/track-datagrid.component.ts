@@ -18,7 +18,7 @@ import {TrackDialogData} from '../../shared/models/utils/track-dialog-data.model
 })
 export class TrackDatagridComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'categories', 'album', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'releaseDate', 'type', 'artists', 'categories', 'album', 'createdBy', 'lastModifiedBy', 'action'];
   tracks: Track[] = [];
 
   resultsLength = 0;
@@ -74,7 +74,8 @@ export class TrackDatagridComponent implements OnInit {
       } else if (result.action === 'Update') {
         this.updateTrack(result.item);
       } else if (result.action === 'Delete') {
-        this.deleteTrack(result.item.id);
+        console.log(result.item);
+        //this.deleteTrack(result.item.id);
       }
     });
   }

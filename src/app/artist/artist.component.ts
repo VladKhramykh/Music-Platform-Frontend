@@ -60,7 +60,8 @@ export class ArtistComponent implements OnInit {
           name: data.name,
           description: data.description,
           createdDate: data.createdDate,
-          likes: data.likes,
+          createdBy: data.createdBy,
+          lastModifiedBy: data.lastModifiedBy,
           photoUri: data.photoUri
         };
         this.artistPhotoUri = `${environment.uploadUrl}img/artists/${this.artist.photoUri}`;

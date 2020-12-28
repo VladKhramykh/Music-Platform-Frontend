@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ArtistDialogData} from '../../shared/models/utils/artist-dialog-data.model';
 
 @Component({
   selector: 'app-artist-dialogbox',
@@ -26,20 +25,24 @@ export class ArtistDialogboxComponent implements OnInit {
       name: [this.data.item ? this.data.item.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
       createdDate: [this.data.item ? new Date(this.data.item.createdDate).toISOString() : '', [Validators.required]],
-      photo: [this.data.item ? this.data.item.photoUri : '',[]],
+      photo: [this.data.item ? this.data.item.photoUri : '', []],
       photoFile: new FormControl()
     });
   }
 
   submit(): void {
-    if (this.data.item) {
-      this.formData.append('id', this.artistForm.controls.id.value);
-    }
-    this.formData.append('name', this.artistForm.get('name').value);
-    this.formData.append('description', this.artistForm.get('description').value);
-    this.formData.append('createdDate', new Date(this.artistForm.get('createdDate').value).toISOString());
+    if (this.data.action == 'Delete') {
+      this.dialogRef.close({action: this.data.action, item: this.artistForm.value});
+    } else {
+      if (this.data.item) {
+        this.formData.append('id', this.artistForm.controls.id.value);
+      }
+      this.formData.append('name', this.artistForm.get('name').value);
+      this.formData.append('description', this.artistForm.get('description').value);
+      this.formData.append('createdDate', new Date(this.artistForm.get('createdDate').value).toISOString());
 
-    this.dialogRef.close({action: this.data.action, item: this.formData});
+      this.dialogRef.close({action: this.data.action, item: this.formData});
+    }
   }
 
   photoFileChange(event): void {

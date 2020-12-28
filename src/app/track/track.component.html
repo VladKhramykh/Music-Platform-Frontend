@@ -1,7 +1,11 @@
 <mat-card [style]="this.styleForCardImage" class="audioCard">
   <mat-card-header class="header">
     <div mat-card-avatar [style]="this.styleForCardHeaderImage" class="header-image"></div>
-    <mat-card-title><p>{{ track.name }}</p></mat-card-title>
+    <mat-card-title>
+      <p>
+        {{ track.name }} / <span class="category" *ngFor="let category of track.categories"> {{category.name}} </span>
+      </p>
+    </mat-card-title>
     <mat-card-subtitle><p *ngFor="let artist of track.artists">{{ artist.name }} </p></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>

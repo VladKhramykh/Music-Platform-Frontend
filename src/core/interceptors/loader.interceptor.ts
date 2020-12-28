@@ -16,6 +16,7 @@ export class LoaderInterceptor {
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {
+          console.log("loader");
           this.loaderService.show();
           break;
         }

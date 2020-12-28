@@ -13,7 +13,6 @@
         <div fxLayout="column" class="descClass">
           <div class="albumName">{{ artist.name }}</div>
           <div fxLayout="row" class="description">
-            <div><p>Likes: {{ artist.likes.length }}</p><br/></div>
             <div><p>Release date: {{ artist.createdDate | date: "dd/MM/yyyy" }}</p></div>
           </div>
           <div>{{ artist.description }}</div>

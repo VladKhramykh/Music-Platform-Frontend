@@ -16,6 +16,13 @@
       ></app-album>
     </mat-grid-tile>
   </mat-grid-list>
+  <mat-paginator
+    class="pagination"
+    [length]="countOfAlbums"
+    [pageSize]="albumPageSize"
+    [pageSizeOptions]="albumPageSizeOptions"
+    (page)="getLastAlbumsReleases($event)">
+  </mat-paginator>
 
   <h1 class="title">New tracks</h1>
   <mat-grid-list [cols]="breakpoint" fxLayout="row"
@@ -34,9 +41,11 @@
       ></app-track>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-paginator [length]="countOfTracks"
-                 [pageSize]="pageSize"
-                 [pageSizeOptions]="pageSizeOptions"
-                 (page)="getLastTrackReleases($event)">
+  <mat-paginator
+    class="pagination"
+    [length]="countOfTracks"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="getLastTrackReleases($event)">
   </mat-paginator>
 </div>

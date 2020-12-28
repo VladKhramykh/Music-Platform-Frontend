@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {Compiler, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
@@ -53,14 +53,15 @@ import {MatChipsModule} from '@angular/material/chips';
 import {TrackDatagridComponent} from './admin-panel/track-datagrid/track-datagrid.component';
 import {TrackDialogboxComponent} from './admin-panel/track-dialogbox/track-dialogbox.component';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
-import { AlbumExtendComponent } from './album-extend/album-extend.component';
+import {AlbumExtendComponent} from './album-extend/album-extend.component';
 import {AuthService} from "../core/services/auth.service";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {AuthInterceptor} from "../core/interceptors/auth.interceptor";
 import {LoaderInterceptor} from "../core/interceptors/loader.interceptor";
 import {ErrorInterceptor} from "../core/interceptors/error.interceptor";
-import { UserDatagridComponent } from './admin-panel/user-datagrid/user-datagrid.component';
-import { UserDialogboxComponent } from './admin-panel/user-dialogbox/user-dialogbox.component';
+import {UserDatagridComponent} from './admin-panel/user-datagrid/user-datagrid.component';
+import {UserDialogboxComponent} from './admin-panel/user-dialogbox/user-dialogbox.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -125,7 +126,8 @@ import { UserDialogboxComponent } from './admin-panel/user-dialogbox/user-dialog
     MatPaginatorModule,
     MatDialogModule,
     MatChipsModule,
-    NgxMatFileInputModule
+    NgxMatFileInputModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatFormFieldModule,

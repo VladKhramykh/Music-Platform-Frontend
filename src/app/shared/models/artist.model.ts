@@ -6,5 +6,6 @@ export class Artist {
   description: string;
   photoUri: string;
   createdDate: number;
-  likes: UserModel[]
+  createdBy: string;
+  lastModifiedBy: string;
 }

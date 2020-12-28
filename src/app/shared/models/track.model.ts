@@ -11,8 +11,9 @@ export class Track {
   photoUri: string;
   trackUri: string;
   releaseDate: number;
+  createdBy: string;
+  lastModifiedBy: string;
   album: Album;
-  trackText: string;
   artists: Artist[];
   likes: UserModel[];
   categories: Category[];

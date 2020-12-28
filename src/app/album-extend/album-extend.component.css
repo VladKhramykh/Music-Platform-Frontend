@@ -27,9 +27,16 @@
   padding-right: 2em;
 }
 
-.close {
+.favoriteRemove {
   position: absolute;
   right: 0;
+  color: #be4427;
+}
+
+.favoriteAdd {
+  position: absolute;
+  right: 0;
+  color: #555555;
 }
 
 .imageAlbum {

@@ -67,7 +67,7 @@
 .releaseDate {
   //padding: 1rem;
   font-style: italic;
-  color: #555555;
+  color: #777777;
   font-weight: initial;
 }
 
@@ -85,7 +85,12 @@
   background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
 
   p {
-    color: #bebebe;
+    color: #e6e6e6;
+  }
+
+  .category {
+    color: #e6e6e6;
+    font-style: italic;
   }
 }
 

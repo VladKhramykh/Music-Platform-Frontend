@@ -18,7 +18,7 @@ import {NotificationService} from '../../../core/services/notification.service';
 })
 export class CategoriesDatagridComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'description', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'createdBy', 'lastModifiedBy', 'action'];
   categories: Category[] = [];
 
   resultsLength = 0;

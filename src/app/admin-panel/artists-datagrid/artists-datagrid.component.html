@@ -46,6 +46,16 @@
           <mat-cell *matCellDef="let element">{{ element.createdDate | date:'dd-MM-yyyy' }}</mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="createdBy">
+          <mat-header-cell *matHeaderCellDef>createdBy</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.createdBy }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastModifiedBy">
+          <mat-header-cell *matHeaderCellDef>lastModifiedBy</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.lastModifiedBy }}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell class="right-mat-cell" *matCellDef="let element">

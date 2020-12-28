@@ -15,6 +15,7 @@
       <div fxLayout="row" class="description">
         <div><p>Likes: {{ album.likes.length }}</p><br/></div>
         <div><p>Release date: {{ album.releaseDate | date: "dd/MM/yyyy" }}</p></div>
+        <div><p>Type: {{ album.type }}</p></div>
       </div>
       <div>{{ album.description }}</div>
     </div>
@@ -34,7 +35,8 @@
           > {{artist.name}}
           </a>
         </div>
-        <mat-icon class="close" (click)="likeButtonClickHandler(track)">close</mat-icon>
+        <mat-icon class="favoriteRemove" *ngIf="isLiked(track)" (click)="removeFromFavouriteList(track)">favorite</mat-icon>
+        <mat-icon class="favoriteAdd" *ngIf="!isLiked(track)" (click)="addToFavouriteList(track)">favorite</mat-icon>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
