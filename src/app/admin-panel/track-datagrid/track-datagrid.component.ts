@@ -74,8 +74,7 @@ export class TrackDatagridComponent implements OnInit {
       } else if (result.action === 'Update') {
         this.updateTrack(result.item);
       } else if (result.action === 'Delete') {
-        console.log(result.item);
-        //this.deleteTrack(result.item.id);
+        this.deleteTrack(result.item.id);
       }
     });
   }

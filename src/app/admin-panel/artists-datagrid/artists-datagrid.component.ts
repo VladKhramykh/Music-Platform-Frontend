@@ -73,7 +73,6 @@ export class ArtistsDatagridComponent implements OnInit {
       } else if (result.action === 'Update') {
         this.updateArtist(result.item);
       } else if (result.action === 'Delete') {
-        console.log(result.item);
         this.deleteArtist(result.item.id);
       }
     });
@@ -84,7 +83,7 @@ export class ArtistsDatagridComponent implements OnInit {
       this.notificationService.openSnackBar('Artist created');
       this.updateArtists();
     }, error => {
-      this.notificationService.openSnackBar('Artist updated');
+      this.notificationService.openSnackBar('Artist created');
       this.updateArtists();
     });
   }

@@ -53,7 +53,7 @@ export class AlbumDialogboxComponent implements OnInit {
     this.albumForm = this.formBuilder.group({
       id: [this.data.item ? this.data.item.id : null, []],
       name: [this.data.item ? this.data.item.name : '', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
+      description: [this.data.item ? this.data.item.description : '', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
       type: [this.data.item ? this.data.item.type : '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       releaseDate: [this.data.item ? new Date(this.data.item.releaseDate).toISOString().substring(0, 10) : '', [Validators.required]],
       artists: [this.data.item ? (this.selectedArtists = this.data.item.artists) : [], [Validators.required]],
